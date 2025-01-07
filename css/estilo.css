@@ -1,0 +1,229 @@
+/* body{
+    background-image: url(../img/ESTUDIO-6.jpg);
+    background-repeat: repeat;
+    background-size: 100% ;
+    color: #FFFFFF;
+} */
+#adeuda{
+    position: relative;
+    bottom: 30px;
+    left: 70px;
+}
+.boton-cargar{
+    background-color: #000000;
+    color:aliceblue;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.boton-cargar:hover{
+    background-color: #464646;
+}
+.border-color{
+    border-color: #929292 !important;
+}
+.btn-dark{
+    background-color: #000000 !important;
+
+}
+.btn-dark:hover{
+    background-color: #464646 !important;
+}
+/****** CAMBIAR FOTO DE PERFIL DISEÑO INPUT ******/
+.perfil-img {
+    width: 130px; /* alto y ancho específico para que el círculo sea redondo */
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden; /* oculta todo el contenido fuera de la caja */
+    position: relative;
+    box-shadow: 2px 3px 13px  black;
+}
+.perfil-img .file {
+    background: #212529b8;
+    color: #fff;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 85;
+    font-size: 10px;
+    text-align: center;
+    padding: 6px 0 12px;
+    cursor: pointer;
+    border: transparent;
+    opacity:0;
+}
+.perfil-img .file:hover{
+    opacity:1 !important;
+    color: #fff;
+}
+.perfil-img .file input {
+    padding: 30px 0 25px;
+    position: absolute;
+    display: block;
+    width: 100%;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+.perfil-img .file_1 {
+    background: #212529b8;
+    color: #fff;
+    position: absolute;
+    width: 100%;
+    bottom: 85px;
+    left: 0px;
+    font-size: 10px;
+    text-align: center;
+    padding: 20px 0 9px;
+    cursor: pointer;
+    border: transparent;
+	opacity:1;
+    display: none;
+}
+.perfil-img .file_1 input {
+    padding: 30px 0 25px;
+    position: absolute;
+    display: block;
+    width: 100%;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+.perfil-img .tomar_foto{
+    background: #212529b8;
+    color: #fff;
+    position: absolute;
+    width: 100%;
+    bottom: 85px;
+    left: 0px;
+    font-size: 10px;
+    text-align: center;
+    padding: 20px 0 9px;
+    cursor: pointer;
+    border: transparent;
+	opacity:0;
+}
+.perfil-img .tomar_foto:hover {
+	opacity:1;
+    color: #fff;
+}
+/* .perfil-edit{
+    font-size: 40px;
+}
+.perfil-input{
+    background-color: #343a40;
+    height: 39px;
+    width: 200px;
+    font-size: 25px;
+    position: relative;
+    top: 15px;
+    left: 45px;
+} */
+
+
+/*****************************************************/
+
+/******************************/
+/*    SCROLL DISEÑO          */
+
+table thead{
+    /* background-color: #22081c; */
+    /* position: -webkit-sticky; */
+    background-color: rgb(218, 218, 218);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+tbody tr{
+    cursor: pointer;
+    border-color: #929292 !important;
+}
+tbody tr:hover{
+    /* background-color: rgba(78, 52, 85, 0.9); */
+    background-color: rgba(243, 238, 238, 0.9) !important;
+    /* border-color: #929292 !important; */
+}
+td{
+  font-size: 12px !important;
+  border-color: #929292 !important;
+}
+th{
+  font-size: 15px !important;
+  border-color: #929292 !important;
+}
+
+.scroll{
+  height: auto;
+  /* min-height: 200px; */
+  max-height: 400px;
+  overflow-y:auto;
+  overflow-x:auto;
+}
+/******************************/
+
+.agregar_actividad{
+    position:relative;
+    top:3;
+    left:10;
+    font-size: 20px;
+    cursor: pointer;
+}
+.agregar_actividad:hover{
+  color: rgb(0, 255, 0) !important;
+}
+.eliminar_actividad{
+    position:relative;
+    top:3;
+    left:10;
+    font-size: 20px;
+    cursor: pointer;
+}
+.eliminar_actividad:hover{
+    color: red !important;
+}
+
+/*********** PARA CELULARES *************/
+@media screen and (max-width: 600px){
+    .perfil-img {
+        position: relative !important;
+        left: 30%;
+    }
+    .center{
+        width: 100% !important;
+        position:static !important;
+        /* left: 50% !important; */
+    }
+    .mt-datos{
+        margin-top: auto !important;
+    }
+    .perfil-img .file {
+        opacity: 1 !important;
+    }
+    a[class="tomar_foto"]{
+        display: none ;
+    }
+    .perfil-img .file_1 {
+        display: block !important;
+    }
+}
+.desarrollador{
+    position: relative;
+    bottom: 40px;
+    left: 204px;
+    font-weight:900;
+}
+i {
+    cursor: pointer;
+}
+.mt-datos{
+    margin-top: 3%;
+}
+hr{
+    background-color: #dddddd !important;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar vinculo</title>
+	<link rel="icon" href="img/logo.png" type="image/x-icon">
+    <!-- BOOTSTRAP 4.6 -->
+    <!-- <link rel="stylesheet" href="libs/bootstrap-4.6.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="libs/bootstrap-icons/font/bootstrap-icons.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- JQUERY -->
+    <script src="libs/jquery-3.5.1.min.js"></script>
+    <!-- ALERTIFY -->
+	<link rel="stylesheet" href="libs/alertifyjs/css/alertify.min.css" />
+	<link rel="stylesheet" href="libs/alertifyjs/css/themes/default.min.css" />
+	<script src="libs/alertifyjs/alertify.min.js"></script>
+	<script src="libs/alertifyjs/settings.js"></script>
+    <!-- JS PARA guardar_datos -->
+    <script src="js/ajax_guardar_datos.js?{$NO_CACHE}"></script>
+    <!-- ESTILOS PARA LOGIN -->
+    <link rel="stylesheet" href="css/estilo.css?{$NO_CACHE}">
+</head>
+<body>
+    {$HEADER}
+    {$CAMARA}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Cargar vinculo</h3>
+                <label>(Seleccione alumno y seleccione el vinculo familiar o en caso de que no est&eacute;, escriba el nombre del grupo familiar.)</label>
+            </div>
+        </div>
+    </div>
+    <div class="container border border-color rounded mb-4">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <div class="form-group float-left">
+                    <a class="btn btn-dark btn-lg rounded-pill" href="index.php">Volver</a>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="form-group col-md-6 float-left">
+                    <label class="ml-2">Vinculo familiar (*)</label>
+                    <select class="form-control ml-2" id="nom_vinculo">
+                        <option selected value="0">-- Seleccione el vinculo --</option>
+                        {assign var="vinculo" value=""}
+                        {foreach from=$VINCULOS item=value}
+                            {if $vinculo == $value.vinculo}
+                                {continue}
+                            {/if}
+                            {assign var="vinculo" value=$value.vinculo}
+                            <option value="{$value.vinculo|escape}">
+                                {$value.vinculo|escape}
+                            </option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="form-group col-md-6 float-left">
+                    <label class="ml-2">Alumno/a (*)</label>
+                    <select class="form-control ml-2" id="id_alumno">
+                        <option selected value="0">-- Seleccione un alumno/a --</option>
+                        {foreach from=$ALUMNOS item=value}
+                        <option value="{$value.id}">
+                            {$value.apellido|escape:'utf8_encode'} {$value.nombre|escape:'utf8_encode'}
+                        </option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="form-group col-md-6">
+                    <label class="ml-2">Nombre del grupo familiar (*)</label>
+                    <input type="text" id="nom_vinculo_nuevo" placeholder="Apellidos de alumnos" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center mt-2">
+                <div class="form-group col-md-12">
+                    <button id="guardar_vinculo" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Guardar vinculo</button>
+                    <button id="desvincular" class="btn btn-dark btn-lg rounded-pill float-right col-md-3 mt-2">Desvincular alumno</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php include('partials\footer_temp.php');?>
+</body>
+</html>
