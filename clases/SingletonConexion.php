@@ -6,14 +6,11 @@ class SingletonConexion
 
     public function __construct()
     {
-        // if(_HOST_PAG_ == 'www.dnm.gov.ar' || _HOST_PAG_ == 'www1.dnm.gov.ar'){
-        //     $this->conn = new PDO('mysql:host='._HOST_.';dbname='._BDD_, _USER_, _PASS_);
-        //     $this->conn2 = new PDO('mysql:host='._HOST_.';dbname='._BDD2_, _USER_, _PASS_);
-        // }else{
-            
+        if(_HOST_PAG_ == 'estudio6.site'){
+            $this->conn = mysqli_connect('localhost', 'c2721191_estudio', 'biseziDI17', 'c2721191_estudio');
+        }else{
             $this->conn = mysqli_connect('localhost', 'root', '', 'estudio');
-            // $this->conn2 = mysqli_connect(_HOST_, _USER_, _PASS_, _BDD2_);
-        // }
+        }
 
     }
 

@@ -44,13 +44,13 @@
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="form-group">
                     <label>Descuento por actividades</label>
-                    <input type="text" class="form-control col-10" id="descuento_actividad" value="{$DESCUENTO_ACT}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    <p style="display:none;position:absolute;">Presione enter para guardar.</p>
+                    <input type="text" class="form-control col-6" id="descuento_actividad" value="{$DESCUENTO_ACT}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
+                    
                 </div>
                 <div class="form-group">
                     <label>Descuento por familiar</label>
-                    <input type="text" class="form-control col-10" id="descuento_familiar" value="{$DESCUENTO_FAM}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    <p style="display:none;position:absolute;">Presione enter para guardar.</p>
+                    <input type="text" class="form-control col-6" id="descuento_familiar" value="{$DESCUENTO_FAM}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
+                    
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">
@@ -76,9 +76,9 @@
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-3">
                 <div class="form-group col-md-12">
-                    <button id="eliminar_actividad_bdd" class="btn btn-dark btn-lg rounded-pill float-right col-md-3">Eliminar actividad</button>
-                    <button id="guardar_actividad" class="btn btn-dark btn-lg rounded-pill float-right col-md-2">Editar actividad</button>
-                    <button id="nueva_actividad" class="btn btn-dark btn-lg rounded-pill float-right col-md-3"disabled>Guardar nueva actividad</button>
+                    <button id="eliminar_actividad_bdd" class="btn btn-dark btn-lg rounded-pill float-right col-md-3 mt-2">Eliminar actividad</button>
+                    <button id="guardar_actividad" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Editar actividad</button>
+                    <button id="nueva_actividad" class="btn btn-dark btn-lg rounded-pill float-right col-md-3 mt-2"disabled>Guardar nueva actividad</button>
                 </div>
             </div>
         </div>

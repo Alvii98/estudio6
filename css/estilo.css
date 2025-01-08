@@ -4,6 +4,10 @@
     background-size: 100% ;
     color: #FFFFFF;
 } */
+
+label{
+    font-size: 12px !important;
+}
 #adeuda{
     position: relative;
     bottom: 30px;
@@ -188,8 +192,16 @@ th{
     color: red !important;
 }
 
+.custom-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
+    .custom-flex {
+        display:block;
+    }
     .perfil-img {
         position: relative !important;
         left: 30%;
