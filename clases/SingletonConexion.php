@@ -6,7 +6,7 @@ class SingletonConexion
 
     public function __construct()
     {
-        if(_HOST_PAG_ == 'estudio6.site'){
+        if($_SERVER['HTTP_HOST'] == 'estudio6.site'){
             $this->conn = mysqli_connect('localhost', 'c2721191_estudio', 'biseziDI17', 'c2721191_estudio');
         }else{
             $this->conn = mysqli_connect('localhost', 'root', '', 'estudio');
