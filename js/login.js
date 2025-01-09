@@ -1,3 +1,10 @@
+window.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        if (event.target.id == 'usuario' || event.target.id == 'clave') {
+            iniciar_sesion()
+        }
+    }
+})
 
 function iniciar_sesion(cerrar_sesion = false) {
     const datosPost = new FormData()

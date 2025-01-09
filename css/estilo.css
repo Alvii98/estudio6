@@ -191,7 +191,6 @@ th{
 .eliminar_actividad:hover{
     color: red !important;
 }
-
 .cerrar_sesion{
     float: right;
     font-size: xxx-large;
@@ -208,6 +207,7 @@ th{
   backdrop-filter: blur(10px);
   z-index: 9998;
 }
+
 
 .modal-login {
     z-index: 9999;
@@ -229,9 +229,16 @@ th{
     display: flex;
     justify-content: space-between;
 }
-
+.logo{
+    width: 350px !important;
+    height: 80px !important;
+}
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
+    .logo{
+        width: 250px !important;
+        height: 60px !important;
+    }
     .custom-flex {
         display:block;
     }
