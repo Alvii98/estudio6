@@ -1,11 +1,25 @@
 <?php
-if (isset($_POST['usuario']) && isset($_POST['clave'])) {
-    if ($_POST['usuario'] == 'administrador' && $_POST['clave'] == '4dmin') {
-        session_start();
-        $_SESSION['USUARIO'] = 'Administador';
+session_start();
+$json = new StdClass();
+$json->resp = '';
+$json->error = '';
+if (isset($_POST['cerrar_sesion'])) {
+    session_destroy();
+    $json->resp = 'Sesion cerrada.';
+}else {
+    if (isset($_POST['usuario']) && isset($_POST['clave'])) {
+        if (trim($_POST['usuario']) == 'admin' && trim($_POST['clave']) == '4dmin123') {
+            $_SESSION['USUARIO'] = 'Administador';
+            $json->resp = 'Inicio sesion correctamente.';
+        }else {
+            session_destroy();
+            $json->error = 'Los datos ingresados no son correctos.';
+        }
     }else {
+        $json->error = 'Los datos ingresados no son correctos.';
         session_destroy();
     }
-}else {
-    session_destroy();
 }
+
+print json_encode($json);
+

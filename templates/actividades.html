@@ -19,6 +19,7 @@
 	<script src="libs/alertifyjs/alertify.min.js"></script>
 	<script src="libs/alertifyjs/settings.js"></script>
     <!-- JS PARA guardar_datos -->
+    <script src="js/login.js?{$NO_CACHE}"></script> 
     <script src="js/ajax_guardar_datos.js?{$NO_CACHE}"></script>
     <script src="js/ajax_editar_datos.js?{$NO_CACHE}"></script>
     <!-- ESTILOS PARA LOGIN -->
@@ -45,12 +46,10 @@
                 <div class="form-group">
                     <label>Descuento por actividades</label>
                     <input type="text" class="form-control col-6" id="descuento_actividad" value="{$DESCUENTO_ACT}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    
                 </div>
                 <div class="form-group">
                     <label>Descuento por familiar</label>
                     <input type="text" class="form-control col-6" id="descuento_familiar" value="{$DESCUENTO_FAM}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">
@@ -72,7 +71,26 @@
                 </div>
             </div>
             <div class="col-md-12 mb-3 mt-3" id="cargar_actividad">
-
+                <div class="form-group col-md-4 float-left">
+                    <label for="exampleFormControlInput1">Actividad</label>
+                    <input type="text" id="id_guardar_actividad" class="form-control" value="Comedia Adulto">
+                </div>
+                <div class="form-group col-md-2 float-left">
+                    <label for="exampleFormControlInput1">Una vez</label>
+                    <input type="number" id="id_guardar_una" class="form-control" value="20000">
+                </div>
+                <div class="form-group col-md-2 float-left">
+                    <label for="exampleFormControlInput1">Una vez efectivo</label>
+                    <input type="number" id="id_guardar_una_efectivo" class="form-control" value="15000">
+                </div>
+                <div class="form-group col-md-2 float-left">
+                    <label for="exampleFormControlInput1">Dos veces</label>
+                    <input type="number" id="id_guardar_dos" class="form-control" value="30000">
+                </div>
+                <div class="form-group col-md-2 float-left">
+                    <label for="exampleFormControlInput1">Dos veces efectivo</label>
+                    <input type="number" id="id_guardar_dos_efectivo" class="form-control" value="25000">
+                </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-3">
                 <div class="form-group col-md-12">

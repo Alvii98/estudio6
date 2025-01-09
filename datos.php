@@ -58,7 +58,11 @@ if(isset($_GET['id'])){
 
     $smarty->assign('FAMILIAR', datos::familiar($_GET['id']));
     // print'<pre>';print_r(datos::actividades());exit;
-    $smarty->display('datos.html');
+    if (!isset($_SESSION['USUARIO'])) {
+        $smarty->display('login.html');
+    }else {
+        $smarty->display('datos.html');
+    }
 
 }elseif(isset($_GET['vinculo'])){
 
@@ -90,6 +94,10 @@ if(isset($_GET['id'])){
     $smarty->assign('EFECTIVO', $efectivo);
     $smarty->assign('COMBO', $combo);
 
-    $smarty->display('datos_vinculo.html');
+    if (!isset($_SESSION['USUARIO'])) {
+        $smarty->display('login.html');
+    }else {
+        $smarty->display('datos_vinculo.html');
+    }
 }
 ?>

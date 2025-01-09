@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 3.1.34-dev-7, created on 2025-01-09 15:34:37
+  from 'C:\xampp\htdocs\estudio6\templates\login.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.34-dev-7',
+  'unifunc' => 'content_677fde7d1e0912_56134439',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'cae5852df8dd6d36dd980fee42c58b56b34a6ddf' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\login.html',
+      1 => 1736430941,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_677fde7d1e0912_56134439 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,16 +35,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- JQUERY -->
-    <script src="libs/jquery-3.5.1.min.js"></script>
+    <?php echo '<script'; ?>
+ src="libs/jquery-3.5.1.min.js"><?php echo '</script'; ?>
+>
     <!-- ALERTIFY -->
 	<link rel="stylesheet" href="libs/alertifyjs/css/alertify.min.css" />
 	<link rel="stylesheet" href="libs/alertifyjs/css/themes/default.min.css" />
-	<script src="libs/alertifyjs/alertify.min.js"></script>
-	<script src="libs/alertifyjs/settings.js"></script>
+	<?php echo '<script'; ?>
+ src="libs/alertifyjs/alertify.min.js"><?php echo '</script'; ?>
+>
+	<?php echo '<script'; ?>
+ src="libs/alertifyjs/settings.js"><?php echo '</script'; ?>
+>
     <!-- JS -->
-    <script src="js/login.js?{$NO_CACHE}"></script> 
+    <?php echo '<script'; ?>
+ src="js/login.js?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+"><?php echo '</script'; ?>
+> 
     <!-- ESTILOS -->
-    <link rel="stylesheet" href="css/estilo.css?{$NO_CACHE}">
+    <link rel="stylesheet" href="css/estilo.css?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+">
 </head>
 <body>
     <div class="container border border-color rounded mb-4 mt-4 text-body">
@@ -58,4 +91,5 @@
         </div>
     </div>
 </body>
-</html>
+</html><?php }
+}
