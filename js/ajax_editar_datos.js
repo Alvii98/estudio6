@@ -9,80 +9,66 @@ window.addEventListener("click", function(event){
     if(event.target.id == 'debe_mes_vinculo') debe_mes(event)
     if(event.target.id == 'copiar_texto') copiar_texto()
 })
-document.addEventListener("DOMContentLoaded", function() { 
-    const adeuda = document.getElementById("adeuda"),
-    descuento_actividad = document.getElementById("descuento_actividad"),
-    descuento_familiar = document.getElementById("descuento_familiar")
-    if (adeuda != null) adeuda.addEventListener("keydown", function(event) { adeuda_info(event)})
-    if (descuento_actividad != null) descuento_actividad.addEventListener("keydown", function(event) { editar_descuentos(event)})
-    if (descuento_familiar != null) descuento_familiar.addEventListener("keydown", function(event) { editar_descuentos(event)})
-
-})
 
 function adeuda_info(event) {
-    if (event.key === "Enter") {        
-        if(event.target.value.trim() == ''){
-            alertify.alert('Datos del alumno/a','No puede guardar este campo vacio.')
-            return false
-        }
-        const datosPost = new FormData(),
-        alumno = document.querySelector('#id_alumno'),
-        vinculo = document.querySelector('#nombre_vinculo')
 
-        datosPost.append('info_deuda', event.target.value)
-        if (alumno != null) datosPost.append('id_alumno', alumno.value)
-        if (vinculo != null) datosPost.append('nombre_vinculo', vinculo.value)
-
-        /************** CARGA DATOS DEUDA ****************/
-        fetch('ajax/ajax_editar_datos.php', {
-            method: "POST",
-            // Set the post data
-            body: datosPost
-        })
-        .then(response => response.json())
-        .then(function (json) {
-            console.log(json)
-            alertify.success('Guardado correctamente.')
-        })
-        .catch(function (error){
-            console.log(error)
-            // Catch errors
-            alertify.alert('Datos del alumno/a','Ocurrio un error al guardar los datos.')
-        })
+    if(event.parentElement.getElementsByTagName('input')[0].value.trim() == ''){
+        alertify.alert('Datos del alumno/a','No puede guardar este campo vacio.')
+        return false
     }
+    const datosPost = new FormData(),
+    alumno = document.querySelector('#id_alumno'),
+    vinculo = document.querySelector('#nombre_vinculo')
+
+    datosPost.append('info_deuda', event.parentElement.getElementsByTagName('input')[0].value)
+    if (alumno != null) datosPost.append('id_alumno', alumno.value)
+    if (vinculo != null) datosPost.append('nombre_vinculo', vinculo.value)
+
+    /************** CARGA DATOS DEUDA ****************/
+    fetch('ajax/ajax_editar_datos.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        alertify.success('Guardado correctamente.')
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.alert('Datos del alumno/a','Ocurrio un error al guardar los datos.')
+    })
 }
 
-function editar_descuentos(event) {
-    if (event.key === "Enter") {    
-        const descuento_actividad = document.getElementById("descuento_actividad"),
-        descuento_familiar = document.getElementById("descuento_familiar")
+function editar_descuentos() {
+    const descuento_actividad = document.getElementById("descuento_actividad"),
+    descuento_familiar = document.getElementById("descuento_familiar")
 
-        if(descuento_actividad.value.trim() == '' || descuento_familiar.value.trim() == ''){
-            alertify.alert('Datos del alumno/a','Uno de los campos de descuento esta vacio.')
-            return false
-        }
-        let datosDescuentos = {}
-
-        datosDescuentos = {'descuento_actividad': descuento_actividad.value,
-        'descuento_familiar': descuento_familiar.value}
-        
-        /************** CARGA DATOS DEUDA ****************/
-        fetch('ajax/ajax_guardar_vinculo_actividades.php', {
-            method: "POST",
-            // Set the post data
-            body: JSON.stringify({'datosDescuentos':datosDescuentos})
-        })
-        .then(response => response.json())
-        .then(function (json) {
-            console.log(json)
-            alertify.success('Guardado correctamente.')
-        })
-        .catch(function (error){
-            console.log(error)
-            // Catch errors
-            alertify.alert('Datos del alumno/a','Ocurrio un error al guardar los datos.')
-        })
+    if(descuento_actividad.value.trim() == '' || descuento_familiar.value.trim() == ''){
+        return alertify.error('Uno de los campos de descuento esta vacio.')
     }
+    let datosDescuentos = {}
+
+    datosDescuentos = {'descuento_actividad': descuento_actividad.value,
+    'descuento_familiar': descuento_familiar.value}
+    
+    /************** CARGA DATOS DEUDA ****************/
+    fetch('ajax/ajax_guardar_vinculo_actividades.php', {
+        method: "POST",
+        // Set the post data
+        body: JSON.stringify({'datosDescuentos':datosDescuentos})
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        console.log(json)
+        alertify.success('Guardado correctamente.')
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al guardar los datos.')
+    })
 }
 function copiar_texto() {
     try {

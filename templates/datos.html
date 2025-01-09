@@ -52,7 +52,7 @@
                     <a class="btn btn-dark btn-lg rounded-pill" id="copiar_texto">Detalle de cuota</a>
                 </div>
                 {/if}
-                <div class="form-group float-right mr-3">
+                <div class="form-group float-right mr-3 ml-2">
                     <div class="form-check">
                         <input {if $BAJA != 0} checked {/if} class="form-check-input" role="button" type="checkbox" name="baja_alumno" id="baja_alumno">
                         <label class="form-check-label">Baja del alumno/a</label>
@@ -63,7 +63,10 @@
                         <div class="form-check">
                             <input {if $DEBEMES != 0} checked {/if} class="form-check-input" role="button" type="checkbox" name="debe_mes" id="debe_mes">
                             <label class="form-check-label">Adeuda</label>
-                            <input type="text" class="form-control col-8" value="{$INFO_DEUDA}" id="adeuda" {if $DEBEMES == 0} style="display:none;"{/if} >
+                            <div {if $DEBEMES == 0} style="display:none;"{/if} id="adeuda">
+                                <input type="text" class="form-control col-8" value="{$INFO_DEUDA}">
+                                <i class="bi bi-floppy" role="button" onclick="adeuda_info(this)" style="position: absolute;bottom: 5px;margin-left: 81px;"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group col-md-12 d-flex justify-content-center">

@@ -252,42 +252,42 @@ function guardar_actividad(event){
     if (id_actividad == 0 && event.target.id == 'eliminar_actividad_bdd') {
         return alertify.alert('Eliminar actividad','Tiene que seleccionar una actividad.')
     }
-    if (event.target.id != 'eliminar_actividad_bdd') {
-        if(id_actividad == 0 && event.target.id != 'nueva_actividad'){
-            return alertify.alert('Guardar actividad','Tiene que seleccionar una actividad.')
-        }
-        if(event.target.id == 'nueva_actividad'){
-            document.querySelector('#nueva_actividad').disabled = false
-            document.querySelector('#guardar_actividad').disabled = true
-        }else if(event.target.id == 'guardar_actividad'){
-            document.querySelector('#nueva_actividad').disabled = true
-            document.querySelector('#guardar_actividad').disabled = false
-        }
-        console.log(id_actividad)
-        guardar_actividad = {'id_guardar_id': id_actividad,
-        'id_guardar_actividad': document.querySelector('#id_guardar_actividad').value,
-        'id_guardar_una': parseInt(document.querySelector('#id_guardar_una').value),
-        'id_guardar_una_efectivo': parseInt(document.querySelector('#id_guardar_una_efectivo').value),
-        'id_guardar_dos': parseInt(document.querySelector('#id_guardar_dos').value),
-        'id_guardar_dos_efectivo': parseInt(document.querySelector('#id_guardar_dos_efectivo').value)}
-
-        if(guardar_actividad.id_guardar_actividad.trim() == ''){
-            return alertify.alert('Guardar actividad','El campo actividad no puede quedar vacio.')
-        }
-        if(isNaN(guardar_actividad.id_guardar_una) || isNaN(guardar_actividad.id_guardar_una_efectivo) ||
-        isNaN(guardar_actividad.id_guardar_dos) || isNaN(guardar_actividad.id_guardar_dos_efectivo)){
-            return alertify.alert('Guardar actividad','Uno de los precios    no es numerico.(Se admite solo numero,sin comas o puntos)')
-        }
-        title = 'Guardar actividad'
-        info = 'Seguro que quiere guardar esta actividad ?'
-    }else {
-        title = 'Eliminar actividad'
-        info = 'Seguro que quiere eliminar esta actividad ?'
-
-        guardar_actividad = {'id_guardar_id': id_actividad,
-        'eliminar_actividad_bdd': 'si'}
+    if(id_actividad == 0 && event.target.id != 'nueva_actividad'){
+        return alertify.alert('Guardar actividad','Tiene que seleccionar una actividad.')
     }
-    alertify.confirm(title, info, function(){
+    if(event.target.id == 'nueva_actividad'){
+        document.querySelector('#nueva_actividad').disabled = false
+        document.querySelector('#guardar_actividad').disabled = true
+    }else if(event.target.id == 'guardar_actividad'){
+        document.querySelector('#nueva_actividad').disabled = true
+        document.querySelector('#guardar_actividad').disabled = false
+    }
+
+    guardar_actividad = {'id_guardar_id': id_actividad,
+    'id_guardar_actividad': document.querySelector('#id_guardar_actividad').value,
+    'id_guardar_una': parseInt(document.querySelector('#id_guardar_una').value),
+    'id_guardar_una_efectivo': parseInt(document.querySelector('#id_guardar_una_efectivo').value),
+    'id_guardar_dos': parseInt(document.querySelector('#id_guardar_dos').value),
+    'id_guardar_dos_efectivo': parseInt(document.querySelector('#id_guardar_dos_efectivo').value),
+    'id_guardar_dias': document.querySelector('#id_guardar_dias').value,
+    'id_guardar_profe': document.querySelector('#id_guardar_profe').value,
+    'id_guardar_edad_min': parseInt(document.querySelector('#id_guardar_edad_min').value),
+    'id_guardar_edad_max': parseInt(document.querySelector('#id_guardar_edad_max').value),
+    'id_guardar_cupos': parseInt(document.querySelector('#id_guardar_cupos').value)}
+
+    if(guardar_actividad.id_guardar_actividad.trim() == ''){
+        return alertify.error('El campo actividad no puede quedar vacio.')
+    }
+    if(guardar_actividad.id_guardar_dias.trim() == '' || guardar_actividad.id_guardar_profe.trim() == '' || guardar_actividad.id_guardar_edad_min.trim() == '' ||
+    guardar_actividad.id_guardar_edad_max.trim() == '' || guardar_actividad.id_guardar_cupos.trim() == ''){
+        return alertify.error('Complete todos los campos.')
+    }
+    if(isNaN(guardar_actividad.id_guardar_una) || isNaN(guardar_actividad.id_guardar_una_efectivo) ||
+    isNaN(guardar_actividad.id_guardar_dos) || isNaN(guardar_actividad.id_guardar_dos_efectivo)){
+        return alertify.error('Uno de los precios no es numerico.(Se admite solo numero,sin comas o puntos)')
+    }
+
+    alertify.confirm('Guardar actividad', 'Seguro que quiere guardar esta actividad ?', function(){
 
         fetch('ajax/ajax_guardar_vinculo_actividades.php', {
             method: "POST",
@@ -297,10 +297,9 @@ function guardar_actividad(event){
         .then(response => response.json())
         .then(function (json) {
             if(json.respGuardarActividad){
-                if (event.target.id != 'eliminar_actividad_bdd') alertify.success('Guardado correctamente')
-                else alertify.success('Eliminada correctamente')
+                alertify.success('Guardado correctamente')
                 setTimeout(function(){location.reload()}, 2000)
-            }            
+            }
         })
         .catch(function (error){
             console.log(error)
@@ -361,9 +360,31 @@ function eliminar_actividad(event){
     else element.parentNode.removeChild(element)
 }
 
-function eliminar_actividad_bdd(event){
+function eliminar_actividad_bdd(event,id){
 
-    let element = event.target.parentElement 
-    if(element.querySelector('label').textContent == 'Nueva actividad') element.parentNode.removeChild(element)
-    else element.parentNode.removeChild(element)
+    let guardar_actividad = {}
+
+    guardar_actividad = {'id_guardar_id': id,
+    'eliminar_actividad_bdd': 'si'}
+
+    alertify.confirm('Eliminar actividad', 'Seguro que quiere eliminar esta actividad ?', function(){
+
+        fetch('ajax/ajax_guardar_vinculo_actividades.php', {
+            method: "POST",
+            // Set the post data
+            body: JSON.stringify({'guardar_actividad':guardar_actividad})
+        })
+        .then(response => response.json())
+        .then(function (json) {
+            if(json.respGuardarActividad){
+                alertify.success('Eliminada correctamente')
+                event.parentElement.parentElement.style.display = 'none'
+            }            
+        })
+        .catch(function (error){
+            console.log(error)
+            // Catch errors
+            alertify.alert('Carga','Ocurrio un error al guardar los datos.')
+        })
+    }, function(){ alertify.error('Cancelado')});
 }

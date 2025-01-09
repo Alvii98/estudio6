@@ -49,7 +49,10 @@
                     <div class="form-check">
                         <input {if $DEBEMES != 0} checked {/if} class="form-check-input" role="button" type="checkbox" name="debe_mes_vinculo" id="debe_mes_vinculo">
                         <label class="form-check-label">Adeuda</label>
-                        <input type="text" class="form-control col-8" value="{$DEBE_INFO}" id="adeuda" {if $DEBEMES == 0} style="display:none;"{/if}">
+                        <div {if $DEBEMES == 0} style="display:none;"{/if} id="adeuda" class="mr-3">
+                            <input type="text" class="form-control col-8" value="{$DEBE_INFO}" >
+                            <i class="bi bi-floppy" role="button" onclick="adeuda_info(this)" style="position: absolute;bottom: 5px;margin-left: 81px;"></i>
+                        </div>
                     </div>
                 </div>
                 <input type="hidden" id="nombre_vinculo" value="{$VINCULO}">

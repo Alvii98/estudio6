@@ -88,6 +88,14 @@ class datos{
         return datos::respuestaQuery($query);
     }
 
+    static public function descuentos_actividades(){
+
+        $query = "SELECT descuento_actividad,descuento_familiar FROM actividades_valores 
+        WHERE descuento_actividad <> 0 AND descuento_familiar <> 0 LIMIT 1";    
+
+        return datos::respuestaQuery($query);
+    }
+
     static public function actividad_valores($actividad){
 
         $query = "SELECT actividad,una_vez,una_vez_efec,dos_veces,dos_veces_efec FROM actividades_valores 
@@ -146,12 +154,12 @@ class datos{
         }
         return true;
     }
-    static public function insert_actividades($id,$actividad,$una,$una_efectivo,$dos,$dos_efectivo){
+    static public function insert_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();  
           
-        $query = "INSERT INTO actividades_valores(actividad,una_vez,una_vez_efec,dos_veces,dos_veces_efec) 
-        VALUES ('".$actividad."',".$una.",".$una_efectivo.",".$dos.",".$dos_efectivo.")";
+        $query = "INSERT INTO actividades_valores(actividad,una_vez,una_vez_efec,dos_veces,dos_veces_efec,dias_horarios,profe,min_edad,max_edad,cupos) 
+        VALUES ('".$actividad."',".$una.",".$una_efec.",".$dos.",".$dos_efec.",'".$dias."','".$profe."',".$edadMin.",".$edadMax.",".$cupos.")";
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
@@ -260,12 +268,13 @@ class datos{
         }
         return true;
     }
-    static public function update_actividades($id,$actividad,$una,$una_efectivo,$dos,$dos_efectivo){
+    static public function update_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
 
         $query = "UPDATE actividades_valores SET actividad = '".$actividad."',una_vez = ".$una.",
-        una_vez_efec= ".$una_efectivo.",dos_veces = ".$dos.",dos_veces_efec = ".$dos_efectivo." WHERE id = ".$id;
+        una_vez_efec= ".$una_efec.",dos_veces = ".$dos.",dos_veces_efec = ".$dos_efec.",
+        dias_horarios = '".$dias."',profe = '".$profe."', min_edad= ".$edadMin.",max_edad = ".$edadMax.",cupos = ".$cupos." WHERE id = ".$id;
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);

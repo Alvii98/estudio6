@@ -17,13 +17,19 @@ if(isset($datos->id_actividad)){
     }else {
         $actividad = $datos->guardar_actividad->id_guardar_actividad;
         $una = $datos->guardar_actividad->id_guardar_una;
-        $una_efectivo = $datos->guardar_actividad->id_guardar_una_efectivo;
+        $una_efec = $datos->guardar_actividad->id_guardar_una_efectivo;
         $dos = $datos->guardar_actividad->id_guardar_dos;
-        $dos_efectivo = $datos->guardar_actividad->id_guardar_dos_efectivo;
+        $dos_efec = $datos->guardar_actividad->id_guardar_dos_efectivo;
+        $dias = $datos->guardar_actividad->id_guardar_dias;
+        $profe = $datos->guardar_actividad->id_guardar_profe;
+        $edadMin = $datos->guardar_actividad->id_guardar_edad_min;
+        $edadMax = $datos->guardar_actividad->id_guardar_edad_max;
+        $cupos = $datos->guardar_actividad->id_guardar_cupos;
+
         if($id == 0){
-            $json->respGuardarActividad = datos::insert_actividades($id,$actividad,$una,$una_efectivo,$dos,$dos_efectivo);
+            $json->respGuardarActividad = datos::insert_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos);
         }else{
-            $json->respGuardarActividad = datos::update_actividades($id,$actividad,$una,$una_efectivo,$dos,$dos_efectivo);
+            $json->respGuardarActividad = datos::update_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos);
         }
     }
 }else if(isset($datos->datosDescuentos)){

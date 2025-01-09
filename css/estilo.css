@@ -144,11 +144,11 @@ table thead{
     top: 0;
     z-index: 10;
 }
-tbody tr{
+#tabla_alumnos tbody tr{
     cursor: pointer;
     border-color: #929292 !important;
 }
-tbody tr:hover{
+#tabla_alumnos tbody tr:hover{
     /* background-color: rgba(78, 52, 85, 0.9); */
     background-color: rgba(243, 238, 238, 0.9) !important;
     /* border-color: #929292 !important; */
@@ -233,6 +233,13 @@ th{
     width: 350px !important;
     height: 80px !important;
 }
+input {
+    font-size: 12px !important; /* Tamaño de letra más pequeño */
+    padding: 5px !important; /* Espaciado interno */
+    border: 1px solid #ccc !important; /* Borde del input */
+    border-radius: 4px !important; /* Bordes redondeados */
+}
+  
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
     .logo{
