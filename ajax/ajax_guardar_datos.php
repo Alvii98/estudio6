@@ -35,12 +35,13 @@ $array_insert = ['apellido' => $datos->alumno->apellido,
                 'tel_fijo' => $datos->alumno->tel_fijo,
                 'tel_alumno' => $datos->alumno->tel_alumno,
                 'correo' => $datos->alumno->correo,
-                'actividad' => $datos->alumno->actividad,
+                'actividad' => '',
                 'salud' => $datos->alumno->salud,
                 'observacion_alumno' => $datos->alumno->observacion_alumno];
 
 if(!empty(trim($array_insert['fecha_nac']))){
-    $json->respAlumno = datos::insert_datos($array_insert);
+    $actividades = $datos->alumno->actividades;
+    $json->respAlumno = datos::insert_datos($array_insert,$actividades);
     // $json->respAlumno = $array_insert;
 }else{
     $json->error = 'Complete los campos requeridos';

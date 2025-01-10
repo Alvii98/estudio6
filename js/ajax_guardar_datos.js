@@ -5,10 +5,9 @@ window.addEventListener("click", function(event){
     if(event.target.id == 'guardar_familiar') guardar_familiar(event)
     if(event.target.id == 'guardar_vinculo') guardar_vinculo(event)
     if(event.target.id == 'desvincular') desvincular(event)
-    if(event.target.id == 'guardar_actividad') guardar_actividad(event)
+    // if(event.target.id == 'guardar_actividad') guardar_actividad(event)
     if(event.target.id == 'agregar_nueva_actividad') agregar_nueva_actividad(event)
-    if(event.target.id == 'nueva_actividad') guardar_actividad(event)
-    if(event.target.id == 'eliminar_actividad_bdd') guardar_actividad(event)
+    // if(event.target.id == 'nueva_actividad') guardar_actividad(event)
 })
 
 window.addEventListener("change", function(event){
@@ -21,12 +20,12 @@ window.addEventListener("keyup", function(event){
 
 function guardar_datos(event){
     let alumno = {},
-    actividad = ''
+    actividades = []
     for (let i = 0; i < document.querySelectorAll('#actividad').length; i++) {
-        if(document.querySelectorAll('#actividad')[i].value == '') continue
-        actividad += document.querySelectorAll('#actividad')[i].value+'|'
+        if(document.querySelectorAll('#actividad')[i].value == '0') continue
+        actividades.push(document.querySelectorAll('#actividad')[i].value)
     }
-    console.log(actividad)
+
     alumno = {'apellido': document.querySelector('#apellido').value,
     'nombre': document.querySelector('#nombre').value,
     'foto_perfil': document.querySelector('#foto_base64').value,
@@ -40,7 +39,7 @@ function guardar_datos(event){
     'localidad': document.querySelector('#localidad').value,
     'domicilio': document.querySelector('#domicilio').value,
     'salud': document.querySelector('#salud').value,
-    'actividad': actividad,
+    'actividades': actividades,
     'observacion_alumno': document.querySelector('#observacion_alumno').value}
 
     if(alumno.fecha_nac.trim() == '' || alumno.apellido.trim() == '' || alumno.nombre.trim() == ''){
@@ -198,7 +197,6 @@ function desvincular(event){
 function datos_actividad(event){
 
     let id_actividad = document.querySelector('#id_actividad').value
-
     
     if(id_actividad.trim() == '0'){
         return alertify.alert('Actividades','Seleccione una actividad.')
@@ -244,31 +242,40 @@ function datos_actividad(event){
     })
 
 }
+function editar_actividad(event,id_actividad){
+    let datos = event.parentElement.parentElement.getElementsByTagName('td')
+    document.querySelector('#id_guardar_actividad').value = datos[0].textContent
+    document.querySelector('#id_guardar_una').value = datos[1].textContent
+    // document.querySelector('#id_guardar_una_efectivo').value = datos[2].textContent
+    // document.querySelector('#id_guardar_dos').value = datos[3].textContent
+    // document.querySelector('#id_guardar_dos_efectivo').value = datos[4].textContent
+    document.querySelector('#id_guardar_dias').value = datos[2].textContent
+    document.querySelector('#id_guardar_profe').value = datos[3].textContent
+    let edades = datos[4].textContent.split('A')
+    document.querySelector('#id_guardar_edad_min').value = edades[0].trim()
+    document.querySelector('#id_guardar_edad_max').value = edades[1].trim()
+    document.querySelector('#id_guardar_cupos').value = datos[5].textContent
+    document.querySelector('#guardar_actividad').setAttribute('onclick', 'guardar_actividad('+id_actividad+')')
+    document.querySelector('#guardar_actividad').textContent = 'Guardar edición'
+    document.querySelector('#guardar_actividad').focus()
+}
 
-function guardar_actividad(event){
-    let guardar_actividad = {},
-    id_actividad = document.querySelector('#id_actividad').value
+function guardar_actividad(id_actividad = 0){
+    let guardar_actividad = {}
 
-    if (id_actividad == 0 && event.target.id == 'eliminar_actividad_bdd') {
-        return alertify.alert('Eliminar actividad','Tiene que seleccionar una actividad.')
-    }
-    if(id_actividad == 0 && event.target.id != 'nueva_actividad'){
-        return alertify.alert('Guardar actividad','Tiene que seleccionar una actividad.')
-    }
-    if(event.target.id == 'nueva_actividad'){
-        document.querySelector('#nueva_actividad').disabled = false
-        document.querySelector('#guardar_actividad').disabled = true
-    }else if(event.target.id == 'guardar_actividad'){
-        document.querySelector('#nueva_actividad').disabled = true
-        document.querySelector('#guardar_actividad').disabled = false
-    }
-
+    // if(event.target.id == 'nueva_actividad'){
+    //     document.querySelector('#nueva_actividad').disabled = false
+    //     document.querySelector('#guardar_actividad').disabled = true
+    // }else if(event.target.id == 'guardar_actividad'){
+    //     document.querySelector('#nueva_actividad').disabled = true
+    //     document.querySelector('#guardar_actividad').disabled = false
+    // }
     guardar_actividad = {'id_guardar_id': id_actividad,
     'id_guardar_actividad': document.querySelector('#id_guardar_actividad').value,
     'id_guardar_una': parseInt(document.querySelector('#id_guardar_una').value),
-    'id_guardar_una_efectivo': parseInt(document.querySelector('#id_guardar_una_efectivo').value),
-    'id_guardar_dos': parseInt(document.querySelector('#id_guardar_dos').value),
-    'id_guardar_dos_efectivo': parseInt(document.querySelector('#id_guardar_dos_efectivo').value),
+    // 'id_guardar_una_efectivo': parseInt(document.querySelector('#id_guardar_una_efectivo').value),
+    // 'id_guardar_dos': parseInt(document.querySelector('#id_guardar_dos').value),
+    // 'id_guardar_dos_efectivo': parseInt(document.querySelector('#id_guardar_dos_efectivo').value),
     'id_guardar_dias': document.querySelector('#id_guardar_dias').value,
     'id_guardar_profe': document.querySelector('#id_guardar_profe').value,
     'id_guardar_edad_min': parseInt(document.querySelector('#id_guardar_edad_min').value),
@@ -276,16 +283,16 @@ function guardar_actividad(event){
     'id_guardar_cupos': parseInt(document.querySelector('#id_guardar_cupos').value)}
 
     if(guardar_actividad.id_guardar_actividad.trim() == ''){
-        return alertify.error('El campo actividad no puede quedar vacio.')
+        return alertify.error('El campo actividad no puede quedar vacia.')
     }
-    if(guardar_actividad.id_guardar_dias.trim() == '' || guardar_actividad.id_guardar_profe.trim() == '' || guardar_actividad.id_guardar_edad_min.trim() == '' ||
-    guardar_actividad.id_guardar_edad_max.trim() == '' || guardar_actividad.id_guardar_cupos.trim() == ''){
+    if(isNaN(guardar_actividad.id_guardar_una) || guardar_actividad.id_guardar_dias.trim() == '' || guardar_actividad.id_guardar_profe.trim() == '' 
+    || isNaN(guardar_actividad.id_guardar_edad_min) || isNaN(guardar_actividad.id_guardar_edad_max) || isNaN(guardar_actividad.id_guardar_cupos)){
         return alertify.error('Complete todos los campos.')
     }
-    if(isNaN(guardar_actividad.id_guardar_una) || isNaN(guardar_actividad.id_guardar_una_efectivo) ||
-    isNaN(guardar_actividad.id_guardar_dos) || isNaN(guardar_actividad.id_guardar_dos_efectivo)){
-        return alertify.error('Uno de los precios no es numerico.(Se admite solo numero,sin comas o puntos)')
-    }
+    // if(isNaN(guardar_actividad.id_guardar_una) || isNaN(guardar_actividad.id_guardar_una_efectivo) ||
+    // isNaN(guardar_actividad.id_guardar_dos) || isNaN(guardar_actividad.id_guardar_dos_efectivo)){
+    //     return alertify.error('Uno de los precios no es numerico.(Se admite solo numero,sin comas o puntos)')
+    // }
 
     alertify.confirm('Guardar actividad', 'Seguro que quiere guardar esta actividad ?', function(){
 
@@ -343,18 +350,18 @@ function agregar_nueva_actividad(event) {
     </div>`
 }
 
-function agregar_actividad(){
-    let readOnly = document.getElementsByTagName('input')[6].readOnly
-    readOnly = readOnly == true ? 'readonly' : ''
-
+function agregar_actividad(event){
+    let readOnly = document.getElementsByTagName('input')[6].readOnly,
+    combo = event.target.parentElement.getElementsByTagName('select')[0]
+    console.log(combo)
     document.querySelector('#nueva_actividad').insertAdjacentHTML('beforeend', `<div class="form-group col-md-12 float-left">
                 <label>Nueva actividad</label>
                 <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar actividad" id="eliminar_actividad"></i>
-                <input list="actividades" class="form-control" id="actividad" `+readOnly+`>        
+                `+combo.outerHTML+`
             </div>`)
 }
-function eliminar_actividad(event){
 
+function eliminar_actividad(event){
     let element = event.target.parentElement 
     if(element.querySelector('label').textContent == 'Nueva actividad') element.parentNode.removeChild(element)
     else element.parentNode.removeChild(element)
@@ -387,4 +394,38 @@ function eliminar_actividad_bdd(event,id){
             alertify.alert('Carga','Ocurrio un error al guardar los datos.')
         })
     }, function(){ alertify.error('Cancelado')});
+}
+
+function datos_actividad(id_actividad) {
+    const datosPost = new FormData()
+    datosPost.append('id_actividad', id_actividad)
+
+    fetch('ajax/ajax_guardar_vinculo_actividades.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        console.log(json)
+        if(json.datosActividad.length > 0){
+            let datos =  ''
+            json.datosActividad.forEach(dato => {
+                datos += `<tr>
+                <td>`+dato.actividad+`</td>
+                <td>`+dato.alumno+`</td>
+                <td>`+dato.dias_horarios+`</td>
+                <td>`+dato.profe+`</td>
+              </tr>
+              <th colspan="3" class="text-center" id="no_datos" style="display:none;">NO SE ENCONTRARON DATOS</th>`
+            })
+            document.querySelector('#mostrar_datos_actividad').innerHTML = datos
+            document.querySelector('#datos_actividad').style.display = 'block'
+        }else return alertify.error('No encontramos datos de esta actividad.')
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al cargar los datos, vuelva a intentar.')
+    })
 }

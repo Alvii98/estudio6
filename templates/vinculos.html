@@ -54,8 +54,8 @@
                                 {continue}
                             {/if}
                             {assign var="vinculo" value=$value.vinculo}
-                            <option value="{$value.vinculo|escape}">
-                                {$value.vinculo|escape}
+                            <option value="{$value.vinculo|escape:'utf8_encode'}">
+                                {$value.vinculo|escape:'utf8_encode'}
                             </option>
                         {/foreach}
                     </select>

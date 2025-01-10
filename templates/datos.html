@@ -143,12 +143,14 @@
                         {else}
                             <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar actividad" id="eliminar_actividad"></i>
                         {/if}
-                        <input list="actividades" class="form-control" id="actividad" value="{$value|trim}">
-                        <datalist id="actividades">
-                            {foreach from=$ACTIVIDADES item=combo_value}
-                                <option value="{$combo_value.actividad|escape:'utf8_encode'}">
+                        <select class="form-control" id="actividad">
+                            <option selected value="0">-- Seleccione una actividad --</option>
+                            {foreach from=$ACTIVIDADES item=value}
+                                <option value="{$value.id}">
+                                    {$value.actividad|escape:'utf8_encode'}
+                                </option>
                             {/foreach}
-                        </datalist>
+                        </select>
                     </div>
                 </div>
             {/foreach}

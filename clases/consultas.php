@@ -12,11 +12,18 @@ class datos{
     static public function busqueda($ape,$nom,$edad,$activ){
 
         if(empty($edad)){
-            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.actividad,a.baja,a.foto_perfil FROM alumnos a
+            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad FROM alumnos a
+            LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
+            LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
             WHERE a.apellido LIKE '%".$ape."%' AND a.nombre LIKE '%".$nom."%'
-            AND a.actividad LIKE '%".$activ."%' ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC;";
+            ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";
+            // $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.actividad,a.baja,a.foto_perfil FROM alumnos a
+            // WHERE a.apellido LIKE '%".$ape."%' AND a.nombre LIKE '%".$nom."%'
+            // AND a.actividad LIKE '%".$activ."%' ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC;";
         }else{
-            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.actividad,a.baja,a.foto_perfil FROM alumnos a
+            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad FROM alumnos a
+            LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
+            LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
             WHERE a.edad = ".$edad." ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";
         }
 
@@ -108,8 +115,16 @@ class datos{
 
         return datos::respuestaQuery($query);
     }
+    
+    static public function datos_actividad($id_actividad){
 
-    static public function insert_datos($array){
+        $query = "SELECT CONCAT(a.apellido,' ',a.nombre) as alumno,av.actividad,av.dias_horarios,av.profe FROM actividades_alumnos aa, actividades_valores av,alumnos a
+        WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno ORDER BY 1";
+
+        return datos::respuestaQuery($query);
+    }
+
+    static public function insert_datos($array,$actividades){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();
 
@@ -122,7 +137,17 @@ class datos{
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
-        return true;
+        $id_alumno = mysqli_insert_id($conn);
+        if (is_int($id_alumno)) {
+            foreach ($actividades as $value) {
+                $query = "INSERT INTO actividades_alumnos(id_alumno,id_actividad) VALUES (".$id_alumno.",".$value.")";
+                if (!mysqli_query($conn, $query)) {
+                    return mysqli_error($conn);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     static public function insert_familiar($array){
@@ -154,12 +179,12 @@ class datos{
         }
         return true;
     }
-    static public function insert_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos){
+    static public function insert_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();  
           
-        $query = "INSERT INTO actividades_valores(actividad,una_vez,una_vez_efec,dos_veces,dos_veces_efec,dias_horarios,profe,min_edad,max_edad,cupos) 
-        VALUES ('".$actividad."',".$una.",".$una_efec.",".$dos.",".$dos_efec.",'".$dias."','".$profe."',".$edadMin.",".$edadMax.",".$cupos.")";
+        $query = "INSERT INTO actividades_valores(actividad,una_vez,dias_horarios,profe,min_edad,max_edad,cupos) 
+        VALUES ('".$actividad."',".$una.",'".$dias."','".$profe."',".$edadMin.",".$edadMax.",".$cupos.")";
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
@@ -268,12 +293,11 @@ class datos{
         }
         return true;
     }
-    static public function update_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos){
+    static public function update_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
 
         $query = "UPDATE actividades_valores SET actividad = '".$actividad."',una_vez = ".$una.",
-        una_vez_efec= ".$una_efec.",dos_veces = ".$dos.",dos_veces_efec = ".$dos_efec.",
         dias_horarios = '".$dias."',profe = '".$profe."', min_edad= ".$edadMin.",max_edad = ".$edadMax.",cupos = ".$cupos." WHERE id = ".$id;
         
         if (!mysqli_query($conn, $query)) {
@@ -347,6 +371,7 @@ class datos{
         }
         return true;
     }
+
     static public function delete_vinculo($id_alumno,$nom_vinculo){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection(); 
@@ -360,32 +385,6 @@ class datos{
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
-        return true;
-    }
-
-    static public function agregar_campo_tablabdd(){
-        $instancia = SingletonConexion::getInstance();
-        $conn = $instancia->getConnection(); 
-        
-        $query = "SHOW COLUMNS FROM actividades_valores LIKE 'descuento_actividad'";
-        
-        if (empty(datos::respuestaQuery($query))) {
-            $query = "ALTER TABLE actividades_valores ADD descuento_actividad INT(11) NOT NULL DEFAULT '7' AFTER dos_veces_efec";
-            
-            if (!mysqli_query($conn, $query)) {
-                return mysqli_error($conn);
-            }
-        }
-        $query = "SHOW COLUMNS FROM actividades_valores LIKE 'descuento_familiar'";
-
-        if (empty(datos::respuestaQuery($query))) {
-            $query = "ALTER TABLE actividades_valores ADD descuento_familiar INT(11) NOT NULL DEFAULT '7' AFTER dos_veces_efec";
-            
-            if (!mysqli_query($conn, $query)) {
-                return mysqli_error($conn);
-            }
-        }
-
         return true;
     }
 

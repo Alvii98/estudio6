@@ -9,6 +9,7 @@ $smarty->assign('DESCUENTO_FAM', datos::descuentos_actividades()[0]['descuento_f
 $smarty->assign('CAMARA', $smarty->fetch('partials/camara.html'));
 $smarty->assign('HEADER', $smarty->fetch('partials/header.html'));
 $smarty->assign('FOOTER', $smarty->fetch('partials/footer.html'));
+$smarty->assign('MODAL_ACTIVIDAD', $smarty->fetch('partials/modal.html'));
 
 if (!isset($_SESSION['USUARIO'])) {
     $smarty->display('login.html');

@@ -27,7 +27,7 @@
 </head>
 <body>
     {$HEADER}
-    {$CAMARA}
+    {$MODAL_ACTIVIDAD}
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
@@ -56,14 +56,14 @@
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">
                 <div class="scroll mb-3">
-                    <table class="table table-bordered text-body">
+                    <table class="table table-bordered text-body table-actividades">
                         <thead align="center">
                             <tr>
                                 <th>Actividad</th>
-                                <th>Una deb</th>
-                                <th>Una efec</th>
+                                <th>Valor</th>
+                                <!-- <th>Una efec</th>
                                 <th>Dos deb</th>
-                                <th>Dos efec</th>
+                                <th>Dos efec</th> -->
                                 <th>Días y horarios</th>
                                 <th>Profe</th>
                                 <th>Edades</th>
@@ -75,17 +75,14 @@
                         <tbody>
                             {foreach from=$ACTIVIDADES item=value}
                             <tr>
-                                <td>{$value.actividad|escape:'utf8_encode'}</td>
-                                <td>{$value.una_vez|escape:'utf8_encode'}</td>
-                                <td>{$value.una_vez_efec|escape:'utf8_encode'}</td>
-                                <td>{$value.dos_veces|escape:'utf8_encode'}</td>
-                                <td>{$value.dos_veces_efec|escape:'utf8_encode'}</td>
-                                <td>{$value.dias_horarios|escape:'utf8_encode'}</td>
-                                <td>{$value.profe|escape:'utf8_encode'}</td>
-                                <td>{$value.min_edad} A {$value.max_edad|escape:'utf8_encode'}</td>
-                                <td>{$value.cupos|escape:'utf8_encode'}</td>
-                                <td><i class="bi bi-pencil-square" onclick="editar_actividad(this,'{$value.id}')" style="font-size: xx-large;"></i></td>
-                                <td><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'{$value.id}')" style="font-size: xx-large;"></i></td>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.actividad|escape:'utf8_encode'}</td>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.una_vez|escape:'utf8_encode'}</td>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.dias_horarios|escape:'utf8_encode'}</td>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.profe|escape:'utf8_encode'}</td>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.min_edad} A {$value.max_edad}</td>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.cupos|escape:'utf8_encode'}</td>
+                                <th><i class="bi bi-pencil-square" onclick="editar_actividad(this,'{$value.id}')" style="font-size: xx-large;"></i></th>
+                                <th><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'{$value.id}')" style="font-size: xx-large;"></i></th>
                             </tr>
                             {/foreach}
                         </tbody>
@@ -94,27 +91,15 @@
             </div>
             <div class="col-md-12 mt-3">
                 <hr>
-                <div class="form-group col-md-3 float-left">
+                <div class="form-group col-md-2 float-left">
                     <label for="exampleFormControlInput1">Actividad</label>
                     <input type="text" id="id_guardar_actividad" class="form-control">
                 </div>
-                <div class="form-group col-md-2 float-left">
-                    <label for="exampleFormControlInput1">Una deb</label>
+                <div class="form-group col-md-1 float-left">
+                    <label for="exampleFormControlInput1">Valor</label>
                     <input type="number" id="id_guardar_una" class="form-control">
                 </div>
                 <div class="form-group col-md-2 float-left">
-                    <label for="exampleFormControlInput1">Una efec</label>
-                    <input type="number" id="id_guardar_una_efectivo" class="form-control">
-                </div>
-                <div class="form-group col-md-2 float-left">
-                    <label for="exampleFormControlInput1">Dos deb</label>
-                    <input type="number" id="id_guardar_dos" class="form-control">
-                </div>
-                <div class="form-group col-md-2 float-left">
-                    <label for="exampleFormControlInput1">Dos efec</label>
-                    <input type="number" id="id_guardar_dos_efectivo" class="form-control">
-                </div>
-                <div class="form-group col-md-3 float-left">
                     <label for="exampleFormControlInput1">D&iacute;as y horarios</label>
                     <input type="text" id="id_guardar_dias" class="form-control">
                 </div>
@@ -130,13 +115,13 @@
                 </div>
                 <div class="form-group col-md-2 float-left">
                     <label for="exampleFormControlInput1">Cupos totales</label>
-                    <input type="text" id="id_guardar_cupos" class="form-control">
+                    <input type="number" id="id_guardar_cupos" class="form-control">
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-3">
                 <div class="form-group col-md-12">
-                    <button id="guardar_actividad" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Editar actividad</button>
-                    <button id="nueva_actividad" class="btn btn-dark btn-lg rounded-pill float-right col-md-3 mt-2">Guardar nueva actividad</button>
+                    <!-- <button id="guardar_actividad" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Editar actividad</button> -->
+                    <button id="guardar_actividad" onclick="guardar_actividad()" class="btn btn-dark btn-lg rounded-pill float-right col-md-3 mt-2">Guardar actividad</button>
                 </div>
             </div>
         </div>

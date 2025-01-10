@@ -35,7 +35,6 @@ class valores{
         }
         // 10% de descuento por hacer mas de 1 actividad / Se cambio al 7% 14/04/2024
         if(count(array_count_values($actividad)) >= 2){
-            datos::agregar_campo_tablabdd();
             $descuento = datos::descuentos_actividades()[0]['descuento_actividad'];
             $porcentaje = intval($combo) * $descuento / 100;
             $combo = intval($combo) - $porcentaje;
@@ -58,7 +57,6 @@ class valores{
             $combo = $efectivo;
         }
         // 10% de descuento por ser familiares / Se cambio al 7% 14/04/2024
-        datos::agregar_campo_tablabdd();
         $descuento = datos::descuentos_actividades()[0]['descuento_familiar'];
         $porcentaje = $combo * $descuento  / 100;
         $combo = $combo - $porcentaje;

@@ -116,13 +116,14 @@
                 <div class="form-group col-md-12 float-left">
                     <label>Actividad</label>
                     <i class="bi bi-plus-circle-dotted agregar_actividad" title="Agregar actividad" id="agregar_actividad"></i>
-
-                    <input list="actividades" class="form-control" id="actividad">        
-                    <datalist id="actividades">
+                    <select class="form-control" id="actividad">
+                        <option selected value="0">-- Seleccione una actividad --</option>
                         {foreach from=$ACTIVIDADES item=value}
-                        <option value="{$value.actividad}">
+                            <option value="{$value.id}">
+                                {$value.actividad|escape:'utf8_encode'}
+                            </option>
                         {/foreach}
-                    </datalist>
+                    </select>
                 </div>
             </div> 
             <div id="nueva_actividad" class="col-md-12"></div>

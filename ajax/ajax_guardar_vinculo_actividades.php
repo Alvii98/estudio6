@@ -3,7 +3,13 @@ require_once '../clases/consultas.php';
 $json = new StdClass();
 
 $datos = json_decode(file_get_contents('php://input'));
-if(isset($datos->id_actividad)){
+if (isset($_POST['id_actividad'])) {
+    if (!empty($_POST['id_actividad'])) {
+        $json->datosActividad = datos::datos_actividad($_POST['id_actividad']);
+    }else {
+        $json->datosActividad = false;
+    }
+}elseif(isset($datos->id_actividad)){
     $id_actividad = $datos->id_actividad;
 
     $json->respActividad = datos::actividades($id_actividad);
@@ -17,9 +23,9 @@ if(isset($datos->id_actividad)){
     }else {
         $actividad = $datos->guardar_actividad->id_guardar_actividad;
         $una = $datos->guardar_actividad->id_guardar_una;
-        $una_efec = $datos->guardar_actividad->id_guardar_una_efectivo;
-        $dos = $datos->guardar_actividad->id_guardar_dos;
-        $dos_efec = $datos->guardar_actividad->id_guardar_dos_efectivo;
+        // $una_efec = $datos->guardar_actividad->id_guardar_una_efectivo;
+        // $dos = $datos->guardar_actividad->id_guardar_dos;
+        // $dos_efec = $datos->guardar_actividad->id_guardar_dos_efectivo;
         $dias = $datos->guardar_actividad->id_guardar_dias;
         $profe = $datos->guardar_actividad->id_guardar_profe;
         $edadMin = $datos->guardar_actividad->id_guardar_edad_min;
@@ -27,9 +33,9 @@ if(isset($datos->id_actividad)){
         $cupos = $datos->guardar_actividad->id_guardar_cupos;
 
         if($id == 0){
-            $json->respGuardarActividad = datos::insert_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos);
+            $json->respGuardarActividad = datos::insert_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos);
         }else{
-            $json->respGuardarActividad = datos::update_actividades($id,$actividad,$una,$una_efec,$dos,$dos_efec,$dias,$profe,$edadMin,$edadMax,$cupos);
+            $json->respGuardarActividad = datos::update_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos);
         }
     }
 }else if(isset($datos->datosDescuentos)){

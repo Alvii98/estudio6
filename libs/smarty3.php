@@ -10,3 +10,6 @@ $smarty->setCacheDir('templates/tmp');
 $smarty->clearAllCache();
 
 $smarty->assign("NO_CACHE", rand(1, 1000000));
+
+if (isset($_SESSION['USUARIO'])) $smarty->assign("LOGOUT", true);
+else $smarty->assign("LOGOUT", false);

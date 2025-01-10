@@ -144,6 +144,12 @@ table thead{
     top: 0;
     z-index: 10;
 }
+.table-actividades tbody tr:hover{
+    cursor: pointer;
+    background-color: rgba(172, 168, 168, 0.5);
+}
+
+
 #tabla_alumnos tbody tr{
     cursor: pointer;
     border-color: #929292 !important;
@@ -161,7 +167,13 @@ th{
   font-size: 15px !important;
   border-color: #929292 !important;
 }
-
+.scroll-modal{
+    height: auto;
+    /* min-height: 200px; */
+    max-height: 300px;
+    overflow-y:auto;
+    overflow-x:auto;  
+}
 .scroll{
   height: auto;
   /* min-height: 200px; */
