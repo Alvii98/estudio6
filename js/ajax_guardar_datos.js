@@ -9,7 +9,7 @@ window.addEventListener("click", function(event){
 })
 
 window.addEventListener("change", function(event){
-    if(event.target.id == 'nom_vinculo') document.querySelector('#nom_vinculo_nuevo').value = ''
+    if(event.target.id == 'nom_vinculo') datos_vinculo(event)
     if(event.target.id == 'id_actividad') datos_actividad(event)
 })
 window.addEventListener("keyup", function(event){
@@ -410,6 +410,42 @@ function datos_actividad(id_actividad) {
             document.querySelector('#mostrar_datos_actividad').innerHTML = datos
             document.querySelector('#datos_actividad').style.display = 'block'
         }else return alertify.error('No encontramos datos de esta actividad.')
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al cargar los datos, vuelva a intentar.')
+    })
+}
+
+
+function datos_vinculo(event) {
+    document.querySelector('#nom_vinculo_nuevo').value = ''
+    let vinculo = event.target.value
+
+    if (vinculo == '0') return false
+    
+    const datosPost = new FormData()
+    datosPost.append('viculo', vinculo)
+
+    fetch('ajax/ajax_guardar_vinculo_actividades.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if(json.datosVinculo.length > 0){
+            let datos =  ''
+            json.datosVinculo.forEach(dato => {
+                datos += `<tr>
+                <td>`+dato.vinculo+`</td>
+                <td>`+dato.alumno+`</td>
+              </tr>`
+            })
+            document.querySelector('#datos_vinculo').innerHTML = datos
+            document.querySelector('#mostrar_vinculo').style.display = 'block'
+        }else return alertify.error('No encontramos datos de este vinculo.')
     })
     .catch(function (error){
         console.log(error)

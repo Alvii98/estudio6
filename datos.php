@@ -69,10 +69,10 @@ if(isset($_GET['id'])){
         $debe_info = $value['info_deuda'];
         $alumno = datos::alumno_id($value['id_alumno']);
 
-        $alumnos[] = array('id' => $alumno[0]['id'],
-                    'apellido' => $alumno[0]['apellido'],
-                    'nombre' => $alumno[0]['nombre'],
-                    'actividad' => '');
+        $alumnos[] = array('id' => $value['id_alumno'],
+                    'apellido' => $value['apellido'],
+                    'nombre' => $value['nombre'],
+                    'actividad' => datos::actividades_alumno($value['id_alumno']));
     }
     // print'<pre>';print_r($alumnos);exit;
     $smarty->assign('VINCULO', $_GET['vinculo']);
@@ -83,11 +83,9 @@ if(isset($_GET['id'])){
     $valores = valores::precio_por_familia($alumnos);
     
     $valor = number_format($valores['valor'], 2, ',', ' ');
-    $efectivo = number_format($valores['efectivo'], 2, ',', ' ');
     $combo = number_format($valores['combo'], 2, ',', ' ');
     
     $smarty->assign('VALOR', $valor);
-    $smarty->assign('EFECTIVO', $efectivo);
     $smarty->assign('COMBO', $combo);
 
     if (!isset($_SESSION['USUARIO'])) {

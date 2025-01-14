@@ -32,21 +32,17 @@ class valores{
 
     static public function precio_por_familia($alumnos){
         $valor = 0;
-        $efectivo = 0;
         $combo = 0;
         foreach ($alumnos as $value) {
             $valores = valores::precio_por_alumno($value['id']);
-
             $valor = $valor + intval($valores['valor']);
-            $efectivo = $efectivo + intval($valores['efectivo']);
-            $combo = $efectivo;
         }
         // 10% de descuento por ser familiares / Se cambio al 7% 14/04/2024
         $descuento = datos::descuentos_actividades()[0]['descuento_familiar'];
-        $porcentaje = $combo * $descuento  / 100;
-        $combo = $combo - $porcentaje;
+        $porcentaje = $valor * $descuento  / 100;
+        $combo = $valor - $porcentaje;
 
-        return ['valor' => $valor,'efectivo' => $efectivo,'combo' => $combo];
+        return ['valor' => $valor,'combo' => $combo];
     }
 }
 

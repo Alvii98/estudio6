@@ -3,7 +3,13 @@ require_once '../clases/consultas.php';
 $json = new StdClass();
 
 $datos = json_decode(file_get_contents('php://input'));
-if (isset($_POST['id_actividad'])) {
+if (isset($_POST['viculo'])) {
+    if (!empty($_POST['viculo'])) {
+        $json->datosVinculo = datos::datos_vinculo($_POST['viculo']);
+    }else {
+        $json->datosVinculo = false;
+    }
+}elseif (isset($_POST['id_actividad'])) {
     if (!empty($_POST['id_actividad'])) {
         $json->datosActividad = datos::datos_actividad($_POST['id_actividad']);
     }else {

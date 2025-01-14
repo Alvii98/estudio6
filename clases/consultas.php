@@ -39,19 +39,30 @@ class datos{
 
         return datos::respuestaQuery($query);
     }
+
     static public function busqueda_familiar_datos($vinculo,$id = ''){
 
         $query = "SELECT DISTINCT id_alumno,vinculo,debemes,info_deuda FROM vinculos WHERE id_alumno = ".$id;  
         
         if(empty($id)){
-            $query = "SELECT DISTINCT id_alumno,vinculo,debemes,info_deuda FROM vinculos WHERE vinculo = '".$vinculo."'";  
+            $query = "SELECT v.id_alumno,v.vinculo,v.debemes,v.info_deuda,a.apellido,a.nombre FROM vinculos v,alumnos a 
+            WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id";
         }
 
         return datos::respuestaQuery($query);
     }
+
     static public function vinculos(){
 
         $query = "SELECT * FROM vinculos ORDER BY vinculo ASC";    
+
+        return datos::respuestaQuery($query);
+    }
+
+    static public function datos_vinculo($vinculo){
+
+        $query = "SELECT v.vinculo,CONCAT(a.apellido,' ',a.nombre) AS alumno 
+        FROM vinculos v,alumnos a WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id ORDER BY 2";    
 
         return datos::respuestaQuery($query);
     }

@@ -78,12 +78,11 @@
                         <input type="text" readonly="true" id="nombre" class="form-control" value="{$value1.nombre}">
                     </div>
                 </div>
-                {foreach from=$value1.actividad key=key item=value}
-                    {if empty(trim($value))} {continue} {/if}
+                {foreach from=$value1.actividad key=key item=value2}
                     <div class="col-md-12">
                         <div class="form-group col-md-12 float-left">
                             <label>Actividad {$key+1}</label>
-                            <textarea class="form-control" readonly="true" id="actividad">{$value}</textarea>        
+                            <input type="text" class="form-control" readonly="true" id="actividad" value="{$value2.actividad}"</input>        
                         </div>
                     </div>
                 {/foreach}

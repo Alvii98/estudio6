@@ -75,17 +75,32 @@
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="form-group col-md-6">
                     <label class="ml-2">Nombre del grupo familiar (*)</label>
-                    <input type="text" id="nom_vinculo_nuevo" placeholder="Apellidos de alumnos" class="form-control">
+                    <input type="text" id="nom_vinculo_nuevo" placeholder="Apellidos de alumnos" class="form-control ml-2">
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">
                 <div class="form-group col-md-12">
+                    <table class="table table-bordered text-body float-left col-md-4" id="mostrar_vinculo" style="display: none; border: 0;">
+                        <thead align="center">
+                            <tr>
+                                <th>Vinculo</th>
+                                <th>Alumnos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="datos_vinculo">
+                        </tbody>
+                    </table>
                     <button id="guardar_vinculo" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Guardar vinculo</button>
                     <button id="desvincular" class="btn btn-dark btn-lg rounded-pill float-right col-md-3 mt-2">Desvincular alumno</button>
                 </div>
             </div>
+            <div class="col-md-12 d-flex justify-content-center mt-2">
+                <div class="scroll-actividades mb-3">
+        
+                </div>
+            </div>
         </div>
     </div>
-    <?php include('partials\footer_temp.php');?>
+    {$FOOTER}
 </body>
 </html>
