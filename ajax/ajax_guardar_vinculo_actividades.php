@@ -23,9 +23,7 @@ if (isset($_POST['id_actividad'])) {
     }else {
         $actividad = $datos->guardar_actividad->id_guardar_actividad;
         $una = $datos->guardar_actividad->id_guardar_una;
-        // $una_efec = $datos->guardar_actividad->id_guardar_una_efectivo;
-        // $dos = $datos->guardar_actividad->id_guardar_dos;
-        // $dos_efec = $datos->guardar_actividad->id_guardar_dos_efectivo;
+        $dos = $datos->guardar_actividad->id_guardar_dos;
         $dias = $datos->guardar_actividad->id_guardar_dias;
         $profe = $datos->guardar_actividad->id_guardar_profe;
         $edadMin = $datos->guardar_actividad->id_guardar_edad_min;
@@ -33,9 +31,9 @@ if (isset($_POST['id_actividad'])) {
         $cupos = $datos->guardar_actividad->id_guardar_cupos;
 
         if($id == 0){
-            $json->respGuardarActividad = datos::insert_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos);
+            $json->respGuardarActividad = datos::insert_actividades($id,$actividad,$una,$dos,$dias,$profe,$edadMin,$edadMax,$cupos);
         }else{
-            $json->respGuardarActividad = datos::update_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos);
+            $json->respGuardarActividad = datos::update_actividades($id,$actividad,$una,$dos,$dias,$profe,$edadMin,$edadMax,$cupos);
         }
     }
 }else if(isset($datos->datosDescuentos)){

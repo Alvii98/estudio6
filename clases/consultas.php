@@ -83,13 +83,32 @@ class datos{
 
         return datos::respuestaQuery($query);
     }
+    
+    static public function actividades_alumno($id_alumno){
+
+        $query = "SELECT av.id,av.actividad,av.una_vez,av.una_vez_efec FROM actividades_alumnos aa, actividades_valores av 
+        WHERE aa.id_alumno = ".$id_alumno." AND aa.id_actividad = av.id ORDER BY 2";
+
+        return datos::respuestaQuery($query);
+    }
+
+    static public function actividades_alumno_valor($id_alumno){
+
+        $query = "SELECT av.id,av.actividad,av.una_vez,av.dos_veces,COUNT(av.id) as cantidad 
+        FROM actividades_alumnos aa, actividades_valores av 
+        WHERE aa.id_alumno = ".$id_alumno." AND aa.id_actividad = av.id GROUP BY av.actividad ORDER BY 2";
+
+        return datos::respuestaQuery($query);
+    }
 
     static public function actividades($id_actividad = ''){
 
         $query = "SELECT * FROM actividades_valores WHERE id =".$id_actividad;
 
         if (empty($id_actividad)) {
-            $query = "SELECT * FROM actividades_valores order by actividad ASC";    
+            $query = "SELECT av.*, (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa
+            JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja = 0)) AS disponibles
+            FROM actividades_valores av GROUP BY av.id ORDER BY av.actividad ASC";    
         }
 
         return datos::respuestaQuery($query);
@@ -118,8 +137,9 @@ class datos{
     
     static public function datos_actividad($id_actividad){
 
-        $query = "SELECT CONCAT(a.apellido,' ',a.nombre) as alumno,av.actividad,av.dias_horarios,av.profe FROM actividades_alumnos aa, actividades_valores av,alumnos a
-        WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno ORDER BY 1";
+        $query = "SELECT CONCAT(a.apellido,' ',a.nombre) as alumno,av.actividad,av.dias_horarios,av.profe 
+        FROM actividades_alumnos aa, actividades_valores av,alumnos a 
+        WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno AND a.baja = 0 ORDER BY 1";
 
         return datos::respuestaQuery($query);
     }
@@ -179,15 +199,33 @@ class datos{
         }
         return true;
     }
-    static public function insert_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos){
+    static public function insert_actividades($id,$actividad,$una,$dos,$dias,$profe,$edadMin,$edadMax,$cupos){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();  
           
-        $query = "INSERT INTO actividades_valores(actividad,una_vez,dias_horarios,profe,min_edad,max_edad,cupos) 
-        VALUES ('".$actividad."',".$una.",'".$dias."','".$profe."',".$edadMin.",".$edadMax.",".$cupos.")";
+        $query = "INSERT INTO actividades_valores(actividad,una_vez,dos_veces,dias_horarios,profe,min_edad,max_edad,cupos) 
+        VALUES ('".$actividad."',".$una.",".$dos.",'".$dias."','".$profe."',".$edadMin.",".$edadMax.",".$cupos.")";
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
+        }
+        return true;
+    }
+
+    static public function update_actividades_alumno($id_alumno,$actividades){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();  
+        
+        $query = "DELETE FROM actividades_alumnos WHERE id_alumno = ".$id_alumno;
+        
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        foreach ($actividades as $value) {
+            $query = "INSERT INTO actividades_alumnos(id_alumno,id_actividad) VALUES (".$id_alumno.",".$value.")";
+            if (!mysqli_query($conn, $query)) {
+                return mysqli_error($conn);
+            }
         }
         return true;
     }
@@ -293,11 +331,11 @@ class datos{
         }
         return true;
     }
-    static public function update_actividades($id,$actividad,$una,$dias,$profe,$edadMin,$edadMax,$cupos){
+    static public function update_actividades($id,$actividad,$una,$dos,$dias,$profe,$edadMin,$edadMax,$cupos){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
 
-        $query = "UPDATE actividades_valores SET actividad = '".$actividad."',una_vez = ".$una.",
+        $query = "UPDATE actividades_valores SET actividad = '".$actividad."',una_vez = ".$una.",dos_veces = ".$dos.",
         dias_horarios = '".$dias."',profe = '".$profe."', min_edad= ".$edadMin.",max_edad = ".$edadMax.",cupos = ".$cupos." WHERE id = ".$id;
         
         if (!mysqli_query($conn, $query)) {
@@ -354,6 +392,11 @@ class datos{
         }
         
         $query = "DELETE FROM vinculos WHERE id_alumno = ".$id;
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+
+        $query = "DELETE FROM actividades_alumnos WHERE id_alumno = ".$id;
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }

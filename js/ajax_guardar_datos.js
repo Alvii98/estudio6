@@ -5,9 +5,7 @@ window.addEventListener("click", function(event){
     if(event.target.id == 'guardar_familiar') guardar_familiar(event)
     if(event.target.id == 'guardar_vinculo') guardar_vinculo(event)
     if(event.target.id == 'desvincular') desvincular(event)
-    // if(event.target.id == 'guardar_actividad') guardar_actividad(event)
     if(event.target.id == 'agregar_nueva_actividad') agregar_nueva_actividad(event)
-    // if(event.target.id == 'nueva_actividad') guardar_actividad(event)
 })
 
 window.addEventListener("change", function(event){
@@ -246,15 +244,16 @@ function editar_actividad(event,id_actividad){
     let datos = event.parentElement.parentElement.getElementsByTagName('td')
     document.querySelector('#id_guardar_actividad').value = datos[0].textContent
     document.querySelector('#id_guardar_una').value = datos[1].textContent
+    document.querySelector('#id_guardar_dos').value = datos[2].textContent
     // document.querySelector('#id_guardar_una_efectivo').value = datos[2].textContent
     // document.querySelector('#id_guardar_dos').value = datos[3].textContent
     // document.querySelector('#id_guardar_dos_efectivo').value = datos[4].textContent
-    document.querySelector('#id_guardar_dias').value = datos[2].textContent
-    document.querySelector('#id_guardar_profe').value = datos[3].textContent
-    let edades = datos[4].textContent.split('A')
+    document.querySelector('#id_guardar_dias').value = datos[3].textContent
+    document.querySelector('#id_guardar_profe').value = datos[4].textContent
+    let edades = datos[5].textContent.split('A')
     document.querySelector('#id_guardar_edad_min').value = edades[0].trim()
     document.querySelector('#id_guardar_edad_max').value = edades[1].trim()
-    document.querySelector('#id_guardar_cupos').value = datos[5].textContent
+    document.querySelector('#id_guardar_cupos').value = datos[6].textContent
     document.querySelector('#guardar_actividad').setAttribute('onclick', 'guardar_actividad('+id_actividad+')')
     document.querySelector('#guardar_actividad').textContent = 'Guardar edición'
     document.querySelector('#guardar_actividad').focus()
@@ -263,19 +262,10 @@ function editar_actividad(event,id_actividad){
 function guardar_actividad(id_actividad = 0){
     let guardar_actividad = {}
 
-    // if(event.target.id == 'nueva_actividad'){
-    //     document.querySelector('#nueva_actividad').disabled = false
-    //     document.querySelector('#guardar_actividad').disabled = true
-    // }else if(event.target.id == 'guardar_actividad'){
-    //     document.querySelector('#nueva_actividad').disabled = true
-    //     document.querySelector('#guardar_actividad').disabled = false
-    // }
     guardar_actividad = {'id_guardar_id': id_actividad,
     'id_guardar_actividad': document.querySelector('#id_guardar_actividad').value,
     'id_guardar_una': parseInt(document.querySelector('#id_guardar_una').value),
-    // 'id_guardar_una_efectivo': parseInt(document.querySelector('#id_guardar_una_efectivo').value),
-    // 'id_guardar_dos': parseInt(document.querySelector('#id_guardar_dos').value),
-    // 'id_guardar_dos_efectivo': parseInt(document.querySelector('#id_guardar_dos_efectivo').value),
+    'id_guardar_dos': parseInt(document.querySelector('#id_guardar_dos').value),
     'id_guardar_dias': document.querySelector('#id_guardar_dias').value,
     'id_guardar_profe': document.querySelector('#id_guardar_profe').value,
     'id_guardar_edad_min': parseInt(document.querySelector('#id_guardar_edad_min').value),
@@ -285,7 +275,7 @@ function guardar_actividad(id_actividad = 0){
     if(guardar_actividad.id_guardar_actividad.trim() == ''){
         return alertify.error('El campo actividad no puede quedar vacia.')
     }
-    if(isNaN(guardar_actividad.id_guardar_una) || guardar_actividad.id_guardar_dias.trim() == '' || guardar_actividad.id_guardar_profe.trim() == '' 
+    if(isNaN(guardar_actividad.id_guardar_una) || isNaN(guardar_actividad.id_guardar_dos) || guardar_actividad.id_guardar_dias.trim() == '' || guardar_actividad.id_guardar_profe.trim() == '' 
     || isNaN(guardar_actividad.id_guardar_edad_min) || isNaN(guardar_actividad.id_guardar_edad_max) || isNaN(guardar_actividad.id_guardar_cupos)){
         return alertify.error('Complete todos los campos.')
     }
@@ -351,9 +341,7 @@ function agregar_nueva_actividad(event) {
 }
 
 function agregar_actividad(event){
-    let readOnly = document.getElementsByTagName('input')[6].readOnly,
-    combo = event.target.parentElement.getElementsByTagName('select')[0]
-    console.log(combo)
+    let combo = event.target.parentElement.getElementsByTagName('select')[0]
     document.querySelector('#nueva_actividad').insertAdjacentHTML('beforeend', `<div class="form-group col-md-12 float-left">
                 <label>Nueva actividad</label>
                 <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar actividad" id="eliminar_actividad"></i>

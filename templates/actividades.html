@@ -22,6 +22,7 @@
     <script src="js/login.js?{$NO_CACHE}"></script> 
     <script src="js/ajax_guardar_datos.js?{$NO_CACHE}"></script>
     <script src="js/ajax_editar_datos.js?{$NO_CACHE}"></script>
+    <script src="js/buscador.js?{$NO_CACHE}"></script>
     <!-- ESTILOS PARA LOGIN -->
     <link rel="stylesheet" href="css/estilo.css?{$NO_CACHE}">
 </head>
@@ -55,19 +56,29 @@
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">
-                <div class="scroll mb-3">
+                <div class="scroll-actividades mb-3">
                     <table class="table table-bordered text-body table-actividades">
                         <thead align="center">
                             <tr>
+                                <th colspan="15" class="text-center">
+                                    <select name="columna" id="columna" class="mt-1 form-control col-md-2 mr-2 float-left">
+                                        <option value="-">-- Buscar por --</option>
+                                        <option value="0">Actividad</option>
+                                        <option value="3">D&iacute;as y horarios</option>
+                                        <option value="4">Profe</option>
+                                    </select>
+                                    <input type="text" id="buscar" autocomplete="off" style="display:none;" placeholder="Buscar en columna" class="mt-1 form-control col-md-2 float-left">
+                                </th>
+                            </tr>
+                            <tr>
                                 <th>Actividad</th>
                                 <th>Valor</th>
-                                <!-- <th>Una efec</th>
-                                <th>Dos deb</th>
-                                <th>Dos efec</th> -->
-                                <th>Días y horarios</th>
+                                <th>Valor x2</th>
+                                <th>D&iacute;as y horarios</th>
                                 <th>Profe</th>
                                 <th>Edades</th>
-                                <th>Cupos totales</th>
+                                <th>Cupos</th>
+                                <th>Disponibles</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -77,14 +88,17 @@
                             <tr>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.actividad|escape:'utf8_encode'}</td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.una_vez|escape:'utf8_encode'}</td>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.dos_veces|escape:'utf8_encode'}</td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.dias_horarios|escape:'utf8_encode'}</td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.profe|escape:'utf8_encode'}</td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.min_edad} A {$value.max_edad}</td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.cupos|escape:'utf8_encode'}</td>
-                                <th><i class="bi bi-pencil-square" onclick="editar_actividad(this,'{$value.id}')" style="font-size: xx-large;"></i></th>
-                                <th><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'{$value.id}')" style="font-size: xx-large;"></i></th>
+                                <td onclick="datos_actividad('{$value.id}')">{$value.disponibles|escape:'utf8_encode'}</td>
+                                <th><i class="bi bi-pencil-square" onclick="editar_actividad(this,'{$value.id}')"></i></th>
+                                <th><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'{$value.id}')"></i></th>
                             </tr>
                             {/foreach}
+                            <th colspan="15" class="text-center" id="no_datos" style="display:none;">NO SE ENCONTRARON DATOS</th>
                         </tbody>
                     </table>
                 </div>
@@ -99,6 +113,10 @@
                     <label for="exampleFormControlInput1">Valor</label>
                     <input type="number" id="id_guardar_una" class="form-control">
                 </div>
+                <div class="form-group col-md-1 float-left">
+                    <label for="exampleFormControlInput1">Valor x2</label>
+                    <input type="number" id="id_guardar_dos" class="form-control">
+                </div>
                 <div class="form-group col-md-2 float-left">
                     <label for="exampleFormControlInput1">D&iacute;as y horarios</label>
                     <input type="text" id="id_guardar_dias" class="form-control">
@@ -107,14 +125,14 @@
                     <label for="exampleFormControlInput1">Profe</label>
                     <input type="text" id="id_guardar_profe" class="form-control">
                 </div>
-                <div class="form-group col-md-3 float-left">
+                <div class="form-group col-md-2 float-left">
                     <label>Edades</label><br>
                     <input type="number" id="id_guardar_edad_min" class="form-control col-5 float-left">
                     <label class="float-left m-2">A</label>
                     <input type="number" id="id_guardar_edad_max" class="form-control col-5 float-left">
                 </div>
-                <div class="form-group col-md-2 float-left">
-                    <label for="exampleFormControlInput1">Cupos totales</label>
+                <div class="form-group col-md-1 float-left">
+                    <label for="exampleFormControlInput1">Cupos</label>
                     <input type="number" id="id_guardar_cupos" class="form-control">
                 </div>
             </div>
@@ -126,6 +144,7 @@
             </div>
         </div>
     </div>
+        
     {$FOOTER}
 </body>
 </html>

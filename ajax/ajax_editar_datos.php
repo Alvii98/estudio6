@@ -51,12 +51,13 @@ if(isset($_POST['baja'])){
     'tel_fijo' => $datos->alumno->tel_fijo,
     'tel_alumno' => $datos->alumno->tel_alumno,
     'correo' => $datos->alumno->correo,
-    'actividad' => $datos->alumno->actividad,
+    'actividad' => '',
     'salud' => $datos->alumno->salud,
     'notas' => $datos->alumno->notas,
     'observacion_alumno' => $datos->alumno->observacion_alumno];
     
     $json->respAlumno = datos::update_alumnos($array_update);
+    $json->respActividades = datos::update_actividades_alumno($datos->alumno->id_alumno,$datos->alumno->actividades);
     
     foreach ($datos->familiares as $key) {
         $json->respFamiliar = datos::update_familiares($key->id_familiar,$key->nom_ape,$key->vinculo,$key->tel_familiar,$key->observacion_familiar);

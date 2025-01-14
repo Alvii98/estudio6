@@ -205,9 +205,7 @@ function baja_alumno(event) {
 }
 /************** EDITAR ALUMNO ****************/
 function editar_datos(event){
-    let inputs = document.getElementsByTagName('input'),
-    textareas = document.getElementsByTagName('textarea'),
-    actividad = '',alumno = {},familiares = [], familiar = {}
+    let actividades = [],alumno = {},familiares = [], familiar = {}
 
     for (let i = 0; i < document.querySelectorAll('#nom_ape').length; i++) {
         familiar = {}
@@ -221,8 +219,8 @@ function editar_datos(event){
     }
 
     for (let i = 0; i < document.querySelectorAll('#actividad').length; i++) {
-        if(document.querySelectorAll('#actividad')[i].value == '') continue
-        actividad += document.querySelectorAll('#actividad')[i].value+'|'
+        if(document.querySelectorAll('#actividad')[i].value == '0') continue
+        actividades.push(document.querySelectorAll('#actividad')[i].value)
     }
 
     alumno = {'id_alumno': document.querySelector('#id_alumno').value,
@@ -239,7 +237,7 @@ function editar_datos(event){
     'localidad': document.querySelector('#localidad').value,
     'domicilio': document.querySelector('#domicilio').value,
     'salud': document.querySelector('#salud').value,
-    'actividad': actividad,
+    'actividades': actividades,
     'notas': document.querySelector('#notas').value,
     'observacion_alumno': document.querySelector('#observacion_alumno').value}
 
@@ -253,8 +251,8 @@ function editar_datos(event){
             })
             .then(response => response.json())
             .then(function (json) {
-                console.log(json)
                 alertify.success('Guardado correctamente.')
+                setTimeout(function(){location.reload()}, 2000)
                 return
             })
             .catch(function (error){
@@ -265,27 +263,6 @@ function editar_datos(event){
         }, function(){ alertify.error('Cancelado');return});
 
     }
-    /************* LE SACO LOS READONLY ******************/
-    /*  for (let i = 0; i < inputs.length; i++) {
-        
-        if(inputs[i].id == 'valor'||inputs[i].id == 'efectivo'||inputs[i].id == 'combo'||inputs[i].id == 'fotoPerfil') continue
-
-        if(inputs[i].readOnly == true){
-            inputs[i].readOnly = false
-        }else{
-            inputs[i].readOnly = true
-        }
-    }
-    for (let t = 0; t < textareas.length; t++) {
-        if(textareas[t].readOnly == true){
-            textareas[t].readOnly = false
-        }else{
-            textareas[t].readOnly = true
-        }
-    }*/
-    /*********** LE CAMBIO EL NOMBRE AL BOTON ********************/
-    /*if(event.target.textContent == 'Editar datos') event.target.textContent = 'Guardar datos'
-    else event.target.textContent = 'Editar datos'*/
 }
 
 
@@ -339,13 +316,17 @@ function eliminar_familiar(event){
     }, function(){ alertify.error('Cancelado')});
 }
 
-function agregar_actividad(){
-    document.querySelector('#nueva_actividad').insertAdjacentHTML('beforeend',`<div class="form-group col-md-12 float-left">
+function agregar_actividad(event){
+    let combo = event.target.parentElement.getElementsByTagName('select')[0],
+    comboHTML =  combo.outerHTML.replace('selected=""', '')
+    console.log(comboHTML)
+    document.querySelector('#nueva_actividad').insertAdjacentHTML('beforeend', `<div class="form-group col-md-12 float-left">
                 <label>Nueva actividad</label>
                 <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar actividad" id="eliminar_actividad"></i>
-                <input list="actividades" class="form-control" id="actividad">        
+                `+comboHTML+`
             </div>`)
 }
+
 // ELIMINA LA ACTIVIDAD DEL ALUMNO
 function eliminar_actividad(event){
 

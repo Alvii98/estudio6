@@ -14,50 +14,41 @@ foreach ($datos as $value) {
     if($value['edad'] != datos::obtener_edad($value['fecha_nac'])){
         datos::update_acomodar_edad($value['id'],datos::obtener_edad($value['fecha_nac']));
     }
+    $value['actividad'] = is_null($value['actividad']) ? '' : $value['actividad'];
     if(!file_exists('../'.$value['foto_perfil']) || $value['foto_perfil'] == '') {
-        // try {
-        //     $foto = getimagesize('../'.$value['foto_perfil']);
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        //     $error = $th;
-        //     $foto = false;
-        // }
-        // if($foto === false){
-
-            if ($id == $value['id']) {
-                $ultimo_alumno = end($foto_rota);
-                $ultimo_alumno['actividad'] = utf8_encode($ultimo_alumno['actividad'].' <br> '.$value['actividad']);
-                $foto_rota[key($foto_rota)] = $ultimo_alumno;        
-                continue;
-            }
-            $id = $value['id'];
-
-            $foto_rota[] = ['id' => utf8_encode($value['id']),
-            'apellido' => utf8_encode($value['apellido']),
-            'nombre' => utf8_encode($value['nombre']),
-            'vinculo' =>'Sin vinculo',
-            'baja' =>utf8_encode($value['baja']),
-            'edad' => datos::obtener_edad($value['fecha_nac']),
-            'actividad' => utf8_encode($value['actividad'])];
-
+        if ($id == $value['id']) {
+            $ultimo_alumno = end($foto_rota);
+            $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].' <br> '.$value['actividad'];
+            $foto_rota[key($foto_rota)] = $ultimo_alumno;        
             continue;
-        // }
+        }
+        $id = $value['id'];
+
+        $foto_rota[] = ['id' => $value['id'],
+        'apellido' => $value['apellido'],
+        'nombre' => $value['nombre'],
+        'vinculo' =>'Sin vinculo',
+        'baja' =>$value['baja'],
+        'edad' => datos::obtener_edad($value['fecha_nac']),
+        'actividad' => $value['actividad']];
+
+        continue;
     }
     if ($id == $value['id']) {
         $ultimo_alumno = end($alumnos);
-        $ultimo_alumno['actividad'] = utf8_encode($ultimo_alumno['actividad'].'<br>'.$value['actividad']);
+        $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].'<br>'.$value['actividad'];
         $alumnos[key($alumnos)] = $ultimo_alumno;        
         continue;
     }
     $id = $value['id'];
 
     $alumnos[] = ['id' => $value['id'],
-                'apellido' => utf8_encode($value['apellido']),
-                'nombre' => utf8_encode($value['nombre']),
+                'apellido' => $value['apellido'],
+                'nombre' => $value['nombre'],
                 'vinculo' =>'Sin vinculo',
-                'baja' =>utf8_encode($value['baja']),
+                'baja' =>$value['baja'],
                 'edad' => datos::obtener_edad($value['fecha_nac']),
-                'actividad' => utf8_encode($value['actividad'])];
+                'actividad' => $value['actividad']];
 }
 if(!empty(trim($_POST['apellido']))){
 
@@ -68,7 +59,7 @@ if(!empty(trim($_POST['apellido']))){
         $vinculo = $value['vinculo'];
         
         $alumnos[] = ['id' => '0',
-        'apellido' => utf8_encode($value['vinculo']),
+        'apellido' => $value['vinculo'],
         'nombre' => '',
         'vinculo' => 'Familia',
         'baja' => '',

@@ -29,7 +29,7 @@
 <body>
     {$HEADER}
     {$CAMARA}
-    {if $VALOR == '0,00' || $EFECTIVO == '0,00'}
+    {if $VALOR == '0,00'}
         <script>
              alertify.alert('Datos del alumno/a','No se pudo cargar el monto a pagar, revice el nombre de las actividades o los valores por favor.')
         </script>    
@@ -75,10 +75,6 @@
                             <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center" value="${$VALOR}">
                         </div>
                         <div class="ml-3 float-left">
-                            <label for="exampleFormControlInput1">En efectivo</label>
-                            <input type="text" id="efectivo" readonly="true" class="form-control col-md-6 text-center" value="${$EFECTIVO}">
-                        </div>
-                        <div class="ml-3 float-left">
                             <label for="exampleFormControlInput1">Combo</label>
                             <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center" value="${$COMBO}">
                         </div>
@@ -119,41 +115,45 @@
                     <input type="date" id="fecha_nac" class="form-control" value="{$FECHA_NAC|escape:'utf8_encode'}">
                 </div>
             </div>
-            {if empty($ACTIVIDADES_ALUMNO) || $ACTIVIDADES_ALUMNO == '|'}
+            {if empty($ACTIVIDADES_ALUMNO)}
                 <div class="col-md-12">
                     <div class="form-group col-md-12 float-left">
                         <label>Actividad 1</label>
                         <i class="bi bi-plus-circle-dotted agregar_actividad" title="Agregar actividad" id="agregar_actividad"></i>
-                        <input list="actividades" class="form-control" id="actividad">        
-                        <datalist id="actividades">
-                            {foreach from=$ACTIVIDADES item=combo_value}
-                            <option value="{$combo_value.actividad|escape:'utf8_encode'}">
-                            {/foreach}
-                        </datalist>
-                    </div>
-                </div>
-            {/if}
-            {foreach from=$ACTIVIDADES_ALUMNO key=key item=value}
-                {if empty(trim($value))} {continue} {/if}
-                <div class="col-md-12">
-                    <div class="form-group col-md-12 float-left">
-                        <label>Actividad {$key+1}</label>
-                        {if $key == 0}
-                            <i class="bi bi-plus-circle-dotted agregar_actividad" title="Agregar actividad" id="agregar_actividad"></i>
-                        {else}
-                            <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar actividad" id="eliminar_actividad"></i>
-                        {/if}
                         <select class="form-control" id="actividad">
                             <option selected value="0">-- Seleccione una actividad --</option>
                             {foreach from=$ACTIVIDADES item=value}
                                 <option value="{$value.id}">
-                                    {$value.actividad|escape:'utf8_encode'}
+                                    {$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}
                                 </option>
                             {/foreach}
                         </select>
                     </div>
-                </div>
-            {/foreach}
+                </div> 
+            {else}
+                {foreach from=$ACTIVIDADES_ALUMNO key=key item=value1}
+                    {if empty(trim($value1.actividad))} {continue} {/if}
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12 float-left">
+                            <label>Actividad {$key+1}</label>
+                            {if $key == 0}
+                                <i class="bi bi-plus-circle-dotted agregar_actividad" title="Agregar actividad" id="agregar_actividad"></i>
+                            {else}
+                                <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar actividad" id="eliminar_actividad"></i>
+                            {/if}
+                            <select class="form-control" id="actividad">
+                                <option value="0">-- Seleccione una actividad --</option>
+                                {foreach from=$ACTIVIDADES item=value2}
+                                    <option value="{$value2.id}"
+                                    {if $value2.id == $value1.id} selected {/if}>
+                                    {$value2.actividad|escape:'utf8_encode'} - {$value2.dias_horarios|escape:'utf8_encode'}
+                                    </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                {/foreach}
+            {/if}
 
             <div id="nueva_actividad" class="col-md-12"></div>
             <div class="col-md-12">

@@ -41,19 +41,15 @@ if(isset($_GET['id'])){
     $smarty->assign('NACIONALIDAD', $alumno[0]['localidad']);
     
     $smarty->assign('EDAD', datos::obtener_edad($alumno[0]['fecha_nac']));
-    $actividades_alumno = explode('|',$alumno[0]['actividad']);
-    $smarty->assign('ACTIVIDADES_ALUMNO', $actividades_alumno);
+    $smarty->assign('ACTIVIDADES_ALUMNO', datos::actividades_alumno($_GET['id']));
     $smarty->assign('FOTO', !file_exists($alumno[0]['foto_perfil']) ? 'img/icono.jpg' :$alumno[0]['foto_perfil']);
-
     
-    $valores = valores::precio_por_alumno($actividades_alumno);
+    $valores = valores::precio_por_alumno($_GET['id']);
 
     $valor = number_format($valores['valor'], 2, ',', ' ');
-    $efectivo = number_format($valores['efectivo'], 2, ',', ' ');
     $combo = number_format($valores['combo'], 2, ',', ' ');
 
     $smarty->assign('VALOR', $valor);
-    $smarty->assign('EFECTIVO', $efectivo);
     $smarty->assign('COMBO', $combo);
 
     $smarty->assign('FAMILIAR', datos::familiar($_GET['id']));
@@ -76,7 +72,7 @@ if(isset($_GET['id'])){
         $alumnos[] = array('id' => $alumno[0]['id'],
                     'apellido' => $alumno[0]['apellido'],
                     'nombre' => $alumno[0]['nombre'],
-                    'actividad' => explode('|',$alumno[0]['actividad']));
+                    'actividad' => '');
     }
     // print'<pre>';print_r($alumnos);exit;
     $smarty->assign('VINCULO', $_GET['vinculo']);
