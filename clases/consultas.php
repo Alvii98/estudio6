@@ -10,18 +10,20 @@ class datos{
         return $datos_usuarios->fetch_all(MYSQLI_ASSOC); 
     }
     static public function busqueda($ape,$nom,$edad,$activ){
-
-        if(empty($edad)){
-            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad FROM alumnos a
+        if ($activ != '0') {
+            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
+            LEFT JOIN actividades_alumnos aa ON aa.id_actividad = ".$activ."
+            LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
+            WHERE a.id = aa.id_alumno
+            ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";
+        }elseif(empty($edad)){
+            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
             WHERE a.apellido LIKE '%".$ape."%' AND a.nombre LIKE '%".$nom."%'
             ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";
-            // $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.actividad,a.baja,a.foto_perfil FROM alumnos a
-            // WHERE a.apellido LIKE '%".$ape."%' AND a.nombre LIKE '%".$nom."%'
-            // AND a.actividad LIKE '%".$activ."%' ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC;";
         }else{
-            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad FROM alumnos a
+            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
             WHERE a.edad = ".$edad." ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";

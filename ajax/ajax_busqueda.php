@@ -18,7 +18,7 @@ foreach ($datos as $value) {
     if(!file_exists('../'.$value['foto_perfil']) || $value['foto_perfil'] == '') {
         if ($id == $value['id']) {
             $ultimo_alumno = end($foto_rota);
-            $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].' <br> '.$value['actividad'];
+            $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].' <br> '.$value['actividad'].' - '.$value['dias_horarios'];
             $foto_rota[key($foto_rota)] = $ultimo_alumno;        
             continue;
         }
@@ -30,13 +30,13 @@ foreach ($datos as $value) {
         'vinculo' =>'Sin vinculo',
         'baja' =>$value['baja'],
         'edad' => datos::obtener_edad($value['fecha_nac']),
-        'actividad' => $value['actividad']];
+        'actividad' => $value['actividad'].' - '.$value['dias_horarios']];
 
         continue;
     }
     if ($id == $value['id']) {
         $ultimo_alumno = end($alumnos);
-        $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].'<br>'.$value['actividad'];
+        $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].'<br>'.$value['actividad'].' - '.$value['dias_horarios'];
         $alumnos[key($alumnos)] = $ultimo_alumno;        
         continue;
     }
@@ -48,7 +48,7 @@ foreach ($datos as $value) {
                 'vinculo' =>'Sin vinculo',
                 'baja' =>$value['baja'],
                 'edad' => datos::obtener_edad($value['fecha_nac']),
-                'actividad' => $value['actividad']];
+                'actividad' => $value['actividad'].' - '.$value['dias_horarios']];
 }
 if(!empty(trim($_POST['apellido']))){
 

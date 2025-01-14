@@ -2,17 +2,19 @@ document.addEventListener('keyup', function (event) {
     if(event.target.id == 'edad'){
         document.querySelector('#apellido').value = ''
         document.querySelector('#nombre').value = ''
-        document.querySelector('#actividad').value = ''
     }else{
         document.querySelector('#edad').value = ''
     }
+    document.querySelector('#actividad').value = '0'
     buscar()
     // if(event.keyCode == 13) buscar()
 })
-
-document.addEventListener('click', function (event) {
-    if(event.target.id == 'buscar') buscar()
+document.addEventListener('change', function (event) {
+    if(event.target.id == 'actividad'){
+        buscar()
+    }
 })
+
 document.addEventListener('DOMContentLoaded', function (event) {
     buscar()    
     if (window.screen.width < 600) {

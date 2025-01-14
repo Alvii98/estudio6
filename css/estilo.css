@@ -287,6 +287,9 @@ select {
 } 
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
+    .param-busqueda{
+        display: block !important;
+    }
     .logo{
         width: 250px !important;
         height: 60px !important;
