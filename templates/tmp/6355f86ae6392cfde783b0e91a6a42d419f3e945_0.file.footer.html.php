@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-15 20:31:49
+/* Smarty version 3.1.34-dev-7, created on 2025-01-15 22:08:39
   from 'C:\xampp\htdocs\estudio6\templates\partials\footer.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_67880d25616bf9_53584272',
+  'unifunc' => 'content_678823d7367b34_77517879',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6355f86ae6392cfde783b0e91a6a42d419f3e945' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\partials\\footer.html',
-      1 => 1736959812,
+      1 => 1736975021,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67880d25616bf9_53584272 (Smarty_Internal_Template $_smarty_tpl) {
+function content_678823d7367b34_77517879 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header class="container-fluid border-top border-color pt-2 pb-2">
     <div class="row">
         <div class="col-md-12 custom-flex">
             <div class="col-md-8 form-group">
-                <img src="img/logo-Negro.png" role="button" onclick="location.href='index.php'" width="300px" height="60px">
+                <img src="img/logo-Negro.png" role="button" <?php if ($_smarty_tpl->tpl_vars['INSCRIPCIONES']->value) {?>onclick="location.href='index.php'"<?php }?> width="300px" height="60px">
             </div>
             <div class="col-md-4 form-group ml-2">
                 <div class="col-md-12">

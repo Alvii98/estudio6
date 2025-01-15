@@ -1,6 +1,6 @@
 <header class="container-fluid border-bottom border-color p-3">
     {if $LOGOUT}<i class="bi bi-menu-button-wide" onclick="openNav()" style="font-size: xx-large;" role="button"></i>{/if}
-    <img src="img/logo-Negro.png" role="button" class="logo" onclick="location.href='index.php'" width="350px" height="80px">
+    <img src="img/logo-Negro.png" role="button" class="logo" {if $INSCRIPCIONES}onclick="location.href='index.php'"{/if} width="350px" height="80px">
     <!-- {if $LOGOUT}<i class="bi bi-door-closed cerrar_sesion" role="button" onclick="iniciar_sesion(true)"></i>{/if} -->
 </header>
 

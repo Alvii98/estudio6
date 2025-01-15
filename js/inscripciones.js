@@ -1,20 +1,30 @@
+document.addEventListener('DOMContentLoaded', function (event) {
+    document.querySelectorAll('input')[0].focus()
+})
+
 function validateNumber(input) {
-    input.value = input.value.replace(/[^0-9]/g, '');
+    input.value = input.value.replace(/[^0-9]/g, '')
 }
 
 function mayusName(input) {
-    input.value = input.value.replace(/\b\w/g, function(char) {
+    input.value = input.value.toLowerCase().replace(/\b\w/g, function(char) {
         return char.toUpperCase();
     })
 }
 
 function validateEmail(input) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!regex.test(input.value)) input.style = "box-shadow: 0px 1px 6px red;";
-    else input.style = ""
+    if (!regex.test(input.value)) {
+        input.style = "box-shadow: 0px 1px 6px red;";
+        return true
+    }else {
+        input.style = ""
+        return false
+    }
 }
 
 function calcular_edad(fechaNacimiento) {
+    fechaNacimiento.style = "box-shadow: 0px 1px 6px red;"
     const nacimiento = new Date(fechaNacimiento.value)
     const hoy = new Date()
     let edad = hoy.getFullYear() - nacimiento.getFullYear()
@@ -23,6 +33,7 @@ function calcular_edad(fechaNacimiento) {
     if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) edad--
     if (isNaN(edad)) return
     if (parseInt(edad) < 3 || parseInt(edad) > 100) return
+    fechaNacimiento.style = ""
 
     document.querySelector('#edad').value = edad
 }
@@ -38,6 +49,8 @@ function datos_alumno(){
             inputs[i].style = "box-shadow: 0px 1px 6px red;"
         }else inputs[i].style = ""
     }
+    let correo = document.querySelector("#correo")
+    if (validateEmail(correo)) return alertify.error('Ingrese un correo valido.')
     if (error == 1) return alertify.error('Todos los campos son obligatorios.')
     
     let edad = document.querySelector('#edad').value
@@ -49,6 +62,7 @@ function datos_alumno(){
     }else if(parseInt(edad) >= 18){
         document.querySelector("#datos_contacto").style.display = 'block'
     }
+    window.scrollTo({top: 0,behavior: 'smooth'})
 }
 
 function agregar_adulto(check) {
@@ -98,6 +112,7 @@ function datos_adulto(){
 
     div.style.display = 'none'
     document.querySelector("#datos_actividades").style.display = 'block'
+    window.scrollTo({top: 0,behavior: 'smooth'})
 }
 
 function autorizacion(){
@@ -108,6 +123,7 @@ function autorizacion(){
     if (si.checked || no.checked) {
         div.style.display = 'none'
         document.querySelector("#datos_adulto").style.display = 'block'
+        window.scrollTo({top: 0,behavior: 'smooth'})
     }else return alertify.error('Eliga si autoriza o no al alumno a retirarse solo.')
 }
 
@@ -157,6 +173,7 @@ function datos_actividades() {
 
     div.style.display = 'none'
     document.querySelector("#datos_salud").style.display = 'block'
+    window.scrollTo({top: 0,behavior: 'smooth'})
 }
 
 function contacto_alumno() {
@@ -173,6 +190,7 @@ function contacto_alumno() {
 
     div.style.display = 'none'
     document.querySelector("#datos_actividades").style.display = 'block'   
+    window.scrollTo({top: 0,behavior: 'smooth'})
 }
 
 function volver_actividad() {
@@ -183,6 +201,7 @@ function volver_actividad() {
     }else {
         document.querySelector("#datos_contacto").style.display = 'block'
     }
+    window.scrollTo({top: 0,behavior: 'smooth'})
 }
 
 function volver_adulto() {
@@ -194,6 +213,7 @@ function volver_adulto() {
     }else{
         document.querySelector("#datos_alumno").style.display = 'block'
     }
+    window.scrollTo({top: 0,behavior: 'smooth'})
 }
 
 function datos_salud() {
@@ -208,6 +228,7 @@ function datos_salud() {
 
     div.style.display = 'none'
     document.querySelector("#datos_juradas").style.display = 'block'   
+    window.scrollTo({top: 0,behavior: 'smooth'})
 }
 
 
@@ -222,7 +243,7 @@ function guardar_datos_inscripcion() {
     }
 
     if (error == 1) return alertify.error('Debe aceptar todas las declaraciones.')
-
+    div.style.display = 'none'
+    document.querySelector("#fin_inscripcion").style.display = 'block'   
     alertify.success('Datos guardados correctamente.')
-    setTimeout(function(){location.reload()}, 2000)
 }

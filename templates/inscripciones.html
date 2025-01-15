@@ -170,7 +170,7 @@
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="form-group col-md-3 float-left mt-datos">
-                        <label>Autoriza al alumno a retirarse solo?</label>
+                        <label>¿Autoriza al alumno/a a retirarse solo/a del establecimiento al finalizar su clase?</label>
                         <div class="form-check">
                             <input class="form-check-input" role="button" type="checkbox" id="si" onclick="document.querySelector('#no').checked = false">
                             <label>Si</label>
@@ -223,8 +223,8 @@
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Vinculo</label>
-                        <input list="vinculos" type="text" id="tercero_vinculo" class="form-control">
-                        <datalist id="vinculos">
+                        <input list="vinculos2" type="text" id="tercero_vinculo" class="form-control">
+                        <datalist id="vinculos2">
                             <option value="Madre">
                             <option value="Padre">
                             <option value="Pareja">
@@ -349,7 +349,7 @@
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" role="button" type="checkbox">
-                            <label>Acepto que para mantener la regularidad del/la alumno/a, se deber&aacute; abonar la cuota mensual desde el inicio de las clases hasta el fin del a&ntilde;o lectivo o hasta informar la baja formal.<br>
+                            <label>Acepto que para mantener la regularidad del/la alumno/a, se deber&aacute; abonar la cuota mensual desde el inicio de las clases hasta el fin del a&ntilde;o lectivo o hasta informar la baja de manera formal.<br>
                             Entiendo que no puedo dejar cuotas impagas y retomar luego sin regularizarlas. De querer reincorporarme, deber&eacute; inscribirme nuevamente, sujeto a vacantes disponibles y al pago de una nueva matr&iacute;cula.</label>
                         </div>
                     </div>
@@ -371,7 +371,33 @@
         </div>
     </div>
 
-
+    <div id="fin_inscripcion" style="display: none;">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Declaraciones juradas</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container border border-color rounded mb-4 pt-inscripcion">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group col-md-12 float-left mt-datos d-flex justify-content-center">
+                        <h6 style="color: #11b411;">Se ha registrado la inscripci&oacute;n. Luego de comenzar las clases se le tomar&aacute; una foto al alumno/a
+                            para que obre en el legajo digital.
+                        </h6>    
+                    </div>
+                </div>
+                <div class="col-md-12 mb-4 mt-3">
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
+                        onclick="location.reload()">Cargar otro alumno/a</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="window.reload()">Salir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {$FOOTER}
 </body>
 </html>

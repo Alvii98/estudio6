@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-15 20:31:49
+/* Smarty version 3.1.34-dev-7, created on 2025-01-15 22:08:39
   from 'C:\xampp\htdocs\estudio6\templates\inscripciones.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_67880d25699fd3_88116356',
+  'unifunc' => 'content_678823d73e4eb2_71462086',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '37baf86837e1919e338e2caaf98c044e94a9b86d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\inscripciones.html',
-      1 => 1736969508,
+      1 => 1736974774,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67880d25699fd3_88116356 (Smarty_Internal_Template $_smarty_tpl) {
+function content_678823d73e4eb2_71462086 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
@@ -80,11 +80,11 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                 <div class="col-md-12">
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Apellido</label>
-                        <input type="text" id="apellido" class="form-control" autocomplete="off">
+                        <input type="text" id="apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Nombre</label>
-                        <input type="text" id="nombre" class="form-control" autocomplete="off">
+                        <input type="text" id="nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Documento</label>
@@ -98,7 +98,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                 <div class="col-md-12">
                     <div class="form-group col-md-3 float-left">
                         <label>Nacionalidad</label>
-                        <input list="nacionalidades" type="text" id="nacionalidad" class="form-control" autocomplete="off">
+                        <input list="nacionalidades" type="text" id="nacionalidad" class="form-control">
                         <datalist id="nacionalidades">
                             <option value="Argentina">
                             <option value="Boliviana">
@@ -114,7 +114,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Localidad</label>
-                        <input list="localidades" type="text" id="localidad" class="form-control" autocomplete="off">
+                        <input list="localidades" type="text" id="localidad" class="form-control">
                     </div>
                     <datalist id="localidades">
                         <option value="CABA">
@@ -135,7 +135,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_alumno()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_alumno()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -155,15 +155,15 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                 <div class="col-md-12">
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Apellido</label>
-                        <input type="text" id="adulto_apellido" class="form-control" autocomplete="off">
+                        <input type="text" id="adulto_apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Nombre</label>
-                        <input type="text" id="adulto_nombre" class="form-control" autocomplete="off">
+                        <input type="text" id="adulto_nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Vinculo</label>
-                        <input list="vinculos" type="text" id="vinculo" class="form-control" autocomplete="off">
+                        <input list="vinculos" type="text" id="vinculo" class="form-control">
                         <datalist id="vinculos">
                             <option value="Madre">
                             <option value="Padre">
@@ -188,9 +188,9 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                         </div>
                     </div><br><br>
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="volver_adulto()">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_adulto()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_adulto()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -210,7 +210,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
             <div class="row">
                 <div class="col-md-12 d-flex justify-content-center">
                     <div class="form-group col-md-3 float-left mt-datos">
-                        <label>Autoriza al alumno a retirarse solo?</label>
+                        <label>¿Autoriza al alumno/a a retirarse solo/a del establecimiento al finalizar su clase?</label>
                         <div class="form-check">
                             <input class="form-check-input" role="button" type="checkbox" id="si" onclick="document.querySelector('#no').checked = false">
                             <label>Si</label>
@@ -223,9 +223,9 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_autoriza').style.display = 'none';document.querySelector('#datos_alumno').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="autorizacion()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="autorizacion()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -255,16 +255,16 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                     <hr>
                     <div class="form-group col-md-3 float-left">
                         <label>Apellido</label>
-                        <input type="text" id="tercero_apellido" class="form-control" autocomplete="off">
+                        <input type="text" id="tercero_apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Nombre</label>
-                        <input type="text" id="tercero_nombre" class="form-control" autocomplete="off">
+                        <input type="text" id="tercero_nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Vinculo</label>
-                        <input list="vinculos" type="text" id="tercero_vinculo" class="form-control" autocomplete="off">
-                        <datalist id="vinculos">
+                        <input list="vinculos2" type="text" id="tercero_vinculo" class="form-control">
+                        <datalist id="vinculos2">
                             <option value="Madre">
                             <option value="Padre">
                             <option value="Pareja">
@@ -286,9 +286,9 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                         </div>
                     </div><br><br>
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_contacto').style.display = 'none';document.querySelector('#datos_alumno').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="contacto_alumno()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="contacto_alumno()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -329,8 +329,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" onclick="volver_actividad()">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_actividades()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" onclick="volver_actividad()">Volver</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_actividades()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -367,9 +367,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_salud').style.display = 'none';document.querySelector('#datos_actividades').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_salud()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_salud()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -399,7 +399,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" role="button" type="checkbox">
-                            <label>Acepto que para mantener la regularidad del/la alumno/a, se deber&aacute; abonar la cuota mensual desde el inicio de las clases hasta el fin del a&ntilde;o lectivo o hasta informar la baja formal.<br>
+                            <label>Acepto que para mantener la regularidad del/la alumno/a, se deber&aacute; abonar la cuota mensual desde el inicio de las clases hasta el fin del a&ntilde;o lectivo o hasta informar la baja de manera formal.<br>
                             Entiendo que no puedo dejar cuotas impagas y retomar luego sin regularizarlas. De querer reincorporarme, deber&eacute; inscribirme nuevamente, sujeto a vacantes disponibles y al pago de una nueva matr&iacute;cula.</label>
                         </div>
                     </div>
@@ -412,16 +412,42 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_juradas').style.display = 'none';document.querySelector('#datos_salud').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="guardar_datos_inscripcion()">Guardar datos</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="guardar_datos_inscripcion()">Guardar datos</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-
+    <div id="fin_inscripcion" style="display: none;">
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Declaraciones juradas</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container border border-color rounded mb-4 pt-inscripcion">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group col-md-12 float-left mt-datos d-flex justify-content-center">
+                        <h6 style="color: #11b411;">Se ha registrado la inscripci&oacute;n. Luego de comenzar las clases se le tomar&aacute; una foto al alumno/a
+                            para que obre en el legajo digital.
+                        </h6>    
+                    </div>
+                </div>
+                <div class="col-md-12 mb-4 mt-3">
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
+                        onclick="location.reload()">Cargar otro alumno/a</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="window.reload()">Salir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php echo $_smarty_tpl->tpl_vars['FOOTER']->value;?>
 
 </body>

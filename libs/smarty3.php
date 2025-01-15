@@ -11,5 +11,8 @@ $smarty->clearAllCache();
 
 $smarty->assign("NO_CACHE", rand(1, 1000000));
 
+if (strpos($_SERVER['REQUEST_URI'], 'inscripciones.php') !== false) $smarty->assign('INSCRIPCIONES', false);
+else $smarty->assign('INSCRIPCIONES', true);
+
 if (isset($_SESSION['USUARIO'])) $smarty->assign("LOGOUT", true);
 else $smarty->assign("LOGOUT", false);
