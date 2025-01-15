@@ -40,11 +40,11 @@
                 <div class="col-md-12">
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Apellido</label>
-                        <input type="text" id="apellido" class="form-control" autocomplete="off">
+                        <input type="text" id="apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Nombre</label>
-                        <input type="text" id="nombre" class="form-control" autocomplete="off">
+                        <input type="text" id="nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Documento</label>
@@ -58,7 +58,7 @@
                 <div class="col-md-12">
                     <div class="form-group col-md-3 float-left">
                         <label>Nacionalidad</label>
-                        <input list="nacionalidades" type="text" id="nacionalidad" class="form-control" autocomplete="off">
+                        <input list="nacionalidades" type="text" id="nacionalidad" class="form-control">
                         <datalist id="nacionalidades">
                             <option value="Argentina">
                             <option value="Boliviana">
@@ -74,7 +74,7 @@
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Localidad</label>
-                        <input list="localidades" type="text" id="localidad" class="form-control" autocomplete="off">
+                        <input list="localidades" type="text" id="localidad" class="form-control">
                     </div>
                     <datalist id="localidades">
                         <option value="CABA">
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_alumno()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_alumno()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -115,15 +115,15 @@
                 <div class="col-md-12">
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Apellido</label>
-                        <input type="text" id="adulto_apellido" class="form-control" autocomplete="off">
+                        <input type="text" id="adulto_apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Nombre</label>
-                        <input type="text" id="adulto_nombre" class="form-control" autocomplete="off">
+                        <input type="text" id="adulto_nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Vinculo</label>
-                        <input list="vinculos" type="text" id="vinculo" class="form-control" autocomplete="off">
+                        <input list="vinculos" type="text" id="vinculo" class="form-control">
                         <datalist id="vinculos">
                             <option value="Madre">
                             <option value="Padre">
@@ -148,9 +148,9 @@
                         </div>
                     </div><br><br>
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="volver_adulto()">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_adulto()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_adulto()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -183,9 +183,9 @@
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_autoriza').style.display = 'none';document.querySelector('#datos_alumno').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="autorizacion()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="autorizacion()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -215,15 +215,15 @@
                     <hr>
                     <div class="form-group col-md-3 float-left">
                         <label>Apellido</label>
-                        <input type="text" id="tercero_apellido" class="form-control" autocomplete="off">
+                        <input type="text" id="tercero_apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Nombre</label>
-                        <input type="text" id="tercero_nombre" class="form-control" autocomplete="off">
+                        <input type="text" id="tercero_nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Vinculo</label>
-                        <input list="vinculos" type="text" id="tercero_vinculo" class="form-control" autocomplete="off">
+                        <input list="vinculos" type="text" id="tercero_vinculo" class="form-control">
                         <datalist id="vinculos">
                             <option value="Madre">
                             <option value="Padre">
@@ -246,9 +246,9 @@
                         </div>
                     </div><br><br>
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_contacto').style.display = 'none';document.querySelector('#datos_alumno').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="contacto_alumno()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="contacto_alumno()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -279,8 +279,8 @@
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" onclick="volver_actividad()">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_actividades()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" onclick="volver_actividad()">Volver</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_actividades()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -317,9 +317,9 @@
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_salud').style.display = 'none';document.querySelector('#datos_actividades').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="datos_salud()">Siguiente</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="datos_salud()">Siguiente</button>
                     </div>
                 </div>
             </div>
@@ -362,9 +362,9 @@
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
-                        <button class="btn btn-dark rounded-pill float-left col-md-2" 
+                        <button class="btn btn-dark rounded-pill float-left col-md-2 mt-2" 
                         onclick="document.querySelector('#datos_juradas').style.display = 'none';document.querySelector('#datos_salud').style.display = 'block'">Volver</button>
-                        <button class="btn btn-dark rounded-pill float-right col-md-2" onclick="guardar_datos_inscripcion()">Guardar datos</button>
+                        <button class="btn btn-dark rounded-pill float-right col-md-2 mt-2" onclick="guardar_datos_inscripcion()">Guardar datos</button>
                     </div>
                 </div>
             </div>

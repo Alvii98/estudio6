@@ -2,6 +2,12 @@ function validateNumber(input) {
     input.value = input.value.replace(/[^0-9]/g, '');
 }
 
+function mayusName(input) {
+    input.value = input.value.replace(/\b\w/g, function(char) {
+        return char.toUpperCase();
+    })
+}
+
 function validateEmail(input) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regex.test(input.value)) input.style = "box-shadow: 0px 1px 6px red;";
@@ -52,11 +58,11 @@ function agregar_adulto(check) {
         div.innerHTML = `<hr>
             <div class="form-group col-md-3 float-left">
                 <label>Apellido</label>
-                <input type="text" id="adulto2_apellido" class="form-control" autocomplete="off">
+                <input type="text" id="adulto2_apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
             </div>
             <div class="form-group col-md-3 float-left">
                 <label>Nombre</label>
-                <input type="text" id="adulto2_nombre" class="form-control" autocomplete="off">
+                <input type="text" id="adulto2_nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
             </div>
             <div class="form-group col-md-3 float-left">
                 <label>Vinculo</label>
@@ -112,11 +118,11 @@ function agregar_tercero(check) {
         div.innerHTML = `<hr>
                     <div class="form-group col-md-3 float-left">
                         <label>Apellido</label>
-                        <input type="text" id="tercero2_apellido" class="form-control" autocomplete="off">
+                        <input type="text" id="tercero2_apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Nombre</label>
-                        <input type="text" id="tercero2_nombre" class="form-control" autocomplete="off">
+                        <input type="text" id="tercero2_nombre" oninput="mayusName(this)" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group col-md-3 float-left">
                         <label>Vinculo</label>
@@ -216,7 +222,7 @@ function guardar_datos_inscripcion() {
     }
 
     if (error == 1) return alertify.error('Debe aceptar todas las declaraciones.')
-        
+
     alertify.success('Datos guardados correctamente.')
     setTimeout(function(){location.reload()}, 2000)
 }
