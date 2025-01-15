@@ -1,4 +1,15 @@
 <header class="container-fluid border-bottom border-color p-3">
+    {if $LOGOUT}<i class="bi bi-menu-button-wide" onclick="openNav()" style="font-size: xx-large;" role="button"></i>{/if}
     <img src="img/logo-Negro.png" role="button" class="logo" onclick="location.href='index.php'" width="350px" height="80px">
-    {if $LOGOUT}<i class="bi bi-door-closed cerrar_sesion" role="button" onclick="iniciar_sesion(true)"></i>{/if}
+    <!-- {if $LOGOUT}<i class="bi bi-door-closed cerrar_sesion" role="button" onclick="iniciar_sesion(true)"></i>{/if} -->
 </header>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.php">Inicio</a>
+    <a href="cargas.php">Cargar alumno</a>
+    <a href="vinculos.php">Vinculos familiares</a>
+    <a href="actividades.php">Actividades</a>
+    <a href="inscripciones.php">Inscripciones</a>
+    <a href="#" onclick="iniciar_sesion(true)">Cerrar sesión</a>
+</div>

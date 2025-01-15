@@ -1,3 +1,28 @@
+<?php
+/* Smarty version 3.1.34-dev-7, created on 2025-01-15 20:31:49
+  from 'C:\xampp\htdocs\estudio6\templates\inscripciones.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.34-dev-7',
+  'unifunc' => 'content_67880d25699fd3_88116356',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '37baf86837e1919e338e2caaf98c044e94a9b86d' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\inscripciones.html',
+      1 => 1736969508,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_67880d25699fd3_88116356 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,21 +37,36 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- JQUERY -->
-    <script src="libs/jquery-3.5.1.min.js"></script>
+    <?php echo '<script'; ?>
+ src="libs/jquery-3.5.1.min.js"><?php echo '</script'; ?>
+>
     <!-- ALERTIFY -->
 	<link rel="stylesheet" href="libs/alertifyjs/css/alertify.min.css" />
 	<link rel="stylesheet" href="libs/alertifyjs/css/themes/default.min.css" />
-	<script src="libs/alertifyjs/alertify.min.js"></script>
-	<script src="libs/alertifyjs/settings.js"></script>
+	<?php echo '<script'; ?>
+ src="libs/alertifyjs/alertify.min.js"><?php echo '</script'; ?>
+>
+	<?php echo '<script'; ?>
+ src="libs/alertifyjs/settings.js"><?php echo '</script'; ?>
+>
     <!-- JS PARA guardar_datos -->
-    <script src="js/inscripciones.js?{$NO_CACHE}"></script>
-    <script src="js/login.js?{$NO_CACHE}"></script>
+    <?php echo '<script'; ?>
+ src="js/inscripciones.js?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/login.js?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+"><?php echo '</script'; ?>
+>
     <!-- ESTILOS PARA LOGIN -->
-    <link rel="stylesheet" href="css/estilo.css?{$NO_CACHE}">
-    <link rel="stylesheet" href="css/camara.css?{$NO_CACHE}">
+    <link rel="stylesheet" href="css/estilo.css?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+">
+    <link rel="stylesheet" href="css/camara.css?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+">
 </head>
 <body>
-    {$HEADER}
+    <?php echo $_smarty_tpl->tpl_vars['HEADER']->value;?>
+
     <div id="datos_alumno">
         <div class="container mt-3">
             <div class="row">
@@ -267,15 +307,25 @@
         <div class="container border border-color rounded mb-4 pt-inscripcion">
             <div class="row">
                 <div class="col-md-12 mt-datos">
-                    {foreach from=$ACTIVIDADES item=value}
+                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['ACTIVIDADES']->value, 'value');
+$_smarty_tpl->tpl_vars['value']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['value']->value) {
+$_smarty_tpl->tpl_vars['value']->do_else = false;
+?>
                     <div class="form-group float-left col-md-3">
                         <div class="form-check">
                             <input class="form-check-input" role="button" type="checkbox">
-                            <input type="hidden" value="{$value.id}">
-                            <label>{$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}</label>
+                            <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+">
+                            <label><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['actividad'], 'utf8_encode');?>
+ - <?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['dias_horarios'], 'utf8_encode');?>
+</label>
                         </div>
                     </div>
-                    {/foreach}
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
                     <div class="form-group col-md-12">
@@ -372,6 +422,8 @@
     </div>
 
 
-    {$FOOTER}
+    <?php echo $_smarty_tpl->tpl_vars['FOOTER']->value;?>
+
 </body>
-</html>
+</html><?php }
+}

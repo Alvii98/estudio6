@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function (event) {
+    document.querySelectorAll('input')[0].focus()
+})
+
 window.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         if (event.target.id == 'usuario' || event.target.id == 'clave') {
@@ -50,4 +54,14 @@ function iniciar_sesion(cerrar_sesion = false) {
             resp_login.textContent = 'Ocurrio un error al cargar los datos, vuelva a intentar.'
         }
     })
+}
+
+
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
 }
