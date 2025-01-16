@@ -23,7 +23,7 @@ function exportarExcel(name = ''){
                 row.push(element.domicilio)
                 row.push(element.localidad)
                 row.push(element.tel_movil)
-                row.push(element.tel_fijo)
+                row.push(element.autoriza)
                 row.push(element.mail)
                 row.push(element.salud)
                 row.push(acomodar_actividades(element.actividad))

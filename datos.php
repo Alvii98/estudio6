@@ -33,7 +33,7 @@ if(isset($_GET['id'])){
     $smarty->assign('DOCUMENTO', $alumno[0]['documento']);
     $smarty->assign('MAIL', $alumno[0]['mail']);
     $smarty->assign('TEL_MOVIL', $alumno[0]['tel_movil']);
-    $smarty->assign('TEL_FIJO', $alumno[0]['tel_fijo']);
+    $smarty->assign('AUTORIZA', $alumno[0]['autoriza']);
     $smarty->assign('NACIONALIDAD', $alumno[0]['nacionalidad']);
     $smarty->assign('LOCALIDAD', $alumno[0]['localidad']);
     $smarty->assign('DOMICILIO', $alumno[0]['domicilio']);

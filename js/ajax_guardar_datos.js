@@ -32,7 +32,7 @@ function guardar_datos(event){
     'documento': document.querySelector('#documento').value,
     'correo': document.querySelector('#correo').value,
     'tel_alumno': document.querySelector('#tel_alumno').value,
-    'tel_fijo': document.querySelector('#tel_fijo').value,
+    'autoriza': document.querySelector('#autoriza').value,
     'nacionalidad': document.querySelector('#nacionalidad').value,
     'localidad': document.querySelector('#localidad').value,
     'domicilio': document.querySelector('#domicilio').value,

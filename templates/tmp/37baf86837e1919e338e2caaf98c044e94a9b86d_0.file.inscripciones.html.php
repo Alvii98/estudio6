@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-15 22:08:39
+/* Smarty version 3.1.34-dev-7, created on 2025-01-16 16:34:20
   from 'C:\xampp\htdocs\estudio6\templates\inscripciones.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_678823d73e4eb2_71462086',
+  'unifunc' => 'content_678926fcac5966_19872223',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '37baf86837e1919e338e2caaf98c044e94a9b86d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\inscripciones.html',
-      1 => 1736974774,
+      1 => 1737036410,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_678823d73e4eb2_71462086 (Smarty_Internal_Template $_smarty_tpl) {
+function content_678926fcac5966_19872223 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
@@ -163,7 +163,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Vinculo</label>
-                        <input list="vinculos" type="text" id="vinculo" class="form-control">
+                        <input list="vinculos" type="text" id="adulto_vinculo" class="form-control">
                         <datalist id="vinculos">
                             <option value="Madre">
                             <option value="Padre">
@@ -175,7 +175,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                     </div>
                     <div class="form-group col-md-3 float-left" style="margin-top: 18px;">
                         <label>Telefono <small>(Sera utilizado para avisos y para sumar a grupos de whatsapp de las actividades)</small></label>
-                        <input type="text" id="telefono" class="form-control" autocomplete="off">
+                        <input type="text" id="adulto_telefono" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-md-12" id="otro_adulto">
@@ -212,11 +212,11 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>¿Autoriza al alumno/a a retirarse solo/a del establecimiento al finalizar su clase?</label>
                         <div class="form-check">
-                            <input class="form-check-input" role="button" type="checkbox" id="si" onclick="document.querySelector('#no').checked = false">
+                            <input class="form-check-input" role="button" type="checkbox" id="si_autorizo" onclick="document.querySelector('#no_autorizo').checked = false">
                             <label>Si</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" role="button" type="checkbox" id="no" onclick="document.querySelector('#si').checked = false">
+                            <input class="form-check-input" role="button" type="checkbox" id="no_autorizo" onclick="document.querySelector('#si_autorizo').checked = false">
                             <label>No</label>
                         </div>
                     </div>
@@ -315,8 +315,7 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
 ?>
                     <div class="form-group float-left col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" role="button" type="checkbox">
-                            <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+                            <input class="form-check-input" role="button" type="checkbox" id="<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
 ">
                             <label><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['actividad'], 'utf8_encode');?>
  - <?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['dias_horarios'], 'utf8_encode');?>
@@ -350,7 +349,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group col-md-6 float-left mt-datos">
-                        <label>El alumno posee condiciones de salud ?<br><small>(Celiaqu&iacute;a, alergias, diagnósticos o dificultades que sean pertinentes informar)</small></label>
+                        <label>¿El alumno posee condiciones de salud?<br><small>(Celiaqu&iacute;a, alergias, diagnósticos o dificultades que sean pertinentes informar)</small></label>
                         <div class="form-check">
                             <input class="form-check-input" role="button" type="checkbox" id="si_posee" onclick="document.querySelector('#no_posee').checked = false">
                             <label>Si posee</label>

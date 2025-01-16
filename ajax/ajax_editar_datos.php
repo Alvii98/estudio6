@@ -48,7 +48,7 @@ if(isset($_POST['baja'])){
     'documento' => $datos->alumno->documento,
     'domicilio' => $datos->alumno->domicilio,
     'localidad' => $datos->alumno->localidad,
-    'tel_fijo' => $datos->alumno->tel_fijo,
+    'autoriza' => $datos->alumno->autoriza,
     'tel_alumno' => $datos->alumno->tel_alumno,
     'correo' => $datos->alumno->correo,
     'actividad' => '',

@@ -162,9 +162,9 @@ class datos{
         $conn = $instancia->getConnection();
 
         $query = "INSERT INTO alumnos(apellido, nombre, foto_perfil, fecha_nac, edad, nacionalidad, documento,
-        domicilio, localidad, tel_fijo, tel_movil, mail, actividad, salud, observaciones) VALUES 
+        domicilio, localidad, autoriza, tel_movil, mail, actividad, salud, observaciones) VALUES 
         ('".$array['apellido']."','".$array['nombre']."','".$array['foto_perfil']."','".$array['fecha_nac']."',".$array['edad'].",'".$array['nacionalidad']."',
-        '".$array['documento']."','".$array['domicilio']."','".$array['localidad']."','".$array['tel_fijo']."','".$array['tel_alumno']."',
+        '".$array['documento']."','".$array['domicilio']."','".$array['localidad']."','".$array['autoriza']."','".$array['tel_alumno']."',
         '".$array['correo']."','".$array['actividad']."','".$array['salud']."','".$array['observacion_alumno']."')";
         
         if (!mysqli_query($conn, $query)) {
@@ -178,7 +178,7 @@ class datos{
                     return mysqli_error($conn);
                 }
             }
-            return true;
+            return $id_alumno;
         }
         return false;
     }
@@ -327,14 +327,14 @@ class datos{
             $query = "UPDATE alumnos SET apellido = '".$array['apellido']."', nombre = '".$array['nombre']."',
             fecha_nac = '".$array['fecha_nac']."', edad = '".$array['edad']."', nacionalidad = '".$array['nacionalidad']."',
             documento = '".$array['documento']."',domicilio = '".$array['domicilio']."',localidad = '".$array['localidad']."',
-            tel_fijo = '".$array['tel_fijo']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
+            autoriza = '".$array['autoriza']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
             actividad = '".$array['actividad']."', notas = '".$array['notas']."', salud = '".$array['salud']."',
             observaciones = '".$array['observacion_alumno']."' WHERE id = ".$array['id_alumno'];
         }else {
             $query = "UPDATE alumnos SET apellido = '".$array['apellido']."', nombre = '".$array['nombre']."', foto_perfil = '".$array['foto_perfil']."',
             fecha_nac = '".$array['fecha_nac']."', edad = '".$array['edad']."', nacionalidad = '".$array['nacionalidad']."',
             documento = '".$array['documento']."',domicilio = '".$array['domicilio']."',localidad = '".$array['localidad']."',
-            tel_fijo = '".$array['tel_fijo']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
+            autoriza = '".$array['autoriza']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
             actividad = '".$array['actividad']."', notas = '".$array['notas']."', salud = '".$array['salud']."',
             observaciones = '".$array['observacion_alumno']."' WHERE id = ".$array['id_alumno'];
         }

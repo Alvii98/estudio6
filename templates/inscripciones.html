@@ -123,7 +123,7 @@
                     </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Vinculo</label>
-                        <input list="vinculos" type="text" id="vinculo" class="form-control">
+                        <input list="vinculos" type="text" id="adulto_vinculo" class="form-control">
                         <datalist id="vinculos">
                             <option value="Madre">
                             <option value="Padre">
@@ -135,7 +135,7 @@
                     </div>
                     <div class="form-group col-md-3 float-left" style="margin-top: 18px;">
                         <label>Telefono <small>(Sera utilizado para avisos y para sumar a grupos de whatsapp de las actividades)</small></label>
-                        <input type="text" id="telefono" class="form-control" autocomplete="off">
+                        <input type="text" id="adulto_telefono" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-md-12" id="otro_adulto">
@@ -172,11 +172,11 @@
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>¿Autoriza al alumno/a a retirarse solo/a del establecimiento al finalizar su clase?</label>
                         <div class="form-check">
-                            <input class="form-check-input" role="button" type="checkbox" id="si" onclick="document.querySelector('#no').checked = false">
+                            <input class="form-check-input" role="button" type="checkbox" id="si_autorizo" onclick="document.querySelector('#no_autorizo').checked = false">
                             <label>Si</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" role="button" type="checkbox" id="no" onclick="document.querySelector('#si').checked = false">
+                            <input class="form-check-input" role="button" type="checkbox" id="no_autorizo" onclick="document.querySelector('#si_autorizo').checked = false">
                             <label>No</label>
                         </div>
                     </div>
@@ -270,8 +270,7 @@
                     {foreach from=$ACTIVIDADES item=value}
                     <div class="form-group float-left col-md-3">
                         <div class="form-check">
-                            <input class="form-check-input" role="button" type="checkbox">
-                            <input type="hidden" value="{$value.id}">
+                            <input class="form-check-input" role="button" type="checkbox" id="{$value.id}">
                             <label>{$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}</label>
                         </div>
                     </div>
@@ -300,7 +299,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group col-md-6 float-left mt-datos">
-                        <label>El alumno posee condiciones de salud ?<br><small>(Celiaqu&iacute;a, alergias, diagnósticos o dificultades que sean pertinentes informar)</small></label>
+                        <label>¿El alumno posee condiciones de salud?<br><small>(Celiaqu&iacute;a, alergias, diagnósticos o dificultades que sean pertinentes informar)</small></label>
                         <div class="form-check">
                             <input class="form-check-input" role="button" type="checkbox" id="si_posee" onclick="document.querySelector('#no_posee').checked = false">
                             <label>Si posee</label>
