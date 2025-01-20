@@ -6,12 +6,17 @@ require_once __DIR__.'/clases/calcular_precio.php';
 
 if(!isset($_GET['id']) && !isset($_GET['vinculo'])) header('Location: index.php');
 
-// $combo_actividades = datos::actividades();
+// // $combo_actividades = datos::actividades();
+// print'<pre>';print_r(datos::deudas_alumno($_GET['id']));exit;
+// print'HOLAAAAAAAA';exit;
 
 $smarty->assign('ACTIVIDADES', datos::actividades());
 $smarty->assign('CAMARA', $smarty->fetch('partials/camara.html'));
 $smarty->assign('HEADER', $smarty->fetch('partials/header.html'));
 $smarty->assign('FOOTER', $smarty->fetch('partials/footer.html'));
+$smarty->assign('DEUDAS_ALUMNO', false);
+$smarty->assign('DEUDAS_VINCULO', false);
+
 
 if(isset($_GET['id'])){
     
@@ -21,6 +26,14 @@ if(isset($_GET['id'])){
     
     if(empty($alumno)) header('Location: index.php');
     
+    $deudas = datos::deudas_alumno($_GET['id']);
+    if (empty($deudas)) {
+        $deudas = array(array("enero" => 0,"febrero" => 0,"marzo" => 0,"abril" => 0,"mayo" => 0,"junio" => 0,
+                "julio" => 0,"agosto" => 0,"septiembre" => 0,"octubre" => 0,"noviembre" => 0,"diciembre" => 0));
+    }
+    
+    $smarty->assign('DEUDAS_ALUMNO', $deudas);
+    $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
     $smarty->assign('ALUMNO', $alumno[0]);
     $smarty->assign('BAJA', $alumno[0]['baja']);
     $smarty->assign('DEBEMES', $alumno[0]['debemes']);
@@ -74,7 +87,14 @@ if(isset($_GET['id'])){
                     'nombre' => $value['nombre'],
                     'actividad' => datos::actividades_alumno($value['id_alumno']));
     }
-    // print'<pre>';print_r($alumnos);exit;
+    $deudas = datos::deudas_vinculo($_GET['vinculo']);
+    if (empty($deudas)) {
+        $deudas = array(array("enero" => 0,"febrero" => 0,"marzo" => 0,"abril" => 0,"mayo" => 0,"junio" => 0,
+                "julio" => 0,"agosto" => 0,"septiembre" => 0,"octubre" => 0,"noviembre" => 0,"diciembre" => 0));
+    }
+    
+    $smarty->assign('DEUDAS_VINCULO', $deudas);
+    $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
     $smarty->assign('VINCULO', $_GET['vinculo']);
     $smarty->assign('DEBEMES', $debemes);
     $smarty->assign('DEBE_INFO', $debe_info);

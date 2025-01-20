@@ -55,12 +55,34 @@ if(isset($_POST['baja'])){
     'salud' => $datos->alumno->salud,
     'notas' => $datos->alumno->notas,
     'observacion_alumno' => $datos->alumno->observacion_alumno];
-    
-    $json->respAlumno = datos::update_alumnos($array_update);
-    $json->respActividades = datos::update_actividades_alumno($datos->alumno->id_alumno,$datos->alumno->actividades);
-    
+    try {
+        if (datos::update_alumnos($array_update) === true) {
+            $json->respAlumno = true;
+        }else {
+            $json->respAlumno = false;
+        }
+    } catch (\Throwable $th) {
+        $json->respAlumno = false;
+    }
+    try {
+        if (datos::update_actividades_alumno($datos->alumno->id_alumno,$datos->alumno->actividades) === true) {
+            $json->respActividades = true;
+        }else {
+            $json->respActividades = false;
+        }
+    } catch (\Throwable $th) {
+        $json->respActividades = $th;
+    }
+    $fam = 0;
     foreach ($datos->familiares as $key) {
-        $json->respFamiliar = datos::update_familiares($key->id_familiar,$key->nom_ape,$key->vinculo,$key->tel_familiar,$key->observacion_familiar);
+        if (datos::update_familiares($key->id_familiar,$key->nom_ape,$key->vinculo,$key->tel_familiar,$key->observacion_familiar) === true) {
+            $json->respFamiliar = true;
+        }else {
+            $fam = 1;
+        }
+    }
+    if ($fam == 1) {
+        $json->respFamiliar = false;
     }
 }
     

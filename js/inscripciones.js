@@ -268,49 +268,18 @@ function guardar_datos_inscripcion() {
     if (error == 1) return alertify.error('Debe aceptar todas las declaraciones.')
 
     datosTotales['observacion'] = observacion
-    console.log(datosTotales)
-    carga_de_datos(datosTotales)
-    return
-    div.style.display = 'none'
-    document.querySelector("#fin_inscripcion").style.display = 'block'   
-    alertify.success('Datos guardados correctamente.')
+
+    if(carga_de_datos(datosTotales)){
+        div.style.display = 'none'
+        document.querySelector("#fin_inscripcion").style.display = 'block'   
+        alertify.success('Datos guardados correctamente.')
+    }else {
+        alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+    }
+
 }
 
-function carga_de_datos() {
-    // let apellido = document.querySelector("#apellido").value,
-    // nombre = document.querySelector("#nombre").value,
-    // documento = document.querySelector("#documento").value,
-    // correo = document.querySelector("#correo").value,
-    // nacionalidad = document.querySelector("#nacionalidad").value,
-    // localidad = document.querySelector("#localidad").value,
-    // domicilio = document.querySelector("#domicilio").value,
-    // fecha_nac = document.querySelector("#fecha_nac").value,
-    // edad = document.querySelector("#edad").value,
-    // adulto_apellido = document.querySelector("#adulto_apellido").value,
-    // adulto_nombre = document.querySelector("#adulto_nombre").value,
-    // adulto_vinculo = document.querySelector("#adulto_vinculo").value,
-    // adulto_telefono = document.querySelector("#adulto_telefono").value,
-    // adulto2_apellido = document.querySelector("#adulto2_apellido").value,
-    // adulto2_nombre = document.querySelector("#adulto2_nombre").value,
-    // adulto2_vinculo = document.querySelector("#adulto2_vinculo").value,
-    // adulto2_telefono = document.querySelector("#adulto2_telefono").value,
-    // si_autorizo = document.querySelector("#si_autorizo").checked,
-    // no_autorizo = document.querySelector("#no_autorizo").checked,
-    // telefono = document.querySelector("#telefono").value,
-    // tercero_apellido = document.querySelector("#tercero_apellido").value,
-    // tercero_nombre = document.querySelector("#tercero_nombre").value,
-    // tercero_vinculo = document.querySelector("#tercero_vinculo").value,
-    // tercero_telefono = document.querySelector("#tercero_telefono").value,
-    // tercero2_apellido = document.querySelector("#tercero2_apellido").value,
-    // tercero2_nombre = document.querySelector("#tercero2_nombre").value,
-    // tercero2_vinculo = document.querySelector("#tercero2_vinculo").value,
-    // tercero2_telefono = document.querySelector("#tercero2_telefono").value,
-    // si_posee = document.querySelector("#si_posee").checked,
-    // no_posee = document.querySelector("#no_posee").checked,
-    // observacion_salud = document.querySelector("#observacion_salud").value,
-    // observacion = document.querySelector("#observacion").value
-
-
+function carga_de_datos(datosTotales) {
     fetch('ajax/ajax_inscripcion.php', {
         method: "POST",
         // Set the post data
@@ -318,13 +287,14 @@ function carga_de_datos() {
     })
     .then(response => response.json())
     .then(function (json) {
-        console.log(json)
-        // alertify.success('Guardado correctamente.')
+        return true
     })
     .catch(function (error){
         console.log(error)
+        return false
         // Catch errors
         alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
     })
+    return false
     
 }

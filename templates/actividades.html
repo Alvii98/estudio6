@@ -107,7 +107,12 @@
                 <hr>
                 <div class="form-group col-md-2 float-left">
                     <label for="exampleFormControlInput1">Actividad</label>
-                    <input type="text" id="id_guardar_actividad" class="form-control">
+                    <input list="actividades" type="text" id="id_guardar_actividad" class="form-control">
+                    <datalist id="actividades">
+                        {foreach from=$ACTIVIDADES item=value}
+                            <option value="{$value.actividad}">
+                        {/foreach}
+                    </datalist>
                 </div>
                 <div class="form-group col-md-1 float-left">
                     <label for="exampleFormControlInput1">Valor</label>

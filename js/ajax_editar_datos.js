@@ -7,39 +7,7 @@ window.addEventListener("click", function(event){
     if(event.target.id == 'baja_alumno') baja_alumno(event)
     if(event.target.id == 'debe_mes') debe_mes(event)
     if(event.target.id == 'debe_mes_vinculo') debe_mes(event)
-    if(event.target.id == 'copiar_texto') copiar_texto()
 })
-
-function adeuda_info(event) {
-
-    if(event.parentElement.getElementsByTagName('input')[0].value.trim() == ''){
-        alertify.alert('Datos del alumno/a','No puede guardar este campo vacio.')
-        return false
-    }
-    const datosPost = new FormData(),
-    alumno = document.querySelector('#id_alumno'),
-    vinculo = document.querySelector('#nombre_vinculo')
-
-    datosPost.append('info_deuda', event.parentElement.getElementsByTagName('input')[0].value)
-    if (alumno != null) datosPost.append('id_alumno', alumno.value)
-    if (vinculo != null) datosPost.append('nombre_vinculo', vinculo.value)
-
-    /************** CARGA DATOS DEUDA ****************/
-    fetch('ajax/ajax_editar_datos.php', {
-        method: "POST",
-        // Set the post data
-        body: datosPost
-    })
-    .then(response => response.json())
-    .then(function (json) {
-        alertify.success('Guardado correctamente.')
-    })
-    .catch(function (error){
-        console.log(error)
-        // Catch errors
-        alertify.alert('Datos del alumno/a','Ocurrio un error al guardar los datos.')
-    })
-}
 
 function editar_descuentos() {
     const descuento_actividad = document.getElementById("descuento_actividad"),
@@ -70,13 +38,23 @@ function editar_descuentos() {
         alertify.error('Ocurrio un error al guardar los datos.')
     })
 }
-function copiar_texto() {
+function copiar_texto(id_deuda) {
     try {
+
         let texto = '',actividades = '',
         valor = document.querySelector('#valor').value.trim().replace(/\s+/g, '.'),
-        efectivo = document.querySelector('#efectivo').value.trim().replace(/\s+/g, '.'),
         combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.')
         const textarea = document.createElement('textarea')                
+        let div = document.querySelector("#"+id_deuda+""),
+        inputs = div.getElementsByTagName("input"),
+        texto_deuda = ''
+    
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value > 0) {
+                if (texto_deuda == '') texto_deuda += '\nUsted adeuda:\n'
+                texto_deuda += '$'+inputs[i].value+' del mes de '+inputs[i].id.replace('2', '')+'\n'
+            }
+        }
 
         for (let i = 0; i < document.querySelectorAll('#actividad').length; i++) {
             if(document.querySelectorAll('#actividad')[i].value == '') continue
@@ -103,17 +81,9 @@ function copiar_texto() {
             }
             texto += 'Precio promocional abonando en efectivo en el Estudio: '+nuevoPrecio
             texto += ' (Descuentos por combo de actividades y/o grupos familiares aplicados)\n'
-        }else if (efectivo != '$0,00') {
-            if (parseInt(efectivo.split(',')[0].slice(-2)) > 50) {
-                penultimo = parseInt(efectivo.split(',')[0].slice(-3, -2)) + 1;
-                nuevoPrecio = efectivo.split(',')[0].slice(0, -3) + penultimo + '00';
-            } else {
-                nuevoPrecio = efectivo.split(',')[0].slice(0, -2) + '00';
-            }
-            texto += 'Precio promocional abonando en efectivo en el Estudio: '+nuevoPrecio
-            texto += ' (Descuentos por combo de actividades y/o grupos familiares aplicados)\n'
         }
-        texto += '\nLos valores corresponden al pago realizado del 1 al 15 del mes, fuera de esa fecha tienen un 10% de recargo.'
+        texto += '\nLos valores corresponden al pago realizado del 1 al 15 del mes, fuera de esa fecha tienen un 10% de recargo.\n'
+        texto += texto_deuda
         // console.log(texto)
         // return
         textarea.value = texto
@@ -251,8 +221,9 @@ function editar_datos(event){
             })
             .then(response => response.json())
             .then(function (json) {
+                console.log(json)
                 alertify.success('Guardado correctamente.')
-                setTimeout(function(){location.reload()}, 2000)
+                //setTimeout(function(){location.reload()}, 2000)
                 return
             })
             .catch(function (error){
@@ -319,7 +290,6 @@ function eliminar_familiar(event){
 function agregar_actividad(event){
     let combo = event.target.parentElement.getElementsByTagName('select')[0],
     comboHTML =  combo.outerHTML.replace('selected=""', '')
-    console.log(comboHTML)
     document.querySelector('#nueva_actividad').insertAdjacentHTML('beforeend', `<div class="form-group col-md-12 float-left">
                 <label>Nueva actividad</label>
                 <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar actividad" id="eliminar_actividad"></i>
@@ -333,4 +303,66 @@ function eliminar_actividad(event){
     let element = event.target.parentElement 
     if(element.querySelector('label').textContent == 'Nueva actividad') element.parentNode.removeChild(element)
     else element.parentNode.removeChild(element)
+}
+
+
+function guardar_deuda_alumno() {
+    let div = document.querySelector("#deudas_alumno"),
+    id_alumno = document.querySelector("#id_alumno").value,
+    inputs = div.getElementsByTagName("input"),
+    datos_deuda = {}
+
+    for (let i = 0; i < inputs.length; i++) {
+        datos_deuda[inputs[i].id.replace('2', '')] = inputs[i].value.trim() == '' ? 0 : inputs[i].value.replace('.', '')
+    }
+
+    fetch('ajax/ajax_deudas.php', {
+        method: "POST",
+        // Set the post data
+        body: JSON.stringify({'deudas_alumno':datos_deuda,'id_alumno':id_alumno})
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.resp) {
+            alertify.success('Guardados correctamente.')
+        }else {
+            alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+        }
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+    })
+}
+
+
+function guardar_deuda_vinculo() {
+    let div = document.querySelector("#deudas_vinculo"),
+    vinculo = document.querySelector("#nombre_vinculo").value,
+    inputs = div.getElementsByTagName("input"),
+    deudas_vinculo = {}
+
+    for (let i = 0; i < inputs.length; i++) {
+        deudas_vinculo[inputs[i].id.replace('2', '')] = inputs[i].value.trim() == '' ? 0 : inputs[i].value.replace('.', '')
+    }
+
+    fetch('ajax/ajax_deudas.php', {
+        method: "POST",
+        // Set the post data
+        body: JSON.stringify({'deudas_vinculo':deudas_vinculo,'vinculo':vinculo})
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.resp) {
+            alertify.success('Guardados correctamente.')
+        }else {
+            alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+        }
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+    })
 }

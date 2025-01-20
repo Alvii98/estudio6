@@ -29,6 +29,8 @@
 <body>
     {$HEADER}
     {$CAMARA}
+    {$MODAL_DEUDAS}
+
     {if $VALOR == '0,00'}
         <script>
              alertify.alert('Datos del alumno/a','No se pudo cargar el monto a pagar, revice el nombre de las actividades o los valores por favor.')
@@ -48,25 +50,18 @@
                     <a class="btn btn-dark btn-lg rounded-pill" href="index.php">Volver</a>
                 </div>
                 {if empty({$VINCULO})}
-                <div class="form-group float-right">
-                    <a class="btn btn-dark btn-lg rounded-pill" id="copiar_texto">Detalle de cuota</a>
-                </div>
-                {/if}
-                <div class="form-group float-right mr-3 ml-2">
-                    <div class="form-check">
-                        <input {if $BAJA != 0} checked {/if} class="form-check-input" role="button" type="checkbox" name="baja_alumno" id="baja_alumno">
-                        <label class="form-check-label">Baja del alumno/a</label>
+                    <div class="form-group float-right">
+                        <a class="btn btn-dark btn-lg rounded-pill" onclick="copiar_texto('deudas_alumno')">Detalle de cuota</a>
                     </div>
-                </div>
-                {if empty({$VINCULO})}
-                    <div class="form-group float-right mr-3">
+                    <div class="form-group float-right mr-4">
                         <div class="form-check">
-                            <input {if $DEBEMES != 0} checked {/if} class="form-check-input" role="button" type="checkbox" name="debe_mes" id="debe_mes">
-                            <label class="form-check-label">Adeuda</label>
-                            <div {if $DEBEMES == 0} style="display:none;"{/if} id="adeuda">
-                                <input type="text" class="form-control col-8" value="{$INFO_DEUDA}">
-                                <i class="bi bi-floppy" role="button" onclick="adeuda_info(this)" style="position: absolute;bottom: 5px;margin-left: 81px;"></i>
-                            </div>
+                            <i class="bi bi-calendar-x" role="button" onclick="document.querySelector('#deudas_alumno').style.display = 'block'" style="font-size: xx-large;"></i>
+                        </div>
+                    </div>
+                    <div class="form-group float-right mr-3 ml-2">
+                        <div class="form-check">
+                            <input {if $BAJA != 0} checked {/if} class="form-check-input" role="button" type="checkbox" name="baja_alumno" id="baja_alumno">
+                            <label class="form-check-label">Baja del alumno/a</label>
                         </div>
                     </div>
                     <div class="form-group col-md-12 d-flex justify-content-center">
@@ -123,9 +118,11 @@
                         <select class="form-control" id="actividad">
                             <option selected value="0">-- Seleccione una actividad --</option>
                             {foreach from=$ACTIVIDADES item=value}
+                                {if $value.disponibles > 0}  
                                 <option value="{$value.id}">
                                     {$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}
                                 </option>
+                                {/if}
                             {/foreach}
                         </select>
                     </div>
@@ -144,10 +141,12 @@
                             <select class="form-control" id="actividad">
                                 <option value="0">-- Seleccione una actividad --</option>
                                 {foreach from=$ACTIVIDADES item=value2}
+                                    {if $value2.disponibles > 0 or $value2.id == $value1.id}
                                     <option value="{$value2.id}"
                                     {if $value2.id == $value1.id} selected {/if}>
                                     {$value2.actividad|escape:'utf8_encode'} - {$value2.dias_horarios|escape:'utf8_encode'}
                                     </option>
+                                    {/if}
                                 {/foreach}
                             </select>
                         </div>

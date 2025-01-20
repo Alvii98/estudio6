@@ -51,9 +51,11 @@
                 <select class="form-control ml-2 col-md-3 mt-3" id="actividad">
                     <option selected value="0">-- Seleccione una actividad --</option>
                     {foreach from=$ACTIVIDADES item=value}
+                        {if $value.disponibles > 0}  
                         <option value="{$value.id}">
                             {$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}
                         </option>
+                        {/if}
                     {/foreach}
                 </select>
                 <!-- <input list="actividades" id="actividad" placeholder="Actividad" class="form-control ml-2 col-md-3">

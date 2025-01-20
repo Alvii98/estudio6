@@ -29,6 +29,8 @@
 <body>
     {$HEADER}
     {$CAMARA}
+    {$MODAL_DEUDAS}
+
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
@@ -43,16 +45,11 @@
                     <a class="btn btn-dark btn-lg rounded-pill" href="index.php">Volver</a>
                 </div>
                 <div class="form-group float-right">
-                    <a class="btn btn-dark btn-lg rounded-pill" id="copiar_texto">Detalle de cuota</a>
+                    <a class="btn btn-dark btn-lg rounded-pill" onclick="copiar_texto('deudas_vinculo')">Detalle de cuota</a>
                 </div>
-                <div class="form-group float-right mr-3">
+                <div class="form-group float-right mr-4">
                     <div class="form-check">
-                        <input {if $DEBEMES != 0} checked {/if} class="form-check-input" role="button" type="checkbox" name="debe_mes_vinculo" id="debe_mes_vinculo">
-                        <label class="form-check-label">Adeuda</label>
-                        <div {if $DEBEMES == 0} style="display:none;"{/if} id="adeuda" class="mr-3">
-                            <input type="text" class="form-control col-8" value="{$DEBE_INFO}" >
-                            <i class="bi bi-floppy" role="button" onclick="adeuda_info(this)" style="position: absolute;bottom: 5px;margin-left: 81px;"></i>
-                        </div>
+                        <i class="bi bi-calendar-x" role="button" onclick="document.querySelector('#deudas_vinculo').style.display = 'block'" style="font-size: xx-large;"></i>
                     </div>
                 </div>
                 <input type="hidden" id="nombre_vinculo" value="{$VINCULO}">

@@ -2,6 +2,46 @@ document.addEventListener('DOMContentLoaded', function (event) {
     document.querySelectorAll('input')[0].focus()
 })
 
+function validateNumberPunto(input) {
+    // Eliminar caracteres no numéricos excepto el punto
+    input.value = input.value.replace(/[^0-9.]/g, '')
+
+    const valor = input.value.replace(/\D/g, '')
+    if (valor.length == 4) {
+        const parte1 = valor.substring(0, 1)
+        const parte2 = valor.substring(1)
+        input.value = parte1 + "." + parte2
+    }else if (valor.length == 5) {
+        const parte1 = valor.substring(0, 2)
+        const parte2 = valor.substring(2)
+        input.value = parte1 + "." + parte2        
+    }else if (valor.length == 6) {
+        const parte1 = valor.substring(0, 3)
+        const parte2 = valor.substring(3)
+        input.value = parte1 + "." + parte2        
+    }else if (valor.length == 7) {
+        const parte1 = valor.substring(0, 1)
+        const parte2 = valor.substring(1, 4)
+        const parte3 = valor.substring(4)
+        input.value = parte1 + "." + parte2 + "." + parte3
+    }else if (valor.length == 8) {
+        const parte1 = valor.substring(0, 2)
+        const parte2 = valor.substring(2, 5)
+        const parte3 = valor.substring(5)
+        input.value = parte1 + "." + parte2 + "." + parte3        
+    }else if (valor.length == 9) {
+        const parte1 = valor.substring(0, 3)
+        const parte2 = valor.substring(3, 6)
+        const parte3 = valor.substring(6)
+        input.value = parte1 + "." + parte2 + "." + parte3        
+    }else if (valor.length > 9) {
+        const parte1 = valor.substring(0, 9).substring(0, 3)
+        const parte2 = valor.substring(0, 9).substring(3, 6)
+        const parte3 = valor.substring(0, 9).substring(6)
+        input.value = parte1 + "." + parte2 + "." + parte3
+    }
+}
+
 window.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         if (event.target.id == 'usuario' || event.target.id == 'clave') {

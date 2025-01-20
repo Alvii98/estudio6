@@ -268,12 +268,14 @@
             <div class="row">
                 <div class="col-md-12 mt-datos">
                     {foreach from=$ACTIVIDADES item=value}
-                    <div class="form-group float-left col-md-3">
-                        <div class="form-check">
-                            <input class="form-check-input" role="button" type="checkbox" id="{$value.id}">
-                            <label>{$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}</label>
+                        {if $value.disponibles > 0}  
+                        <div class="form-group float-left col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" role="button" type="checkbox" id="{$value.id}">
+                                <label>{$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}</label>
+                            </div>
                         </div>
-                    </div>
+                        {/if}
                     {/foreach}
                 </div>
                 <div class="col-md-12 mb-4 mt-3">
