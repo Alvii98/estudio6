@@ -24,16 +24,17 @@ window.addEventListener("change", function(event){
 })
 
 function editar_descuentos() {
-    const descuento_actividad = document.getElementById("descuento_actividad"),
-    descuento_familiar = document.getElementById("descuento_familiar")
+    const descuento_actividad = document.getElementById("descuento_actividad")
+    // Esto se cambio porque es el mismo descuento para los dos
+    // descuento_familiar = document.getElementById("descuento_familiar")
 
-    if(descuento_actividad.value.trim() == '' || descuento_familiar.value.trim() == ''){
-        return alertify.error('Uno de los campos de descuento esta vacio.')
+    if(descuento_actividad.value.trim() == ''){
+        return alertify.error('El campo de descuento esta vacio.')
     }
     let datosDescuentos = {}
-
+    // Esto se cambio porque es el mismo descuento para los dos
     datosDescuentos = {'descuento_actividad': descuento_actividad.value,
-    'descuento_familiar': descuento_familiar.value}
+    'descuento_familiar': descuento_actividad.value}
     
     /************** CARGA DATOS DEUDA ****************/
     fetch('ajax/ajax_guardar_vinculo_actividades.php', {
@@ -43,7 +44,7 @@ function editar_descuentos() {
     })
     .then(response => response.json())
     .then(function (json) {
-        console.log(json)
+        
         alertify.success('Guardado correctamente.')
     })
     .catch(function (error){
@@ -65,7 +66,7 @@ function copiar_texto(id_deuda) {
 
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value > 0) {
-                if (texto_deuda == '') texto_deuda += '\nUsted adeuda:\n'
+                if (texto_deuda == '') texto_deuda += '\nSe registra la siguiente deuda:\n'
                 texto_deuda += '$'+inputs[i].value+' del mes de '+inputs[i].id.replace('2', '')+'\n'
             }
         }
@@ -100,8 +101,8 @@ function copiar_texto(id_deuda) {
             } else {
                 nuevoPrecio = combo.split(',')[0].slice(0, -2) + '00';
             }
-            texto += 'Precio promocional abonando en efectivo en el Estudio: '+nuevoPrecio
-            texto += ' (Descuentos por combo de actividades y/o grupos familiares aplicados)\n'
+            texto += 'Precio promocional por combo de actividades o grupo familiar: '+nuevoPrecio
+            texto += ' (aplica únicamente abonando en efectivo en el Estudio del 1 al 15 del mes)\n'
         }
         texto += '\nLos valores corresponden al pago realizado del 1 al 15 del mes, fuera de esa fecha tienen un 10% de recargo.\n'
         texto += texto_deuda
@@ -137,7 +138,7 @@ function baja_alumno(event) {
         })
         .then(response => response.json())
         .then(function (json) {
-            console.log(json)
+            
             alertify.success('Guardado correctamente.')
             return
         })
@@ -203,7 +204,7 @@ function editar_datos(event){
             })
             .then(response => response.json())
             .then(function (json) {
-                console.log(json)
+                
                 alertify.success('Guardado correctamente.')
                 setTimeout(function(){location.reload()}, 2000)
                 return
@@ -233,7 +234,7 @@ function eliminar_alumno(){
         })
         .then(response => response.json())
         .then(function (json) {
-            console.log(json)
+            
             alertify.error('Eliminado correctamente')
             setTimeout(function(){window.location.href = 'index.php'}, 2000)
         })
@@ -257,7 +258,7 @@ function eliminar_familiar(event){
         })
         .then(response => response.json())
         .then(function (json) {
-            console.log(json)
+            
             alertify.error('Eliminado correctamente')
             setTimeout(function(){location.reload()}, 2000)
         })

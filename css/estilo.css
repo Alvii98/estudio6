@@ -41,11 +41,7 @@
 label{
     font-size: 12px !important;
 }
-#adeuda{
-    position: relative;
-    bottom: 30px;
-    left: 70px;
-}
+
 .boton-cargar{
     background-color: #000000;
     color:aliceblue;

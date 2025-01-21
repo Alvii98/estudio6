@@ -56,23 +56,27 @@
                 <input type="hidden" id="nombre_vinculo" value="{$VINCULO}">
                 <div class="form-group col-md-12 d-flex justify-content-center">
                     <div class="float-left">
-                        <label for="exampleFormControlInput1">A pagar</label>
+                        <label>A pagar</label>
                         <input type="text" readonly="true" id="valor" class="form-control col-md-6 text-center" value="${$VALOR}">
                     </div>
                     <div class="ml-3 float-left">
-                        <label for="exampleFormControlInput1">Combo</label>
+                        <label>Combo</label>
                         <input type="text" readonly="true" id="combo" class="form-control col-md-6 text-center" value="${$COMBO}">
+                    </div>
+                    <div class="ml-3 float-left">
+                        <label>Adeuda</label>
+                        <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="${$ADEUDA}">
                     </div>
                 </div>
             </div>
             {foreach from=$ALUMNOS item=value1}
                 <div class="col-md-12">
                     <div class="form-group col-md-6 float-left">
-                        <label for="exampleFormControlInput1">Apellido</label>
+                        <label>Apellido</label>
                         <input type="text" readonly="true" id="apellido" class="form-control" value="{$value1.apellido}">
                     </div>
                     <div class="form-group col-md-6 float-left">
-                        <label for="exampleFormControlInput1">Nombre</label>
+                        <label>Nombre</label>
                         <input type="text" readonly="true" id="nombre" class="form-control" value="{$value1.nombre}">
                     </div>
                 </div>

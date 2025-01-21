@@ -67,12 +67,16 @@
                     </div>
                     <div class="form-group col-md-12 d-flex justify-content-center">
                         <div class="float-left">
-                            <label for="exampleFormControlInput1">A pagar</label>
+                            <label>A pagar</label>
                             <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center" value="${$VALOR}">
                         </div>
                         <div class="ml-3 float-left">
-                            <label for="exampleFormControlInput1">Combo</label>
+                            <label>Combo</label>
                             <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center" value="${$COMBO}">
+                        </div>
+                        <div class="ml-3 float-left">
+                            <label>Adeuda</label>
+                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="${$ADEUDA}">
                         </div>
                     </div>
                 {else}
@@ -94,20 +98,20 @@
                     </div>
                 </div>
                 <div class="form-group col-md-3 float-left mt-datos">
-                    <label for="exampleFormControlInput1">Apellido</label>
+                    <label>Apellido</label>
                     <input type="hidden" id="id_alumno" value="{$ID}">
                     <input type="text" id="apellido" class="form-control" value="{$APELLIDO|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left mt-datos">
-                    <label for="exampleFormControlInput1">Nombre</label>
+                    <label>Nombre</label>
                     <input type="text" id="nombre" class="form-control" value="{$NOMBRE|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-2 float-left mt-datos">
-                    <label for="exampleFormControlInput1">Edad</label>
+                    <label>Edad</label>
                     <input type="text" id="edad" class="form-control" value="{$EDAD}">
                 </div>
                 <div class="form-group col-md-2 float-left mt-datos">
-                    <label for="exampleFormControlInput1">Fecha de nac.</label>
+                    <label>Fecha de nac.</label>
                     <input type="date" id="fecha_nac" class="form-control" value="{$FECHA_NAC|escape:'utf8_encode'}">
                 </div>
             </div>
@@ -170,37 +174,37 @@
             </div>
             <div class="col-md-12">
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Documento</label>
+                    <label>Documento</label>
                     <input type="text" id="documento" class="form-control" value="{$DOCUMENTO|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Correo</label>
+                    <label>Correo</label>
                     <input type="text" id="correo" class="form-control" value="{$MAIL|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Tel. movil</label>
+                    <label>Tel. movil</label>
                     <input type="text" id="tel_alumno" class="form-control" value="{$TEL_MOVIL|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Autorizado</label>
+                    <label>Autorizado</label>
                     <input type="text" id="autoriza" class="form-control" value="{$AUTORIZA|escape:'utf8_encode'}">
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Nacionalidad</label>
+                    <label>Nacionalidad</label>
                     <input type="text" id="nacionalidad" class="form-control" value="{$NACIONALIDAD|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Localidad</label>
+                    <label>Localidad</label>
                     <input type="text" id="localidad" class="form-control" value="{$LOCALIDAD|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Domicilio</label>
+                    <label>Domicilio</label>
                     <input type="text" id="domicilio" class="form-control" value="{$DOMICILIO|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label for="exampleFormControlInput1">Salud</label>
+                    <label>Salud</label>
                     <input type="text" id="salud" class="form-control" value="{$SALUD|escape:'utf8_encode'}">
                 </div>
             </div>
@@ -213,17 +217,17 @@
                 {if empty($value.nombre_apellido) && empty($value.vinculo) && empty($value.telefono)} continue {/if}
                 <div class="col-md-12">
                     <div class="form-group col-md-4 float-left">
-                        <label for="exampleFormControlInput1">Nombre y apellido</label>
+                        <label>Nombre y apellido</label>
                         <i class="bi bi-dash-circle-dotted eliminar_actividad" title="Eliminar familiar" id="eliminar_familiar"></i>
                         <input type="hidden" id="id_familiar" value="{$value.id}">
                         <input type="text" id="nom_ape" class="form-control" value="{$value.nombre_apellido}">
                     </div>
                     <div class="form-group col-md-4 float-left">
-                        <label for="exampleFormControlInput1">Vinculo</label>
+                        <label>Vinculo</label>
                         <input type="text" id="vinculo" class="form-control" value="{$value.vinculo}">
                     </div>
                     <div class="form-group col-md-4 float-left">
-                        <label for="exampleFormControlInput1">Telefono</label>
+                        <label>Telefono</label>
                         <input type="text" id="tel_familiar" class="form-control" value="{$value.telefono}">
                     </div>
                 </div>

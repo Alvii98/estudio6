@@ -246,12 +246,14 @@ function guardar_actividad(id_actividad = 0){
             if(json.respGuardarActividad){
                 alertify.success('Guardado correctamente')
                 setTimeout(function(){location.reload()}, 2000)
+            }else{
+                return alertify.error('Ocurrio un error al guardar los datos.')
             }
         })
         .catch(function (error){
             console.log(error)
             // Catch errors
-            alertify.alert('Carga','Ocurrio un error al guardar los datos.')
+            return alertify.error('Ocurrio un error al guardar los datos.')
         })
     }, function(){ alertify.error('Cancelado')});
 

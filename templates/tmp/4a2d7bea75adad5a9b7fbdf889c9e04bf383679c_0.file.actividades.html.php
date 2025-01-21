@@ -1,3 +1,28 @@
+<?php
+/* Smarty version 3.1.34-dev-7, created on 2025-01-21 19:17:11
+  from 'C:\xampp\htdocs\estudio6\templates\actividades.html' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '3.1.34-dev-7',
+  'unifunc' => 'content_678fe4a75b5f06_25269991',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '4a2d7bea75adad5a9b7fbdf889c9e04bf383679c' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\actividades.html',
+      1 => 1737482816,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_678fe4a75b5f06_25269991 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,23 +37,44 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- JQUERY -->
-    <script src="libs/jquery-3.5.1.min.js"></script>
+    <?php echo '<script'; ?>
+ src="libs/jquery-3.5.1.min.js"><?php echo '</script'; ?>
+>
     <!-- ALERTIFY -->
 	<link rel="stylesheet" href="libs/alertifyjs/css/alertify.min.css" />
 	<link rel="stylesheet" href="libs/alertifyjs/css/themes/default.min.css" />
-	<script src="libs/alertifyjs/alertify.min.js"></script>
-	<script src="libs/alertifyjs/settings.js"></script>
+	<?php echo '<script'; ?>
+ src="libs/alertifyjs/alertify.min.js"><?php echo '</script'; ?>
+>
+	<?php echo '<script'; ?>
+ src="libs/alertifyjs/settings.js"><?php echo '</script'; ?>
+>
     <!-- JS PARA guardar_datos -->
-    <script src="js/login.js?{$NO_CACHE}"></script> 
-    <script src="js/ajax_guardar_datos.js?{$NO_CACHE}"></script>
-    <script src="js/ajax_editar_datos.js?{$NO_CACHE}"></script>
-    <script src="js/buscador.js?{$NO_CACHE}"></script>
+    <?php echo '<script'; ?>
+ src="js/login.js?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+"><?php echo '</script'; ?>
+> 
+    <?php echo '<script'; ?>
+ src="js/ajax_guardar_datos.js?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/ajax_editar_datos.js?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="js/buscador.js?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+"><?php echo '</script'; ?>
+>
     <!-- ESTILOS PARA LOGIN -->
-    <link rel="stylesheet" href="css/estilo.css?{$NO_CACHE}">
+    <link rel="stylesheet" href="css/estilo.css?<?php echo $_smarty_tpl->tpl_vars['NO_CACHE']->value;?>
+">
 </head>
 <body>
-    {$HEADER}
-    {$MODAL_ACTIVIDAD}
+    <?php echo $_smarty_tpl->tpl_vars['HEADER']->value;?>
+
+    <?php echo $_smarty_tpl->tpl_vars['MODAL_ACTIVIDAD']->value;?>
+
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
@@ -46,12 +92,14 @@
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="form-group">
                     <label>Descuento por combo o Flia</label>
-                    <input type="text" class="form-control col-10" style="text-align: center;" id="descuento_actividad" value="{$DESCUENTO_ACT}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
+                    <input type="text" class="form-control col-10" style="text-align: center;" id="descuento_actividad" value="<?php echo $_smarty_tpl->tpl_vars['DESCUENTO_ACT']->value;?>
+" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
                     <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 20px;margin-left: 107px;"></i>
                 </div>
                 <!-- <div class="form-group">
                     <label>Descuento por familiar</label>
-                    <input type="text" class="form-control col-6" id="descuento_familiar" value="{$DESCUENTO_FAM}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
+                    <input type="text" class="form-control col-6" id="descuento_familiar" value="<?php echo $_smarty_tpl->tpl_vars['DESCUENTO_FAM']->value;?>
+" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
                     <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 20px;margin-left: 54px;"></i>
                 </div> -->
             </div>
@@ -84,20 +132,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {foreach from=$ACTIVIDADES item=value}
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['ACTIVIDADES']->value, 'value');
+$_smarty_tpl->tpl_vars['value']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['value']->value) {
+$_smarty_tpl->tpl_vars['value']->do_else = false;
+?>
                             <tr>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.actividad|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.una_vez|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.dos_veces|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.dias_horarios|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.profe|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.min_edad} A {$value.max_edad}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.cupos|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.disponibles|escape:'utf8_encode'}</td>
-                                <th><i class="bi bi-pencil-square" onclick="editar_actividad(this,'{$value.id}')"></i></th>
-                                <th><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'{$value.id}')"></i></th>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['actividad'], 'utf8_encode');?>
+</td>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['una_vez'], 'utf8_encode');?>
+</td>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['dos_veces'], 'utf8_encode');?>
+</td>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['dias_horarios'], 'utf8_encode');?>
+</td>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['profe'], 'utf8_encode');?>
+</td>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo $_smarty_tpl->tpl_vars['value']->value['min_edad'];?>
+ A <?php echo $_smarty_tpl->tpl_vars['value']->value['max_edad'];?>
+</td>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['cupos'], 'utf8_encode');?>
+</td>
+                                <td onclick="datos_actividad('<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['disponibles'], 'utf8_encode');?>
+</td>
+                                <th><i class="bi bi-pencil-square" onclick="editar_actividad(this,'<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"></i></th>
+                                <th><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
+')"></i></th>
                             </tr>
-                            {/foreach}
+                            <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <th colspan="15" class="text-center" id="no_datos" style="display:none;">NO SE ENCONTRARON DATOS</th>
                         </tbody>
                     </table>
@@ -109,9 +183,17 @@
                     <label for="exampleFormControlInput1">Actividad</label>
                     <input list="actividades" type="text" id="id_guardar_actividad" class="form-control">
                     <datalist id="actividades">
-                        {foreach from=$ACTIVIDADES item=value}
-                            <option value="{$value.actividad}">
-                        {/foreach}
+                        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['ACTIVIDADES']->value, 'value');
+$_smarty_tpl->tpl_vars['value']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['value']->value) {
+$_smarty_tpl->tpl_vars['value']->do_else = false;
+?>
+                            <option value="<?php echo $_smarty_tpl->tpl_vars['value']->value['actividad'];?>
+">
+                        <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     </datalist>
                 </div>
                 <div class="form-group col-md-1 float-left">
@@ -150,6 +232,8 @@
         </div>
     </div>
         
-    {$FOOTER}
+    <?php echo $_smarty_tpl->tpl_vars['FOOTER']->value;?>
+
 </body>
-</html>
+</html><?php }
+}

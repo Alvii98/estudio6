@@ -63,7 +63,8 @@ class datos{
 
     static public function deudas_alumno($id_alumno){
 
-        $query = "SELECT * FROM deudas_alumno WHERE id_alumno = ".$id_alumno." ORDER BY id DESC LIMIT 1";    
+        $query = "SELECT *,(enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre) AS total
+        FROM deudas_alumno WHERE id_alumno = ".$id_alumno." ORDER BY id DESC LIMIT 1";    
 
         return datos::respuestaQuery($query);
     }
@@ -100,7 +101,8 @@ class datos{
 
     static public function deudas_vinculo($vinculo){
 
-        $query = "SELECT * FROM deudas_vinculo WHERE vinculo = '".$vinculo."' ORDER BY id DESC LIMIT 1";
+        $query = "SELECT *,(enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre) AS total
+        FROM deudas_vinculo WHERE vinculo = '".$vinculo."' ORDER BY id DESC LIMIT 1";
 
         return datos::respuestaQuery($query);
     }
