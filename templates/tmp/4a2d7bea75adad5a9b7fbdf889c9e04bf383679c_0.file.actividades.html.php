@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-21 19:17:11
+/* Smarty version 3.1.34-dev-7, created on 2025-01-21 19:32:33
   from 'C:\xampp\htdocs\estudio6\templates\actividades.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_678fe4a75b5f06_25269991',
+  'unifunc' => 'content_678fe8414db4f6_53227317',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a2d7bea75adad5a9b7fbdf889c9e04bf383679c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\actividades.html',
-      1 => 1737482816,
+      1 => 1737484352,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_678fe4a75b5f06_25269991 (Smarty_Internal_Template $_smarty_tpl) {
+function content_678fe8414db4f6_53227317 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
@@ -92,9 +92,10 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="form-group">
                     <label>Descuento por combo o Flia</label>
-                    <input type="text" class="form-control col-10" style="text-align: center;" id="descuento_actividad" value="<?php echo $_smarty_tpl->tpl_vars['DESCUENTO_ACT']->value;?>
+                    <input type="text" class="form-control col-9" style="text-align: center;font-size: 16px !important;" id="descuento_actividad" value="<?php echo $_smarty_tpl->tpl_vars['DESCUENTO_ACT']->value;?>
 " oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 20px;margin-left: 107px;"></i>
+                    <label style="position: absolute;bottom: 18%;left: 49%;font-size: 15px !important;">%</label>
+                    <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 22px;margin-left: 116px;"></i>
                 </div>
                 <!-- <div class="form-group">
                     <label>Descuento por familiar</label>

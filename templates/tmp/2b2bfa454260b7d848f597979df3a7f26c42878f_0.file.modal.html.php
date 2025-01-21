@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-21 19:17:11
+/* Smarty version 3.1.34-dev-7, created on 2025-01-21 19:32:33
   from 'C:\xampp\htdocs\estudio6\templates\partials\modal.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_678fe4a73aef88_84497776',
+  'unifunc' => 'content_678fe841219c81_85487502',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_678fe4a73aef88_84497776 (Smarty_Internal_Template $_smarty_tpl) {
+function content_678fe841219c81_85487502 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- <div class="modal-overlay"></div> -->
 <div id="datos_actividad" class="modal-login" style="display: none;">
     <div class="modal-dialog" role="document">
