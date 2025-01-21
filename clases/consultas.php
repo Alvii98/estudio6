@@ -341,11 +341,17 @@ class datos{
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();  
           
-        $query = "DELETE FROM actividades_valores WHERE id = ".$id."";
+        $query = "DELETE FROM actividades_valores WHERE id = ".$id;
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
+
+        $query = "DELETE FROM actividades_alumnos WHERE id_actividad = ".$id;
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+
         return true;
     }
     static public function baja_alumno($id_alumno,$baja){
