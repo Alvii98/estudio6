@@ -6,9 +6,6 @@ require_once __DIR__.'/clases/calcular_precio.php';
 
 if(!isset($_GET['id']) && !isset($_GET['vinculo'])) header('Location: index.php');
 
-// // $combo_actividades = datos::actividades();
-// print'<pre>';print_r(datos::deudas_alumno($_GET['id']));exit;
-// print'HOLAAAAAAAA';exit;
 
 $smarty->assign('ACTIVIDADES', datos::actividades());
 $smarty->assign('CAMARA', $smarty->fetch('partials/camara.html'));
@@ -36,8 +33,6 @@ if(isset($_GET['id'])){
     $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
     $smarty->assign('ALUMNO', $alumno[0]);
     $smarty->assign('BAJA', $alumno[0]['baja']);
-    $smarty->assign('DEBEMES', $alumno[0]['debemes']);
-    $smarty->assign('INFO_DEUDA', $alumno[0]['info_deuda']);
     $smarty->assign('APELLIDO', $alumno[0]['apellido']);
     $smarty->assign('NOMBRE', $alumno[0]['nombre']);
     $smarty->assign('FECHA_NAC', $alumno[0]['fecha_nac']);
@@ -78,8 +73,6 @@ if(isset($_GET['id'])){
     $vinculos = datos::busqueda_familiar_datos($_GET['vinculo']);
     $alumnos = array();
     foreach ($vinculos as $value) {
-        $debemes = $value['debemes'];
-        $debe_info = $value['info_deuda'];
         $alumno = datos::alumno_id($value['id_alumno']);
 
         $alumnos[] = array('id' => $value['id_alumno'],
@@ -96,8 +89,6 @@ if(isset($_GET['id'])){
     $smarty->assign('DEUDAS_VINCULO', $deudas);
     $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
     $smarty->assign('VINCULO', $_GET['vinculo']);
-    $smarty->assign('DEBEMES', $debemes);
-    $smarty->assign('DEBE_INFO', $debe_info);
     $smarty->assign('ALUMNOS', $alumnos);
 
     $valores = valores::precio_por_familia($alumnos);

@@ -10,7 +10,6 @@ window.addEventListener("click", function(event){
 
 window.addEventListener("change", function(event){
     if(event.target.id == 'nom_vinculo') datos_vinculo(event)
-    if(event.target.id == 'id_actividad') datos_actividad(event)
 })
 window.addEventListener("keyup", function(event){
     if(event.target.id == 'nom_vinculo_nuevo') document.querySelector('#nom_vinculo').value = '0'
@@ -23,6 +22,9 @@ function guardar_datos(event){
         if(document.querySelectorAll('#actividad')[i].value == '0') continue
         actividades.push(document.querySelectorAll('#actividad')[i].value)
     }
+    const datosUnicos = new Set(actividades);
+
+    if (datosUnicos.size !== actividades.length) return alertify.error('No puede seleccionar dos veces la misma actividad.')
 
     alumno = {'apellido': document.querySelector('#apellido').value,
     'nombre': document.querySelector('#nombre').value,
@@ -192,54 +194,6 @@ function desvincular(event){
 
 }
 
-function datos_actividad(event){
-
-    let id_actividad = document.querySelector('#id_actividad').value
-    
-    if(id_actividad.trim() == '0'){
-        return alertify.alert('Actividades','Seleccione una actividad.')
-    }
-    document.querySelector('#agregar_nueva_actividad').checked = false
-    document.querySelector('#guardar_actividad').disabled = false
-    document.querySelector('#nueva_actividad').disabled = true
-
-    fetch('ajax/ajax_guardar_vinculo_actividades.php', {
-        method: "POST",
-        // Set the post data
-        body: JSON.stringify({'id_actividad':id_actividad})
-    })
-    .then(response => response.json())
-    .then(function (json) {
-        console.log(json.respActividad[0])
-        document.querySelector('#cargar_actividad').innerHTML = 
-        `<div class="form-group col-md-4 float-left">
-            <label for="exampleFormControlInput1">Actividad</label>
-            <input type="text" id="id_guardar_actividad" class="form-control" value="`+json.respActividad[0].actividad+`">
-        </div>
-        <div class="form-group col-md-2 float-left">
-            <label for="exampleFormControlInput1">Una vez</label>
-            <input type="number" id="id_guardar_una" class="form-control" value="`+json.respActividad[0].una_vez+`">
-        </div>
-        <div class="form-group col-md-2 float-left">
-            <label for="exampleFormControlInput1">Una vez efectivo</label>
-            <input type="number" id="id_guardar_una_efectivo" class="form-control" value="`+json.respActividad[0].una_vez_efec+`">
-        </div>
-        <div class="form-group col-md-2 float-left">
-            <label for="exampleFormControlInput1">Dos veces</label>
-            <input type="number" id="id_guardar_dos" class="form-control" value="`+json.respActividad[0].dos_veces+`">
-        </div>
-        <div class="form-group col-md-2 float-left">
-            <label for="exampleFormControlInput1">Dos veces efectivo</label>
-            <input type="number" id="id_guardar_dos_efectivo" class="form-control" value="`+json.respActividad[0].dos_veces_efec+`">
-        </div>`
-    })
-    .catch(function (error){
-        console.log(error)
-        // Catch errors
-        alertify.alert('Actividades','Ocurrio un error al cargar los datos.')
-    })
-
-}
 function editar_actividad(event,id_actividad){
     let datos = event.parentElement.parentElement.getElementsByTagName('td')
     document.querySelector('#id_guardar_actividad').value = datos[0].textContent
@@ -279,11 +233,7 @@ function guardar_actividad(id_actividad = 0){
     || isNaN(guardar_actividad.id_guardar_edad_min) || isNaN(guardar_actividad.id_guardar_edad_max) || isNaN(guardar_actividad.id_guardar_cupos)){
         return alertify.error('Complete todos los campos.')
     }
-    // if(isNaN(guardar_actividad.id_guardar_una) || isNaN(guardar_actividad.id_guardar_una_efectivo) ||
-    // isNaN(guardar_actividad.id_guardar_dos) || isNaN(guardar_actividad.id_guardar_dos_efectivo)){
-    //     return alertify.error('Uno de los precios no es numerico.(Se admite solo numero,sin comas o puntos)')
-    // }
-
+    
     alertify.confirm('Guardar actividad', 'Seguro que quiere guardar esta actividad ?', function(){
 
         fetch('ajax/ajax_guardar_vinculo_actividades.php', {
@@ -395,7 +345,6 @@ function datos_actividad(id_actividad) {
     })
     .then(response => response.json())
     .then(function (json) {
-        console.log(json)
         if(json.datosActividad.length > 0){
             let datos =  ''
             json.datosActividad.forEach(dato => {

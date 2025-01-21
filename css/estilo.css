@@ -292,7 +292,9 @@ th{
 .exit-card{
     padding-top: 10px;
     position: absolute;
-    left: 95%;
+    top: -3%;
+    left: 92%;
+    font-size: xx-large;
 }
 .exit-card:hover{
     cursor: pointer;

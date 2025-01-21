@@ -5,8 +5,22 @@ window.addEventListener("click", function(event){
     if(event.target.id == 'eliminar_alumno') eliminar_alumno(event)
     if(event.target.id == 'eliminar_familiar') eliminar_familiar(event)
     if(event.target.id == 'baja_alumno') baja_alumno(event)
-    if(event.target.id == 'debe_mes') debe_mes(event)
-    if(event.target.id == 'debe_mes_vinculo') debe_mes(event)
+})
+
+window.addEventListener("change", function(event){
+    if(event.target.id == 'actividad') {
+        const actividades = []
+        for (let i = 0; i < document.querySelectorAll('#actividad').length; i++) {
+            actividades.push(document.querySelectorAll('#actividad')[i].value)
+        }
+        const datosUnicos = new Set(actividades);
+
+        if (datosUnicos.size !== actividades.length) {
+            console.log("El array tiene elementos repetidos.");
+        } else {
+            console.log("El array no tiene elementos repetidos.");
+        }
+    }
 })
 
 function editar_descuentos() {
@@ -48,7 +62,7 @@ function copiar_texto(id_deuda) {
         let div = document.querySelector("#"+id_deuda+""),
         inputs = div.getElementsByTagName("input"),
         texto_deuda = ''
-    
+
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value > 0) {
                 if (texto_deuda == '') texto_deuda += '\nUsted adeuda:\n'
@@ -57,8 +71,15 @@ function copiar_texto(id_deuda) {
         }
 
         for (let i = 0; i < document.querySelectorAll('#actividad').length; i++) {
-            if(document.querySelectorAll('#actividad')[i].value == '') continue
-            actividades += '• '+document.querySelectorAll('#actividad')[i].value+'\n'
+            if (id_deuda == 'deudas_alumno') {
+                const selectedIndex = document.querySelectorAll('#actividad')[i].selectedIndex
+                const selectedText = document.querySelectorAll('#actividad')[i].options[selectedIndex].text
+                if(selectedText == '') continue
+                actividades += '• '+selectedText+'\n'
+            }else {
+                if(document.querySelectorAll('#actividad')[i].value == '') continue
+                actividades += '• '+document.querySelectorAll('#actividad')[i].value+'\n'
+            }
         }
         texto += 'Actividades:\n'+actividades+'\n'
         
@@ -98,48 +119,6 @@ function copiar_texto(id_deuda) {
     } catch (error) {
         alertify.error('Ocurrio un error al copiar el texto.')
     }
-}
-function debe_mes(event) {
-    let texto = ''
-    const datosPost = new FormData()
-    if(event.target.id == 'debe_mes_vinculo'){
-        datosPost.append('nombre_vinculo', document.querySelector('#nombre_vinculo').value)
-        datosPost.append('debe_mes_vinculo', event.target.checked == true ? 1 : 0)
-        texto = event.target.checked == true ? 'Seguro que quiere poner que el vinculo familiar adeuda?' : 'Seguro que quiere quitar que el vinculo familiar adeuda?'
-    }else{
-        datosPost.append('id_alumno', document.querySelector('#id_alumno').value)
-        datosPost.append('debe_mes', event.target.checked == true ? 1 : 0)
-        texto = event.target.checked == true ? 'Seguro que quiere poner que el/la alumno/a adeuda?' : 'Seguro que quiere quitar que el/la alumno/a adeuda?'
-    }
-    
-    alertify.confirm('Datos del alumno/a', texto, function(){
-        /************** CARGA LOS DATOS ****************/
-        fetch('ajax/ajax_editar_datos.php', {
-            method: "POST",
-            // Set the post data
-            body: datosPost
-        })
-        .then(response => response.json())
-        .then(function (json) {
-            console.log(json)
-            if (event.target.checked == true) {
-                document.querySelector("#adeuda").style.display = ""
-            }else{
-                document.querySelector("#adeuda").style.display = "none"
-            }
-            alertify.success('Guardado correctamente.')
-            return
-        })
-        .catch(function (error){
-            console.log(error)
-            // Catch errors
-            alertify.alert('Datos del alumno/a','Ocurrio un error al guardar los datos.')
-        })
-    }, function(){ 
-        alertify.error('Cancelado')
-        event.target.checked == true ? event.target.checked = false : event.target.checked = true
-        return
-    });
 }
 
 function baja_alumno(event) {
@@ -192,6 +171,9 @@ function editar_datos(event){
         if(document.querySelectorAll('#actividad')[i].value == '0') continue
         actividades.push(document.querySelectorAll('#actividad')[i].value)
     }
+    const datosUnicos = new Set(actividades);
+
+    if (datosUnicos.size !== actividades.length) return alertify.error('No puede seleccionar dos veces la misma actividad.')
 
     alumno = {'id_alumno': document.querySelector('#id_alumno').value,
     'apellido': document.querySelector('#apellido').value,
@@ -223,15 +205,15 @@ function editar_datos(event){
             .then(function (json) {
                 console.log(json)
                 alertify.success('Guardado correctamente.')
-                //setTimeout(function(){location.reload()}, 2000)
+                setTimeout(function(){location.reload()}, 2000)
                 return
             })
             .catch(function (error){
                 console.log(error)
                 // Catch errors
-                alertify.alert('Datos del alumno/a','Ocurrio un error al guardar los datos.')
+                return alertify.error('Ocurrio un error al guardar los datos.')
             })
-        }, function(){ alertify.error('Cancelado');return});
+        }, function(){ return alertify.error('Cancelado')});
 
     }
 }

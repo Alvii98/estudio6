@@ -35,7 +35,6 @@ $array_insert = ['apellido' => $datos->alumno->apellido,
                 'autoriza' => $datos->alumno->autoriza,
                 'tel_alumno' => $datos->alumno->tel_alumno,
                 'correo' => $datos->alumno->correo,
-                'actividad' => '',
                 'salud' => $datos->alumno->salud,
                 'observacion_alumno' => $datos->alumno->observacion_alumno];
 

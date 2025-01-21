@@ -3,18 +3,6 @@ require_once '../clases/consultas.php';
 $json = new StdClass();
 if(isset($_POST['baja'])){
     $json->respAlumno = datos::baja_alumno($_POST['id_alumno'],$_POST['baja']);
-}elseif(isset($_POST['debe_mes'])){
-    $json->respAlumno = datos::debe_mes($_POST['id_alumno'],$_POST['debe_mes']);
-}elseif(isset($_POST['debe_mes_vinculo'])){
-    $json->respAlumno = datos::debe_mes_vinculo($_POST['nombre_vinculo'],$_POST['debe_mes_vinculo']);
-}elseif(isset($_POST['info_deuda'])){
-    if(isset($_POST['id_alumno'])){
-        $json->respAlumno = datos::info_deuda_alumno($_POST['id_alumno'],$_POST['info_deuda']);
-    }elseif (isset($_POST['nombre_vinculo'])) {
-        $json->respAlumno = datos::info_deuda_vinculo($_POST['nombre_vinculo'],$_POST['info_deuda']);
-    }else{
-        $json->respAlumno = false;
-    }
 }else{
 
     $datos = json_decode(file_get_contents('php://input'));
@@ -51,7 +39,6 @@ if(isset($_POST['baja'])){
     'autoriza' => $datos->alumno->autoriza,
     'tel_alumno' => $datos->alumno->tel_alumno,
     'correo' => $datos->alumno->correo,
-    'actividad' => '',
     'salud' => $datos->alumno->salud,
     'notas' => $datos->alumno->notas,
     'observacion_alumno' => $datos->alumno->observacion_alumno];

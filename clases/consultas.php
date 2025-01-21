@@ -44,10 +44,10 @@ class datos{
 
     static public function busqueda_familiar_datos($vinculo,$id = ''){
 
-        $query = "SELECT DISTINCT id_alumno,vinculo,debemes,info_deuda FROM vinculos WHERE id_alumno = ".$id;  
+        $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos WHERE id_alumno = ".$id;  
         
         if(empty($id)){
-            $query = "SELECT v.id_alumno,v.vinculo,v.debemes,v.info_deuda,a.apellido,a.nombre FROM vinculos v,alumnos a 
+            $query = "SELECT v.id_alumno,v.vinculo,a.apellido,a.nombre FROM vinculos v,alumnos a 
             WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id";
         }
 
@@ -201,6 +201,15 @@ class datos{
         return datos::respuestaQuery($query);
     }
 
+    static public function actividad_disponible($id_actividad = ''){
+        
+        $query = "SELECT av.*, (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa
+        JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja = 0)) AS disponibles
+        FROM actividades_valores av WHERE av.id = ".$id_actividad." GROUP BY av.id ORDER BY av.actividad ASC";    
+
+        return datos::respuestaQuery($query);
+    }
+
     static public function descuentos_actividades(){
 
         $query = "SELECT descuento_actividad,descuento_familiar FROM actividades_valores 
@@ -236,10 +245,10 @@ class datos{
         $conn = $instancia->getConnection();
 
         $query = "INSERT INTO alumnos(apellido, nombre, foto_perfil, fecha_nac, edad, nacionalidad, documento,
-        domicilio, localidad, autoriza, tel_movil, mail, actividad, salud, observaciones) VALUES 
+        domicilio, localidad, autoriza, tel_movil, mail, salud, observaciones) VALUES 
         ('".$array['apellido']."','".$array['nombre']."','".$array['foto_perfil']."','".$array['fecha_nac']."',".$array['edad'].",'".$array['nacionalidad']."',
         '".$array['documento']."','".$array['domicilio']."','".$array['localidad']."','".$array['autoriza']."','".$array['tel_alumno']."',
-        '".$array['correo']."','".$array['actividad']."','".$array['salud']."','".$array['observacion_alumno']."')";
+        '".$array['correo']."','".$array['salud']."','".$array['observacion_alumno']."')";
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
@@ -350,17 +359,7 @@ class datos{
         }
         return true;
     }
-    static public function debe_mes($id_alumno,$debe){
-        $instancia = SingletonConexion::getInstance();
-        $conn = $instancia->getConnection();    
 
-        $query = "UPDATE alumnos SET debemes = ".$debe." WHERE id = ".$id_alumno;
-        
-        if (!mysqli_query($conn, $query)) {
-            return mysqli_error($conn);
-        }
-        return true;
-    }
     static public function descuentos($descuento_actividad,$descuento_familiar){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
@@ -372,39 +371,7 @@ class datos{
         }
         return true;
     }
-    static public function debe_mes_vinculo($nombre_vinculo,$debe_mes_vinculo){
-        $instancia = SingletonConexion::getInstance();
-        $conn = $instancia->getConnection();    
-        
-        $query = "UPDATE vinculos SET debemes = ".$debe_mes_vinculo." WHERE vinculo = '".$nombre_vinculo."'";
-        
-        if (!mysqli_query($conn, $query)) {
-            return mysqli_error($conn);
-        }
-        return true;
-    }
-    static public function info_deuda_alumno($id_alumno,$info){
-        $instancia = SingletonConexion::getInstance();
-        $conn = $instancia->getConnection();    
 
-        $query = "UPDATE alumnos SET info_deuda = '".$info."' WHERE id = ".$id_alumno;
-        
-        if (!mysqli_query($conn, $query)) {
-            return mysqli_error($conn);
-        }
-        return true;
-    }
-    static public function info_deuda_vinculo($nombre_vinculo,$info){
-        $instancia = SingletonConexion::getInstance();
-        $conn = $instancia->getConnection();    
-
-        $query = "UPDATE vinculos SET info_deuda = '".$info."' WHERE vinculo = '".$nombre_vinculo."'";
-        
-        if (!mysqli_query($conn, $query)) {
-            return mysqli_error($conn);
-        }
-        return true;
-    }
     static public function update_alumnos($array){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();  
@@ -414,14 +381,14 @@ class datos{
             fecha_nac = '".$array['fecha_nac']."', edad = '".$array['edad']."', nacionalidad = '".$array['nacionalidad']."',
             documento = '".$array['documento']."',domicilio = '".$array['domicilio']."',localidad = '".$array['localidad']."',
             autoriza = '".$array['autoriza']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
-            actividad = '".$array['actividad']."', notas = '".$array['notas']."', salud = '".$array['salud']."',
+            notas = '".$array['notas']."', salud = '".$array['salud']."',
             observaciones = '".$array['observacion_alumno']."' WHERE id = ".$array['id_alumno'];
         }else {
             $query = "UPDATE alumnos SET apellido = '".$array['apellido']."', nombre = '".$array['nombre']."', foto_perfil = '".$array['foto_perfil']."',
             fecha_nac = '".$array['fecha_nac']."', edad = '".$array['edad']."', nacionalidad = '".$array['nacionalidad']."',
             documento = '".$array['documento']."',domicilio = '".$array['domicilio']."',localidad = '".$array['localidad']."',
             autoriza = '".$array['autoriza']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
-            actividad = '".$array['actividad']."', notas = '".$array['notas']."', salud = '".$array['salud']."',
+            notas = '".$array['notas']."', salud = '".$array['salud']."',
             observaciones = '".$array['observacion_alumno']."' WHERE id = ".$array['id_alumno'];
         }
         
@@ -465,17 +432,7 @@ class datos{
         }
         return true;
     }
-    static public function update_actividad($id,$actividad){
-        $instancia = SingletonConexion::getInstance();
-        $conn = $instancia->getConnection();    
 
-        $query = "UPDATE alumnos SET actividad = '".$actividad."' WHERE id = ".$id;
-        
-        if (!mysqli_query($conn, $query)) {
-            return mysqli_error($conn);
-        }
-        return true;
-    }
     static public function delete_alumno($id){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    

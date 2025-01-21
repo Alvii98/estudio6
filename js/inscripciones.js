@@ -269,17 +269,6 @@ function guardar_datos_inscripcion() {
 
     datosTotales['observacion'] = observacion
 
-    if(carga_de_datos(datosTotales)){
-        div.style.display = 'none'
-        document.querySelector("#fin_inscripcion").style.display = 'block'   
-        alertify.success('Datos guardados correctamente.')
-    }else {
-        alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
-    }
-
-}
-
-function carga_de_datos(datosTotales) {
     fetch('ajax/ajax_inscripcion.php', {
         method: "POST",
         // Set the post data
@@ -287,14 +276,17 @@ function carga_de_datos(datosTotales) {
     })
     .then(response => response.json())
     .then(function (json) {
-        return true
+        if (json.respActividad != '') return alertify.error(json.respActividad)
+        if (!json.respAlumno) return alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+        if (!json.respFamiliar) return alertify.error('Ocurrio un error al cargar los contactos familiar/tercero.')
+        div.style.display = 'none'
+        document.querySelector("#fin_inscripcion").style.display = 'block'   
+        alertify.success('Datos guardados correctamente.')
     })
     .catch(function (error){
         console.log(error)
         return false
-        // Catch errors
         alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
     })
-    return false
-    
+
 }
