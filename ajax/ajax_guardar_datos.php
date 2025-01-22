@@ -21,6 +21,9 @@ if(!empty($datos->alumno->foto_perfil)){
     $now = new DateTime();
     $fechaCompleta = $now->format('Y').$now->format('m').$now->format('d').$now->format('H').$now->format('i').$now->format('s');
     $file = 'img/perfil/foto_'.$fechaCompleta.'.png';
+    if (!file_exists('../img/perfil')) {
+        mkdir('../img/perfil', 0777, true);
+    }
     $success = file_put_contents('../'.$file, $data);
 }
 $array_insert = ['apellido' => $datos->alumno->apellido,

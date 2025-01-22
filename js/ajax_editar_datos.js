@@ -25,16 +25,12 @@ window.addEventListener("change", function(event){
 
 function editar_descuentos() {
     const descuento_actividad = document.getElementById("descuento_actividad")
-    // Esto se cambio porque es el mismo descuento para los dos
-    // descuento_familiar = document.getElementById("descuento_familiar")
 
     if(descuento_actividad.value.trim() == ''){
         return alertify.error('El campo de descuento esta vacio.')
     }
     let datosDescuentos = {}
-    // Esto se cambio porque es el mismo descuento para los dos
-    datosDescuentos = {'descuento_actividad': descuento_actividad.value,
-    'descuento_familiar': descuento_actividad.value}
+    datosDescuentos = {'descuento_actividad': descuento_actividad.value}
     
     /************** CARGA DATOS DEUDA ****************/
     fetch('ajax/ajax_guardar_vinculo_actividades.php', {

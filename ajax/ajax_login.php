@@ -1,4 +1,5 @@
 <?php
+require_once '../clases/consultas.php';
 session_start();
 $json = new StdClass();
 $json->resp = '';
@@ -8,7 +9,8 @@ if (isset($_POST['cerrar_sesion'])) {
     $json->resp = 'Sesion cerrada.';
 }else {
     if (isset($_POST['usuario']) && isset($_POST['clave'])) {
-        if (trim($_POST['usuario']) == 'admin' && trim($_POST['clave']) == '4dmin123') {
+        $datos = datos::administracion()[0];
+        if (trim($_POST['usuario']) == $datos['usuario'] && trim($_POST['clave']) == $datos['clave']) {
             $_SESSION['USUARIO'] = 'Administador';
             $json->resp = 'Inicio sesion correctamente.';
         }else {

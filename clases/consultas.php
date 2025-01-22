@@ -10,7 +10,7 @@ class datos{
         return $datos_usuarios->fetch_all(MYSQLI_ASSOC); 
     }
     static public function busqueda($ape,$nom,$edad,$activ){
-        if ($activ != '0') {
+        if ($activ != '0' && $activ != '') {
             $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_actividad = ".$activ."
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
@@ -144,6 +144,17 @@ class datos{
 
         return datos::respuestaQuery($query);
     }
+    
+    static public function datos_excel(){
+
+        $query = "SELECT a.id,a.apellido,a.nombre,a.documento,a.edad,a.fecha_nac,a.nacionalidad,a.domicilio,a.localidad,a.tel_movil,
+        a.autoriza,a.mail,a.salud,a.notas,a.observaciones,a.baja,CONCAT(av.actividad,' - ',av.dias_horarios) as actividad FROM alumnos a
+        LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
+        LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
+        ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";    
+
+        return datos::respuestaQuery($query);
+    }
 
     static public function alumnos(){
 
@@ -211,11 +222,10 @@ class datos{
 
         return datos::respuestaQuery($query);
     }
+    
+    static public function administracion(){
 
-    static public function descuentos_actividades(){
-
-        $query = "SELECT descuento_actividad,descuento_familiar FROM actividades_valores 
-        WHERE descuento_actividad <> 0 AND descuento_familiar <> 0 LIMIT 1";    
+        $query = "SELECT * FROM administracion ORDER BY id DESC LIMIT 1";    
 
         return datos::respuestaQuery($query);
     }
@@ -368,11 +378,11 @@ class datos{
         return true;
     }
 
-    static public function descuentos($descuento_actividad,$descuento_familiar){
+    static public function update_descuento($descuento_actividad){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
 
-        $query = "UPDATE actividades_valores SET descuento_actividad = ".$descuento_actividad.",descuento_familiar = ".$descuento_familiar;
+        $query = "UPDATE administracion SET descuento = ".$descuento_actividad;
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);

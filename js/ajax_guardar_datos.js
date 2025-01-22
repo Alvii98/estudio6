@@ -348,13 +348,12 @@ function datos_actividad(id_actividad) {
     .then(response => response.json())
     .then(function (json) {
         if(json.datosActividad.length > 0){
-            let datos =  ''
+            let datos =  '',
+            nom_actividad = document.querySelector('#nom_actividad')
             json.datosActividad.forEach(dato => {
+                nom_actividad .textContent = dato.actividad+' - '+dato.dias_horarios
                 datos += `<tr>
-                <td>`+dato.actividad+`</td>
                 <td>`+dato.alumno+`</td>
-                <td>`+dato.dias_horarios+`</td>
-                <td>`+dato.profe+`</td>
               </tr>
               <th colspan="3" class="text-center" id="no_datos" style="display:none;">NO SE ENCONTRARON DATOS</th>`
             })

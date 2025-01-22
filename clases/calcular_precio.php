@@ -22,7 +22,7 @@ class valores{
         }
         // 10% de descuento por hacer mas de 1 actividad / Se cambio al 7% 14/04/2024
         if($cantidad > 1){
-            $descuento = datos::descuentos_actividades()[0]['descuento_actividad'];
+            $descuento = datos::administracion()[0]['descuento'];
             $porcentaje = intval($valor) * $descuento / 100;
             $combo = intval($valor) - $porcentaje;
         }
@@ -38,7 +38,7 @@ class valores{
             $valor = $valor + intval($valores['valor']);
         }
         // 10% de descuento por ser familiares / Se cambio al 7% 14/04/2024
-        $descuento = datos::descuentos_actividades()[0]['descuento_familiar'];
+        $descuento = datos::administracion()[0]['descuento'];
         $porcentaje = $valor * $descuento  / 100;
         $combo = $valor - $porcentaje;
 

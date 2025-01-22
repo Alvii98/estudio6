@@ -23,6 +23,8 @@
     <script src="js/ajax_guardar_datos.js?{$NO_CACHE}"></script>
     <script src="js/ajax_editar_datos.js?{$NO_CACHE}"></script>
     <script src="js/buscador.js?{$NO_CACHE}"></script>
+    <script src="js/excel.js?{$NO_CACHE}"></script> 
+    <script src="js/exportar_excel.js?{$NO_CACHE}"></script> 
     <!-- ESTILOS PARA LOGIN -->
     <link rel="stylesheet" href="css/estilo.css?{$NO_CACHE}">
 </head>
@@ -50,11 +52,6 @@
                     <label style="position: absolute;bottom: 18%;left: 49%;font-size: 15px !important;">%</label>
                     <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 22px;margin-left: 116px;"></i>
                 </div>
-                <!-- <div class="form-group">
-                    <label>Descuento por familiar</label>
-                    <input type="text" class="form-control col-6" id="descuento_familiar" value="{$DESCUENTO_FAM}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 20px;margin-left: 54px;"></i>
-                </div> -->
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">
                 <div class="scroll-actividades mb-3">

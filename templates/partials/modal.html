@@ -5,19 +5,19 @@
             <i class="bi bi-x exit-card" onclick="document.querySelector('#datos_actividad').style.display = 'none'"></i>
             <div class="modal-header d-flex justify-content-center">
                 <h4>Datos de actividad </h4>
+                <i class="bi bi-file-earmark-spreadsheet-fill float-right h2" onclick="exportarExcelActividad('alumnos_actividad')" id="exportar_excel"
+                style="position:absolute;top:4%;right:13%;"></i>
             </div>
             <div class="col-md-12 p-3">
+                <h5 align="center" id="nom_actividad"></h5>
                 <div class="scroll-modal mb-3">
-                    <table class="table table-bordered text-body">
+                    <table class="table table-bordered text-body" id="alumnos_actividad">
                         <thead align="center">
                             <tr>
-                                <th>Actividad</th>
-                                <th>Alumno</th>
-                                <th>Días y horarios</th>
-                                <th>Profe</th>
+                                <th>Alumnos</th>
                             </tr>
                         </thead>
-                        <tbody id="mostrar_datos_actividad">
+                        <tbody align="center" id="mostrar_datos_actividad">
                         </tbody>
                     </table>
                 </div>

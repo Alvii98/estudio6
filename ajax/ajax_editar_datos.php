@@ -22,8 +22,11 @@ if(isset($_POST['baja'])){
         $data = base64_decode($img);
         $now = new DateTime();
         $fechaCompleta = $now->format('Y').$now->format('m').$now->format('d').$now->format('H').$now->format('i').$now->format('s');
+        if (!file_exists('../img/perfil')) {
+            mkdir('../img/perfil', 0777, true);
+        }
         $file = 'img/perfil/foto_'.$fechaCompleta.'.png';
-        $success = file_put_contents($file, $data);
+        $success = file_put_contents('../'.$file, $data);
     }
 
     $array_update = ['id_alumno' => $datos->alumno->id_alumno,

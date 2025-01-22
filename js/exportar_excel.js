@@ -6,11 +6,12 @@ function exportarExcel(name = ''){
         })
         .then(response => response.json())
         .then(function (json) {
+            console.log(json)
             let data = [],predata = [],titles = [], row = [],
             cantFamiliar = 0, cantFamAlum = 0, contfam = 0
 
             titles = ['APELLIDO','NOMBRE','DOCUMENTO','FECHA DE NACIMIENTO','EDAD','NACIONALIDAD','DOMICILIO',
-            'LOCALIDAD','CELULAR','TELEFONO','CORREO','SALUD','ACTIVIDADES','NOTAS','BAJAS','OBSERVACIONES']
+            'LOCALIDAD','CELULAR','AUTORIZA','CORREO','SALUD','ACTIVIDADES','NOTAS','BAJAS','OBSERVACIONES']
             // console.log(titles)            
             json.resp.forEach(element => {
                 row = []
@@ -26,7 +27,7 @@ function exportarExcel(name = ''){
                 row.push(element.autoriza)
                 row.push(element.mail)
                 row.push(element.salud)
-                row.push(acomodar_actividades(element.actividad))
+                row.push(element.actividad)
                 row.push(element.notas)
                 row.push(element.baja)
                 row.push(element.observaciones)
@@ -139,18 +140,75 @@ function formato_fecha(fecha) {
     // console.log(fecha[2]+'/'+fecha[1]+'/'+fecha[0])
     return fecha[2]+'/'+fecha[1]+'/'+fecha[0]
 }
-// console.log(acomodar_actividades('ndsjndsa|dnsjkabda|dsmaj|kndajksnd|'))
-function acomodar_actividades(actividades) {
-    let partes = actividades.split('|'),
-    actividades_new = ''
 
-    if (partes.length - 1 > 1) {
-        for (let i = 0; i < partes.length -1; i++) {
-            actividades_new += actividades_new == '' ? '' : ', '
-            actividades_new += partes[i]
+
+function exportarExcelActividad(id_tabla){
+    try {
+        if(id_tabla.trim() == '') return alert('No esta el nombre de la tabla.')
+
+        let tabla = document.querySelector('#'+id_tabla),
+        nom_actividad = document.querySelector('#nom_actividad').textContent
+        
+        let th,
+        tr = tabla.childNodes[3].getElementsByTagName("tr"),
+        data = [],titles = [], row = [],principal = []
+
+        try {
+            th = tabla.childNodes[1].childNodes[3].getElementsByTagName("th")
+        } catch (error) {
+            th = tabla.childNodes[1].childNodes[1].getElementsByTagName("th")
         }
-        return actividades_new
-    } else {
-        return actividades.replace(/\|/g, "")
+
+        for (let i = 0; i < th.length; i++) {
+            if (principal.length == 0) principal.push(nom_actividad)
+            else principal.push('')
+            titles.push(th[i].innerText.toUpperCase());
+        }
+        data.push(principal)
+        data.push(titles)
+        let valor = ''
+        for (let e = 0; e < tr.length; e++) {
+            if(tr[e].style.display == "none") continue;
+            row = []
+            for (let d = 0; d < tr[e].getElementsByTagName("td").length; d++) {
+                valor = tr[e].getElementsByTagName("td")[d].innerText
+                if(valor.indexOf(",") > -1 && !/[a-zA-Z]/.test(valor)){
+                    valor = parseFloat(valor.replace(/\./g, "").replace(",","."))
+                }
+                row.push(valor)
+            }
+            data.push(row)
+        }
+
+        // (C2) CREATE NEW EXCEL "FILE"
+        let workbook = XLSX.utils.book_new(),
+        worksheet = XLSX.utils.aoa_to_sheet(data);
+        workbook.SheetNames.push("First");
+        workbook.Sheets["First"] = worksheet;
+    
+        // (C3) TO BINARY STRING
+        let xlsbin = XLSX.write(workbook, {
+        bookType: "xlsx",
+        type: "binary"
+        });
+    
+        // (C4) TO BLOB OBJECT
+        let buffer = new ArrayBuffer(xlsbin.length),
+            array = new Uint8Array(buffer);
+        for (let i = 0; i < xlsbin.length; i++) {
+        array[i] = xlsbin.charCodeAt(i) & 0XFF;
+        }
+        let xlsblob = new Blob([buffer], {type:"application/octet-stream"});
+    
+        // (C5) "FORCE DOWNLOAD"
+        let url = window.URL.createObjectURL(xlsblob),
+        anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "actividad_alumnos.xlsx";
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        console.log(error)
+        alert('No se encontro tabla.')
     }
 }
