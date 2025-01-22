@@ -354,8 +354,7 @@ function datos_actividad(id_actividad) {
                 nom_actividad .textContent = dato.actividad+' - '+dato.dias_horarios
                 datos += `<tr>
                 <td>`+dato.alumno+`</td>
-              </tr>
-              <th colspan="3" class="text-center" id="no_datos" style="display:none;">NO SE ENCONTRARON DATOS</th>`
+              </tr>`
             })
             document.querySelector('#mostrar_datos_actividad').innerHTML = datos
             document.querySelector('#datos_actividad').style.display = 'block'
