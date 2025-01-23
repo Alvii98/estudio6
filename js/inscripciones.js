@@ -127,8 +127,8 @@ function datos_adulto(){
 
 function autorizacion(){
     let div = document.querySelector("#datos_autoriza"),
-    si = document.querySelector("#si"),
-    no = document.querySelector("#no")
+    si = document.querySelector("#si_autorizo"),
+    no = document.querySelector("#no_autorizo")
     
     if (si.checked || no.checked) {
         if (si.checked) datosTotales['autoriza'] = 'Si autoriza'

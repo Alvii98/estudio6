@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-22 16:13:07
+/* Smarty version 3.1.34-dev-7, created on 2025-01-23 12:52:05
   from 'C:\xampp\htdocs\estudio6\templates\actividades.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_67910b03c0f7d0_90966089',
+  'unifunc' => 'content_67922d65664814_14086966',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4a2d7bea75adad5a9b7fbdf889c9e04bf383679c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\actividades.html',
-      1 => 1737558067,
+      1 => 1737633119,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67910b03c0f7d0_90966089 (Smarty_Internal_Template $_smarty_tpl) {
+function content_67922d65664814_14086966 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
@@ -98,12 +98,12 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center">
-                <div class="form-group">
+                <div class="form-group pl-5">
                     <label>Descuento por combo o Flia</label>
                     <input type="text" class="form-control col-9" style="text-align: center;font-size: 16px !important;" id="descuento_actividad" value="<?php echo $_smarty_tpl->tpl_vars['DESCUENTO_ACT']->value;?>
 " oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    <label style="position: absolute;bottom: 18%;left: 49%;font-size: 15px !important;">%</label>
-                    <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 22px;margin-left: 116px;"></i>
+                    <label style="position: relative;bottom: 31%;left: 45%;font-size: 16px !important;">%</label>
+                    <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 54px;margin-left: 109px;"></i>
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">

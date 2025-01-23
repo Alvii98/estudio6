@@ -49,7 +49,6 @@ if(isset($_GET['id'])){
     $smarty->assign('LOCALIDAD', $alumno[0]['localidad']);
     $smarty->assign('DOMICILIO', $alumno[0]['domicilio']);
     $smarty->assign('SALUD', $alumno[0]['salud']);
-    $smarty->assign('NACIONALIDAD', $alumno[0]['localidad']);
     
     $smarty->assign('EDAD', datos::obtener_edad($alumno[0]['fecha_nac']));
     $smarty->assign('ACTIVIDADES_ALUMNO', datos::actividades_alumno($_GET['id']));
