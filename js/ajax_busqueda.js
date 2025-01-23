@@ -39,14 +39,14 @@ function buscar(){
     .then(response => response.json())
     .then(function (json) {
         let tbody = '',
-        baja = ''
+        baja = '',sinfoto = ''
         //console.log(json)
         document.querySelector('#cant_res').textContent = (json.datos.length+json.foto_rota.length)+' alumnos.'
         if(json.foto_rota.length > 0){
             json.foto_rota.forEach(element => {
                 baja = element.baja == 1 ? 'style="text-decoration:line-through;"' : ''
-
-                tbody += `<tr style="background-color:#fd5757;" onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
+                sinfoto = element.baja == 1 ? '' : 'style="background-color:#fd5757;"'
+                tbody += `<tr `+sinfoto+` onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
                 <td>`+element.apellido+`</td>
                 <td>`+element.nombre+`</td>
                 <td>`+element.edad+`</td>

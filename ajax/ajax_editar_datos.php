@@ -6,33 +6,10 @@ if(isset($_POST['baja'])){
 }else{
 
     $datos = json_decode(file_get_contents('php://input'));
-    $file = '';
-    if(!empty($datos->alumno->foto_perfil)){
-        $img = $datos->alumno->foto_perfil;
-        if(strpos($img, 'data:image/png;base64,') !== FALSE){
-            $img = str_replace('data:image/png;base64,', '', $img);
-        }elseif (strpos($img, 'data:image/jpg;base64,') !== FALSE) {
-            $img = str_replace('data:image/jpg;base64,', '', $img);
-        }elseif (strpos($img, 'data:image/jpeg;base64,') !== FALSE) {
-            $img = str_replace('data:image/jpeg;base64,', '', $img);
-        }else{
-            exit;
-        }
-        $img = str_replace(' ', '+', $img);
-        $data = base64_decode($img);
-        $now = new DateTime();
-        $fechaCompleta = $now->format('Y').$now->format('m').$now->format('d').$now->format('H').$now->format('i').$now->format('s');
-        if (!file_exists('../img/perfil')) {
-            mkdir('../img/perfil', 0777, true);
-        }
-        $file = 'img/perfil/foto_'.$fechaCompleta.'.png';
-        $success = file_put_contents('../'.$file, $data);
-    }
 
     $array_update = ['id_alumno' => $datos->alumno->id_alumno,
     'apellido' => $datos->alumno->apellido,
     'nombre' => $datos->alumno->nombre,
-    'foto_perfil' => $file,
     'fecha_nac' => $datos->alumno->fecha_nac,
     'edad' => $datos->alumno->edad,
     'nacionalidad' => $datos->alumno->nacionalidad,

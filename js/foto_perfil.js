@@ -26,6 +26,7 @@ document.addEventListener('change', function (event) {
         reader.onload = function () {
             document.querySelector('#id_perfil').setAttribute('src', reader.result)
             document.querySelector('#foto_base64').value = reader.result
+            subir_foto(reader.result)
         }
         reader.onerror = function (error) {
             console.log('Error: ', error);
@@ -37,10 +38,6 @@ document.addEventListener('change', function (event) {
 })
 
 function iniciar_camara(event){
-    if(document.domain.toUpperCase() != 'LOCALHOST'){
-        alertify.alert('Informacion camara','Solo puede sacar fotos con la PC local con el dominio localhost(url:localhost/proyecto_estudio/)')
-        return
-    }
     document.querySelector(".modalDialog").setAttribute('style','display:block;opacity:1;')
     let info = document.querySelector('#datos_camara')
     try {
@@ -73,10 +70,8 @@ function iniciar_camara(event){
             alert("Lo siento. Tu navegador no soporta esta característica");
         }
     } catch (error) {
-        if(document.domain != 'localhost'){
-            info.style.color = 'red'
-            info.innerText  = 'Cambie en su url '+document.domain+' por localhost para que tome la camara local.'
-        }
+        info.style.color = 'red'
+        info.innerText  = error
     }
 }
 function foto_base64(){
@@ -96,17 +91,47 @@ function foto_base64(){
     document.querySelector('#id_perfil').setAttribute('src', foto)
     document.querySelector('#foto_base64').value = foto
     document.querySelector(".modalDialog").setAttribute('style','display:none !important;opacity:0;')
-
+    subir_foto(foto)
     //Reanudar reproducción
-    video.play();
+    // video.play();
 }
+
+function subir_foto(foto) {
+    // Obtén la URL actual
+    const urlParams = new URLSearchParams(window.location.search);
+
+    if (urlParams.get('id') == null) return
+    if (foto == '') return alertify.error('Ocurrio un error al intentar subir la foto, vuelva a intentar.')
+
+    const datosPost = new FormData()
+    datosPost.append('foto_perfil', foto)
+    datosPost.append('id_alumno', urlParams.get('id'))
+
+    fetch('ajax/ajax_subir_foto.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.error != '') return alertify.error(json.error)
+        if (json.resp != '') return alertify.success(json.resp)
+        return alertify.error('Ocurrio un error al intentar subir la foto.')
+    })
+    .catch(function (error){
+        console.log(error)
+        return alertify.error('Ocurrio un error al intentar subir la foto.')
+    })
+   
+}
+
 
 function zoom_foto(event) {
     let img = document.createElement('img'),
     div = document.createElement('div')
     
     div.setAttribute('class', 'foto_zoom d-flex justify-content-center')
-    // div.setAttribute('id', 'foto_grande')
+    div.setAttribute('style', 'object-fit: cover;')
     img.setAttribute('src', event.target.src)
     div.append(img)
 

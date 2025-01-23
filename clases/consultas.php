@@ -378,6 +378,18 @@ class datos{
         return true;
     }
 
+    static public function update_foto($id_alumno,$pathFile){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();    
+
+        $query = "UPDATE alumnos SET foto_perfil = '".$pathFile."' WHERE id = ".$id_alumno;
+        
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        return true;
+    }
+
     static public function update_descuento($descuento_actividad){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
@@ -394,21 +406,13 @@ class datos{
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();  
           
-        if (empty($array['foto_perfil'])) {
-            $query = "UPDATE alumnos SET apellido = '".$array['apellido']."', nombre = '".$array['nombre']."',
-            fecha_nac = '".$array['fecha_nac']."', edad = '".$array['edad']."', nacionalidad = '".$array['nacionalidad']."',
-            documento = '".$array['documento']."',domicilio = '".$array['domicilio']."',localidad = '".$array['localidad']."',
-            autoriza = '".$array['autoriza']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
-            notas = '".$array['notas']."', salud = '".$array['salud']."',
-            observaciones = '".$array['observacion_alumno']."' WHERE id = ".$array['id_alumno'];
-        }else {
-            $query = "UPDATE alumnos SET apellido = '".$array['apellido']."', nombre = '".$array['nombre']."', foto_perfil = '".$array['foto_perfil']."',
-            fecha_nac = '".$array['fecha_nac']."', edad = '".$array['edad']."', nacionalidad = '".$array['nacionalidad']."',
-            documento = '".$array['documento']."',domicilio = '".$array['domicilio']."',localidad = '".$array['localidad']."',
-            autoriza = '".$array['autoriza']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
-            notas = '".$array['notas']."', salud = '".$array['salud']."',
-            observaciones = '".$array['observacion_alumno']."' WHERE id = ".$array['id_alumno'];
-        }
+        $query = "UPDATE alumnos SET apellido = '".$array['apellido']."', nombre = '".$array['nombre']."',
+        fecha_nac = '".$array['fecha_nac']."', edad = '".$array['edad']."', nacionalidad = '".$array['nacionalidad']."',
+        documento = '".$array['documento']."',domicilio = '".$array['domicilio']."',localidad = '".$array['localidad']."',
+        autoriza = '".$array['autoriza']."', tel_movil = '".$array['tel_alumno']."', mail = '".$array['correo']."',
+        notas = '".$array['notas']."', salud = '".$array['salud']."',
+        observaciones = '".$array['observacion_alumno']."' WHERE id = ".$array['id_alumno'];
+
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
