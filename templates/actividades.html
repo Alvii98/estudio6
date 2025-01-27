@@ -70,13 +70,13 @@
                             </tr>
                             <tr>
                                 <th>Actividad</th>
-                                <th>Valor</th>
-                                <th>Valor x2</th>
+                                <th style="min-width: 82px !important;">Valor</th>
+                                <th style="min-width: 82px !important;">Valor x2</th>
                                 <th>D&iacute;as y horarios</th>
                                 <th>Profe</th>
                                 <th>Edades</th>
-                                <th>Cupos</th>
-                                <th>Disp.</th>
+                                <th style="min-width: 68px !important;">Cupos</th>
+                                <th style="min-width: 68px !important;">Disp.</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
@@ -85,13 +85,13 @@
                             {foreach from=$ACTIVIDADES item=value}
                             <tr>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.actividad|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.una_vez|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.dos_veces|escape:'utf8_encode'}</td>
+                                <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.una_vez|number_format:0:",":"."}</td>
+                                <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.dos_veces|number_format:0:",":"."}</td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.dias_horarios|escape:'utf8_encode'}</td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.profe|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.min_edad} A {$value.max_edad}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.cupos|escape:'utf8_encode'}</td>
-                                <td onclick="datos_actividad('{$value.id}')">{$value.disponibles|escape:'utf8_encode'}</td>
+                                <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.min_edad} a {$value.max_edad}</td>
+                                <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.cupos|escape:'utf8_encode'}</td>
+                                <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.disponibles|escape:'utf8_encode'}</td>
                                 <th><i class="bi bi-pencil-square" onclick="editar_actividad(this,'{$value.id}')"></i></th>
                                 <th><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'{$value.id}')"></i></th>
                             </tr>

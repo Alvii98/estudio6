@@ -80,7 +80,7 @@ function copiar_texto(id_deuda) {
         }
         texto += 'Actividades:\n'+actividades+'\n'
         
-        if (valor != '$0,00') {
+        if (valor != '$0') {
             if (parseInt(valor.split(',')[0].slice(-2)) > 50) {
                 penultimo = parseInt(valor.split(',')[0].slice(-3, -2)) + 1;
                 nuevoPrecio = valor.split(',')[0].slice(0, -3) + penultimo + '00';
@@ -90,7 +90,7 @@ function copiar_texto(id_deuda) {
             texto += 'Valor: '+nuevoPrecio+'\n'
         }
 
-        if (combo != '$0,00') {
+        if (combo != '$0') {
             if (parseInt(combo.split(',')[0].slice(-2)) > 50) {
                 penultimo = parseInt(combo.split(',')[0].slice(-3, -2)) + 1;
                 nuevoPrecio = combo.split(',')[0].slice(0, -3) + penultimo + '00';

@@ -27,7 +27,7 @@ class valores{
             $combo = intval($valor) - $porcentaje;
         }
 
-        return ['valor' => $valor,'combo' => $combo];
+        return ['valor' => intval($valor),'combo' => intval($combo)];
     }
 
     static public function precio_por_familia($alumnos){
@@ -39,10 +39,10 @@ class valores{
         }
         // 10% de descuento por ser familiares / Se cambio al 7% 14/04/2024
         $descuento = datos::administracion()[0]['descuento'];
-        $porcentaje = $valor * $descuento  / 100;
-        $combo = $valor - $porcentaje;
+        $porcentaje = intval($valor) * $descuento / 100;
+        $combo = intval($valor) - $porcentaje;
 
-        return ['valor' => $valor,'combo' => $combo];
+        return ['valor' => intval($valor),'combo' => intval($combo)];
     }
 }
 

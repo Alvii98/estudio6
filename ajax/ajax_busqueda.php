@@ -15,7 +15,7 @@ foreach ($datos as $value) {
         datos::update_acomodar_edad($value['id'],datos::obtener_edad($value['fecha_nac']));
     }
     $value['actividad'] = is_null($value['actividad']) ? '' : $value['actividad'];
-    if(!file_exists('../'.$value['foto_perfil']) && $value['baja'] == 0) {
+    if((!file_exists('../'.$value['foto_perfil']) && $value['baja'] == 0) || ($value['foto_perfil'] == '' && $value['baja'] == 0)) {
         if ($id == $value['id']) {
             $ultimo_alumno = end($foto_rota);
             $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].' <br> '.$value['actividad'].' - '.$value['dias_horarios'];

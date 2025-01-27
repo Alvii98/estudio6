@@ -68,15 +68,15 @@
                     <div class="form-group col-md-12 d-flex justify-content-center">
                         <div class="float-left">
                             <label>A pagar</label>
-                            <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center" value="${$VALOR}">
+                            <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center" value="${$VALOR|number_format:0:",":"."}">
                         </div>
                         <div class="ml-3 float-left">
                             <label>Combo</label>
-                            <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center" value="${$COMBO}">
+                            <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center" value="${$COMBO|number_format:0:",":"."}">
                         </div>
                         <div class="ml-3 float-left">
                             <label>Adeuda</label>
-                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="${$ADEUDA}">
+                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="${$ADEUDA|number_format:0:",":"."}">
                         </div>
                     </div>
                 {else}
@@ -190,7 +190,7 @@
                     <input type="text" id="tel_alumno" class="form-control" value="{$TEL_MOVIL|escape:'utf8_encode'}">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label>Autorizado</label>
+                    <label>¿Se retira solo?</label>
                     <input type="text" id="autoriza" class="form-control" value="{$AUTORIZA|escape:'utf8_encode'}">
                 </div>
             </div>

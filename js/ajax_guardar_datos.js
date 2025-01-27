@@ -204,7 +204,7 @@ function editar_actividad(event,id_actividad){
     // document.querySelector('#id_guardar_dos_efectivo').value = datos[4].textContent
     document.querySelector('#id_guardar_dias').value = datos[3].textContent
     document.querySelector('#id_guardar_profe').value = datos[4].textContent
-    let edades = datos[5].textContent.split('A')
+    let edades = datos[5].textContent.split('a')
     document.querySelector('#id_guardar_edad_min').value = edades[0].trim()
     document.querySelector('#id_guardar_edad_max').value = edades[1].trim()
     document.querySelector('#id_guardar_cupos').value = datos[6].textContent

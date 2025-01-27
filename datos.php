@@ -56,11 +56,8 @@ if(isset($_GET['id'])){
     
     $valores = valores::precio_por_alumno($_GET['id']);
 
-    $valor = number_format($valores['valor'], 2, ',', ' ');
-    $combo = number_format($valores['combo'], 2, ',', ' ');
-
-    $smarty->assign('VALOR', $valor);
-    $smarty->assign('COMBO', $combo);
+    $smarty->assign('VALOR', round($valores['valor'], -2));
+    $smarty->assign('COMBO', round($valores['combo'], -2));
 
     $smarty->assign('FAMILIAR', datos::familiar($_GET['id']));
     // print'<pre>';print_r(datos::actividades());exit;
@@ -88,7 +85,7 @@ if(isset($_GET['id'])){
                 "julio" => 0,"agosto" => 0,"septiembre" => 0,"octubre" => 0,"noviembre" => 0,"diciembre" => 0));
         $smarty->assign('ADEUDA', 0);
     }else {
-        $smarty->assign('ADEUDA', number_format($deudas[0]['total'], 2, ',', ' '));
+        $smarty->assign('ADEUDA', round($deudas[0]['total'], -2));
     }
     $smarty->assign('DEUDAS_VINCULO', $deudas);
     $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
@@ -96,12 +93,9 @@ if(isset($_GET['id'])){
     $smarty->assign('ALUMNOS', $alumnos);
 
     $valores = valores::precio_por_familia($alumnos);
-    
-    $valor = number_format($valores['valor'], 2, ',', ' ');
-    $combo = number_format($valores['combo'], 2, ',', ' ');
-    
-    $smarty->assign('VALOR', $valor);
-    $smarty->assign('COMBO', $combo);
+
+    $smarty->assign('VALOR', round($valores['valor'], -2));
+    $smarty->assign('COMBO', round($valores['combo'], -2));
 
     if (!isset($_SESSION['USUARIO'])) {
         $smarty->display('login.html');

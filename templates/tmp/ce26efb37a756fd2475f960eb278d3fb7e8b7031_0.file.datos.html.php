@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-23 17:44:49
+/* Smarty version 3.1.34-dev-7, created on 2025-01-27 19:03:00
   from 'C:\xampp\htdocs\estudio6\templates\datos.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_67927201e84394_00967827',
+  'unifunc' => 'content_6797ca5430f288_57169240',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ce26efb37a756fd2475f960eb278d3fb7e8b7031' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\datos.html',
-      1 => 1737650687,
+      1 => 1738000973,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67927201e84394_00967827 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6797ca5430f288_57169240 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
@@ -118,17 +118,17 @@ if (empty($_prefixVariable1)) {?>
                     <div class="form-group col-md-12 d-flex justify-content-center">
                         <div class="float-left">
                             <label>A pagar</label>
-                            <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center" value="$<?php echo $_smarty_tpl->tpl_vars['VALOR']->value;?>
+                            <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center" value="$<?php echo number_format($_smarty_tpl->tpl_vars['VALOR']->value,0,",",".");?>
 ">
                         </div>
                         <div class="ml-3 float-left">
                             <label>Combo</label>
-                            <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center" value="$<?php echo $_smarty_tpl->tpl_vars['COMBO']->value;?>
+                            <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center" value="$<?php echo number_format($_smarty_tpl->tpl_vars['COMBO']->value,0,",",".");?>
 ">
                         </div>
                         <div class="ml-3 float-left">
                             <label>Adeuda</label>
-                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="$<?php echo $_smarty_tpl->tpl_vars['ADEUDA']->value;?>
+                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="$<?php echo number_format($_smarty_tpl->tpl_vars['ADEUDA']->value,0,",",".");?>
 ">
                         </div>
                     </div>
@@ -284,7 +284,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 ">
                 </div>
                 <div class="form-group col-md-3 float-left">
-                    <label>Autorizado</label>
+                    <label>¿Se retira solo?</label>
                     <input type="text" id="autoriza" class="form-control" value="<?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['AUTORIZA']->value, 'utf8_encode');?>
 ">
                 </div>

@@ -57,15 +57,15 @@
                 <div class="form-group col-md-12 d-flex justify-content-center">
                     <div class="float-left">
                         <label>A pagar</label>
-                        <input type="text" readonly="true" id="valor" class="form-control col-md-6 text-center" value="${$VALOR}">
+                        <input type="text" readonly="true" id="valor" class="form-control col-md-6 text-center" value="${$VALOR|number_format:0:",":"."}">
                     </div>
                     <div class="ml-3 float-left">
                         <label>Combo</label>
-                        <input type="text" readonly="true" id="combo" class="form-control col-md-6 text-center" value="${$COMBO}">
+                        <input type="text" readonly="true" id="combo" class="form-control col-md-6 text-center" value="${$COMBO|number_format:0:",":"."}">
                     </div>
                     <div class="ml-3 float-left">
                         <label>Adeuda</label>
-                        <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="${$ADEUDA}">
+                        <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="${$ADEUDA|number_format:0:",":"."}">
                     </div>
                 </div>
             </div>
