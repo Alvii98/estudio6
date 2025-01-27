@@ -29,7 +29,7 @@ if(isset($_GET['id'])){
                 "julio" => 0,"agosto" => 0,"septiembre" => 0,"octubre" => 0,"noviembre" => 0,"diciembre" => 0));
         $smarty->assign('ADEUDA', 0);
     }else {
-        $smarty->assign('ADEUDA', number_format($deudas[0]['total'], 2, ',', ' '));
+        $smarty->assign('ADEUDA', round($deudas[0]['total'], -2));
     }
     
     $smarty->assign('DEUDAS_ALUMNO', $deudas);
