@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/definiciones.php';
 class SingletonConexion
 {
     private static $instance = null;
@@ -6,8 +7,8 @@ class SingletonConexion
 
     public function __construct()
     {
-        if($_SERVER['HTTP_HOST'] == 'estudio6.site'){
-            $this->conn = mysqli_connect('localhost', 'c2721191_estudio', 'biseziDI17', 'c2721191_estudio');
+        if(_HOST_ == 'estudio6.site'){
+            $this->conn = mysqli_connect(_SERVER_, _DB_USER_, _DB_PASS_, _DB_NAME_);
         }else{
             $this->conn = mysqli_connect('localhost', 'root', '', 'estudio');
         }
