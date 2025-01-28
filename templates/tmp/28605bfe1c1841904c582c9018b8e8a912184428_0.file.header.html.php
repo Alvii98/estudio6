@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-01-27 19:02:59
+/* Smarty version 3.1.34-dev-7, created on 2025-01-28 14:18:35
   from 'C:\xampp\htdocs\estudio6\templates\partials\header.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_6797ca53ef9790_69401126',
+  'unifunc' => 'content_6798d92bc34cf4_85514067',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6797ca53ef9790_69401126 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6798d92bc34cf4_85514067 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header class="container-fluid border-bottom border-color p-3">
     <?php if ($_smarty_tpl->tpl_vars['LOGOUT']->value) {?><i class="bi bi-menu-button-wide" onclick="openNav()" style="font-size: xx-large;" role="button"></i><?php }?>
     <img src="img/logo-Negro.png" role="button" class="logo" <?php if ($_smarty_tpl->tpl_vars['INSCRIPCIONES']->value) {?>onclick="location.href='index.php'"<?php }?> width="350px" height="80px">
