@@ -402,6 +402,18 @@ class datos{
         return true;
     }
 
+    static public function update_detalle($detalle_cuota){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();    
+
+        $query = "UPDATE administracion SET detalle_cuota = '".$detalle_cuota."'";
+        
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        return true;
+    }
+
     static public function update_alumnos($array){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();  

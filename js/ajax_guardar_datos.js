@@ -214,12 +214,17 @@ function editar_actividad(event,id_actividad){
 }
 
 function guardar_actividad(id_actividad = 0){
-    let guardar_actividad = {}
+    let guardar_actividad = {},
+    valor1 = document.querySelector('#id_guardar_una').value.replace('.', ''),
+    valor2 = document.querySelector('#id_guardar_dos').value.replace('.', '')
+
+    if (valor1.includes(",")) valor1 = document.querySelector('#id_guardar_una').value.replace(',', '')
+    if (valor2.includes(",")) valor2 = document.querySelector('#id_guardar_dos').value.replace(',', '')
 
     guardar_actividad = {'id_guardar_id': id_actividad,
     'id_guardar_actividad': document.querySelector('#id_guardar_actividad').value,
-    'id_guardar_una': parseInt(document.querySelector('#id_guardar_una').value),
-    'id_guardar_dos': parseInt(document.querySelector('#id_guardar_dos').value),
+    'id_guardar_una':parseInt(valor1),
+    'id_guardar_dos': parseInt(valor2),
     'id_guardar_dias': document.querySelector('#id_guardar_dias').value,
     'id_guardar_profe': document.querySelector('#id_guardar_profe').value,
     'id_guardar_edad_min': parseInt(document.querySelector('#id_guardar_edad_min').value),

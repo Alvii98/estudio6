@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-02-11 16:10:08
+/* Smarty version 3.1.34-dev-7, created on 2025-02-24 17:22:11
   from 'C:\xampp\htdocs\estudio6\templates\partials\header.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_67ab6850447930_37070730',
+  'unifunc' => 'content_67bc9cb346bdf4_43267259',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '28605bfe1c1841904c582c9018b8e8a912184428' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\partials\\header.html',
-      1 => 1736975009,
+      1 => 1740407598,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67ab6850447930_37070730 (Smarty_Internal_Template $_smarty_tpl) {
+function content_67bc9cb346bdf4_43267259 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header class="container-fluid border-bottom border-color p-3">
     <?php if ($_smarty_tpl->tpl_vars['LOGOUT']->value) {?><i class="bi bi-menu-button-wide" onclick="openNav()" style="font-size: xx-large;" role="button"></i><?php }?>
     <img src="img/logo-Negro.png" role="button" class="logo" <?php if ($_smarty_tpl->tpl_vars['INSCRIPCIONES']->value) {?>onclick="location.href='index.php'"<?php }?> width="350px" height="80px">

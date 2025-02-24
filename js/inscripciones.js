@@ -9,9 +9,9 @@ function validateNumber(input) {
 }
 
 function mayusName(input) {
-    input.value = input.value.toLowerCase().replace(/\b\w/g, function(char) {
-        return char.toUpperCase();
-    })
+  input.value = input.value.toLowerCase().replace(/(^[a-zñáéíóúüàèìòùç])|\s([a-zñáéíóúüàèìòùç])/g, function(m) {
+    return m.toUpperCase();
+  });
 }
 
 function validateEmail(input) {

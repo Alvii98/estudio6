@@ -49,12 +49,39 @@ function editar_descuentos() {
         alertify.error('Ocurrio un error al guardar los datos.')
     })
 }
+function editar_detalle() {
+    const detalle_cuota = document.getElementById("detalle_cuota")
+
+    if(detalle_cuota.value.trim() == ''){
+        return alertify.error('El campo de detalle de cuota esta vacio.')
+    }
+    let datosDetalleCuota = {}
+    datosDetalleCuota = {'detalle_cuota': detalle_cuota.value}
+    
+    /************** CARGA DATOS DEUDA ****************/
+    fetch('ajax/ajax_guardar_vinculo_actividades.php', {
+        method: "POST",
+        // Set the post data
+        body: JSON.stringify({'datosDetalleCuota':datosDetalleCuota})
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        
+        alertify.success('Guardado correctamente.')
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al guardar los datos.')
+    })
+}
 function copiar_texto(id_deuda) {
     try {
 
         let texto = '',actividades = '',
         valor = document.querySelector('#valor').value.trim().replace(/\s+/g, '.'),
-        combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.')
+        combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.'),
+        detalle_cuota = document.querySelector('#detalle_cuota').value.trim()
         const textarea = document.createElement('textarea')                
         let div = document.querySelector("#"+id_deuda+""),
         inputs = div.getElementsByTagName("input"),
@@ -98,9 +125,9 @@ function copiar_texto(id_deuda) {
                 nuevoPrecio = combo.split(',')[0].slice(0, -2) + '00';
             }
             texto += 'Precio promocional por combo de actividades o grupo familiar: '+nuevoPrecio
-            texto += ' (aplica únicamente abonando en efectivo en el Estudio del 1 al 15 del mes)\n'
+            texto += ' (aplica únicamente abonando en efectivo en el Estudio)\n'
         }
-        texto += '\nLos valores corresponden al pago realizado del 1 al 15 del mes, fuera de esa fecha tienen un 10% de recargo.\n'
+        texto += '\n'+detalle_cuota+'\n'
         texto += texto_deuda
         // console.log(texto)
         // return

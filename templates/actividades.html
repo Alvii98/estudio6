@@ -45,12 +45,21 @@
                     <a class="btn btn-dark btn-lg rounded-pill" href="index.php">Volver</a>
                 </div>
             </div>
-            <div class="col-md-12 d-flex justify-content-center">
-                <div class="form-group pl-5">
-                    <label>Descuento por combo o Flia</label>
-                    <input type="text" class="form-control col-9" style="text-align: center;font-size: 16px !important;" id="descuento_actividad" value="{$DESCUENTO_ACT}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
-                    <label style="position: relative;bottom: 31%;left: 45%;font-size: 16px !important;">%</label>
-                    <i class="bi bi-floppy" role="button" onclick="editar_descuentos()" style="position: absolute;bottom: 54px;margin-left: 109px;"></i>
+            <div class="col-md-12">
+                <div class="col-md-6 float-left">
+                    <div class="form-group col-8 float-right detalle_cuota">
+                        <label>Detalle de cuota:</label>
+                        <textarea class="form-control" id="detalle_cuota" rows="3">{$DETALLE_CUOTA}</textarea>        
+                        <i class="bi bi-floppy" role="button" onclick="editar_detalle()"></i>
+                    </div>
+                </div>
+                <div class="col-md-6 float-left">
+                    <div class="form-group col-7 float-left descuentos">
+                        <label>Descuento por combo o Flia:</label>
+                        <input type="text" class="form-control" style="text-align: center;font-size: 16px !important;" id="descuento_actividad" value="{$DESCUENTO_ACT}" oninput="this.value = this.value.replace(/[^0-9]/g, '');this.nextElementSibling.style.display = 'block';">
+                        <label style="position: relative;top: -31px;left: 60%;font-size: 16px !important;">%</label>
+                        <i class="bi bi-floppy" role="button" onclick="editar_descuentos()"></i>
+                    </div>
                 </div>
             </div>
             <div class="col-md-12 d-flex justify-content-center mt-2">

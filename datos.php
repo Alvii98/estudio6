@@ -13,6 +13,7 @@ $smarty->assign('HEADER', $smarty->fetch('partials/header.html'));
 $smarty->assign('FOOTER', $smarty->fetch('partials/footer.html'));
 $smarty->assign('DEUDAS_ALUMNO', false);
 $smarty->assign('DEUDAS_VINCULO', false);
+$smarty->assign('DETALLE_CUOTA', isset(datos::administracion()[0]['detalle_cuota']) ? datos::administracion()[0]['detalle_cuota'] : '');
 
 
 if(isset($_GET['id'])){

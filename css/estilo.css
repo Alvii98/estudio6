@@ -300,6 +300,10 @@ th{
     display: flex;
     justify-content: space-between;
 }
+#detalle_cuota{
+    font-size: 10px;
+}
+
 .logo{
     width: 350px !important;
     height: 80px !important;
@@ -316,8 +320,31 @@ select {
     border: 1px solid #ccc !important; /* Borde del input */
     border-radius: 4px !important; /* Bordes redondeados */
 } 
+.detalle_cuota i{
+    position: absolute;
+    bottom: 10%;
+    margin-left: 84%;
+}
+.descuentos i{
+    position: absolute;
+    bottom: 38%;
+    margin-left: 74%
+}
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
+    .detalle_cuota i{
+        position: absolute;
+        bottom: 0%;
+        margin-left: 74%;
+    }
+    .descuentos i{
+        position: absolute;
+        bottom: 33%;
+        margin-left: 55%;
+    }
+    .detalle_cuota{
+        float: left !important;
+    }
     .param-busqueda{
         display: block !important;
     }

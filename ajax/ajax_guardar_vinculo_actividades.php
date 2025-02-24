@@ -46,6 +46,10 @@ if (isset($_POST['viculo'])) {
     $descuento_actividad = $datos->datosDescuentos->descuento_actividad;
     
     $json->respGuardarDescuentos = datos::update_descuento($descuento_actividad);
+}else if(isset($datos->datosDetalleCuota)){
+    $detalle_cuota = $datos->datosDetalleCuota->detalle_cuota;
+    
+    $json->respGuardarDetalle = datos::update_detalle($detalle_cuota);
 }else{
     $id_alumno = $datos->alumnos->id_alumno;
     $nom_vinculo = $datos->alumnos->nom_vinculo;
