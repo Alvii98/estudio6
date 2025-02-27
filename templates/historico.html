@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busqueda historica</title>
+	<link rel="icon" href="img/logo.png" type="image/x-icon">
+    <!-- BOOTSTRAP 4.6 -->
+    <!-- <link rel="stylesheet" href="libs/bootstrap-4.6.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="libs/bootstrap-icons/font/bootstrap-icons.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- JQUERY -->
+    <script src="libs/jquery-3.5.1.min.js"></script>
+    <!-- ALERTIFY -->
+	<link rel="stylesheet" href="libs/alertifyjs/css/alertify.min.css" />
+	<link rel="stylesheet" href="libs/alertifyjs/css/themes/default.min.css" />
+	<script src="libs/alertifyjs/alertify.min.js"></script>
+	<script src="libs/alertifyjs/settings.js"></script>
+    <!-- JS -->
+    <script src="js/login.js?{$NO_CACHE}"></script> 
+   <script src="js/historico.js?{$NO_CACHE}"></script> 
+   <!-- <script src="js/excel.js?{$NO_CACHE}"></script> 
+   <script src="js/exportar_excel.js?{$NO_CACHE}"></script>  -->
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="css/estilo.css?{$NO_CACHE}">
+</head>
+<body>
+    {$HEADER}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Buscar alumno/a</h3>
+            </div>
+        </div>
+    </div>
+    <div class="container border border-color rounded mb-4 text-body">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 d-flex justify-content-center param-busqueda mt-4">
+                <div class="form-group col-md-3">
+                    <label>Apellido</label>
+                    <input type="text" id="apellido" placeholder="Apellido" class="form-control">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Nombre</label>
+                    <input type="text" id="nombre" placeholder="Nombre" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <label id="cant_res"></label>
+                <div class="scroll mb-3">
+                    <table class="table table-bordered text-body">
+                        <thead align="center">
+                            <tr>
+                                <th>Foto</th>
+                                <th>Apellido</th>
+                                <th>Nombre</th>
+                                <th>Edad</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Contacto</th>
+                                <th>Baja</th>
+                                <!-- <th>Eliminar</th> -->
+                            </tr>
+                        </thead>
+                        <tbody id="datos_historicos">
+                            {foreach from=$ALUMNOS item=value}
+                            <tr {if !empty($value.baja)}style="text-decoration:line-through;"{/if}>
+                                {if file_exists($value.foto_perfil)}
+                                    <td><img src="{$value.foto_perfil}" class="foto-navbar"></td>
+                                {else}
+                                    <td><img src="img/icono.jpg" class="foto-navbar"></td>
+                                {/if}
+                                <td>{$value.apellido|escape:'utf8_encode'}</td>
+                                <td>{$value.nombre|escape:'utf8_encode'}</td>
+                                <td>{$value.edad|escape:'utf8_encode'}</td>
+                                <td>{$value.fecha_nac|date_format:'%d/%m/%Y'}</td>
+                                <td>{$value.tel_movil|escape:'utf8_encode'}</td>
+                                <td>{$value.baja|date_format:'%d/%m/%Y'}</td>
+                                <!-- <th><i class="bi bi-trash" onclick="eliminar_alumno(this,'{$value.id}')"></i></th> -->
+                            </tr>
+                            {foreachelse}
+                            <tr><td colspan="7">NO ENCONTRAMOS DATOS HISTORICOS</td></tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {$FOOTER}
+</body>
+</html>

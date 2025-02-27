@@ -330,6 +330,14 @@ select {
     bottom: 38%;
     margin-left: 74%
 }
+
+.foto-navbar {
+    height: 60px !important;
+    border-radius: 50% !important;
+    width: 60px;
+    object-fit: cover;
+    cursor: pointer;
+}
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
     .detalle_cuota i{

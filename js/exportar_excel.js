@@ -10,13 +10,13 @@ function exportarExcel(name = ''){
             let data = [],predata = [],titles = [], row = [],
             cantFamiliar = 0, cantFamAlum = 0, contfam = 0
 
-            titles = ['APELLIDO','NOMBRE','DOCUMENTO','FECHA DE NACIMIENTO','EDAD','NACIONALIDAD','DOMICILIO',
+            titles = ['NOMBRE','APELLIDO','DOCUMENTO','FECHA DE NACIMIENTO','EDAD','NACIONALIDAD','DOMICILIO',
             'LOCALIDAD','CELULAR','AUTORIZA','CORREO','SALUD','ACTIVIDADES','NOTAS','BAJAS','OBSERVACIONES']
             // console.log(titles)            
             json.resp.forEach(element => {
                 row = []
-                row.push(element.apellido)
                 row.push(element.nombre)
+                row.push(element.apellido)
                 row.push(element.documento)
                 row.push(formato_fecha(element.fecha_nac))
                 row.push(element.edad)

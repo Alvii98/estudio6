@@ -44,8 +44,8 @@ function buscar(){
         document.querySelector('#cant_res').textContent = (json.datos.length+json.foto_rota.length)+' alumnos.'
         if(json.foto_rota.length > 0){
             json.foto_rota.forEach(element => {
-                baja = element.baja == 1 ? 'style="text-decoration:line-through;"' : ''
-                sinfoto = element.baja == 1 ? '' : 'style="background-color:#fd5757;"'
+                baja = element.baja !== null ? 'style="text-decoration:line-through;"' : ''
+                sinfoto = element.baja !== null ? '' : 'style="background-color:#fd5757;"'
                 tbody += `<tr `+sinfoto+` onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
                 <td>`+element.apellido+`</td>
                 <td>`+element.nombre+`</td>
@@ -63,7 +63,7 @@ function buscar(){
                     </tr>`
                 }else{
 
-                    baja = element.baja == 1 ? 'style="text-decoration:line-through;"' : ''
+                    baja = element.baja !== null ? 'style="text-decoration:line-through;"' : ''
 
                     tbody += `<tr onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
                     <td>`+element.apellido+`</td>

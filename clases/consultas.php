@@ -15,18 +15,18 @@ class datos{
             LEFT JOIN actividades_alumnos aa ON aa.id_actividad = ".$activ."
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
             WHERE a.id = aa.id_alumno
-            ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";
+            ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }elseif(empty($edad)){
             $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
             WHERE a.apellido LIKE '%".$ape."%' AND a.nombre LIKE '%".$nom."%'
-            ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";
+            ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }else{
             $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
-            WHERE a.edad = ".$edad." ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";
+            WHERE a.edad = ".$edad." ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }
 
         return datos::respuestaQuery($query);
@@ -48,10 +48,33 @@ class datos{
         
         if(empty($id)){
             $query = "SELECT v.id_alumno,v.vinculo,a.apellido,a.nombre FROM vinculos v,alumnos a 
-            WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id";
+            WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id AND a.baja IS NULL";
         }
 
         return datos::respuestaQuery($query);
+    }
+
+    static public function busqueda_historico($ape = '',$nom = ''){
+
+        $query = "SELECT * FROM historico WHERE apellido like '%$ape%' AND nombre like '%$nom%'
+        ORDER BY apellido";  
+        return datos::respuestaQuery($query);
+
+    }
+    
+    static public function actualizar_historico(){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();
+
+        $query = "INSERT INTO historico (SELECT a.* FROM alumnos a 
+        LEFT JOIN historico h ON a.apellido = h.apellido AND a.nombre = h.nombre AND a.documento = h.documento WHERE h.id IS NULL);";  
+        
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        $resp = mysqli_insert_id($conn);
+        if (is_int($resp)) return true;
+        else return false;
     }
 
     static public function vinculos(){
@@ -140,7 +163,7 @@ class datos{
     static public function datos_vinculo($vinculo){
 
         $query = "SELECT v.vinculo,CONCAT(a.apellido,' ',a.nombre) AS alumno 
-        FROM vinculos v,alumnos a WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id ORDER BY 2";    
+        FROM vinculos v,alumnos a WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id AND a.baja IS NULL ORDER BY 2";    
 
         return datos::respuestaQuery($query);
     }
@@ -151,7 +174,7 @@ class datos{
         a.autoriza,a.mail,a.salud,a.notas,a.observaciones,a.baja,CONCAT(av.actividad,' - ',av.dias_horarios) as actividad FROM alumnos a
         LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
         LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
-        ORDER BY CASE WHEN a.baja = 1 THEN 1 ELSE 0 END,a.apellido ASC";    
+        ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";    
 
         return datos::respuestaQuery($query);
     }
@@ -207,7 +230,7 @@ class datos{
 
         if (empty($id_actividad)) {
             $query = "SELECT av.*, (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa
-            JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja = 0)) AS disponibles
+            JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL)) AS disponibles
             FROM actividades_valores av GROUP BY av.id ORDER BY av.id ASC";    
         }
 
@@ -217,7 +240,7 @@ class datos{
     static public function actividad_disponible($id_actividad = ''){
         
         $query = "SELECT av.*, (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa
-        JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja = 0)) AS disponibles
+        JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL)) AS disponibles
         FROM actividades_valores av WHERE av.id = ".$id_actividad." GROUP BY av.id ORDER BY av.id ASC";    
 
         return datos::respuestaQuery($query);
@@ -247,7 +270,7 @@ class datos{
 
         $query = "SELECT CONCAT(a.apellido,' ',a.nombre) as alumno,av.actividad,av.dias_horarios,av.profe 
         FROM actividades_alumnos aa, actividades_valores av,alumnos a 
-        WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno AND a.baja = 0 ORDER BY 1";
+        WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno AND a.baja IS NULL ORDER BY 1";
 
         return datos::respuestaQuery($query);
     }
@@ -276,6 +299,7 @@ class datos{
             if (!mysqli_query($conn, $query)) {
                 return mysqli_error($conn);
             }
+            self::actualizar_historico();
 
             return $id_alumno;
         }
@@ -369,9 +393,10 @@ class datos{
     static public function baja_alumno($id_alumno,$baja){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
-
-        $query = "UPDATE alumnos SET baja = ".$baja." WHERE id = ".$id_alumno;
         
+        if ($baja == 1) $query = "UPDATE alumnos a, historico h SET a.baja = NOW(),h.baja = NOW() WHERE a.id = $id_alumno and h.id = $id_alumno";
+        else $query = "UPDATE alumnos a, historico h SET a.baja = NULL,h.baja = NULL WHERE a.id = $id_alumno and h.id = $id_alumno";
+
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
@@ -487,6 +512,11 @@ class datos{
         }
 
         $query = "DELETE FROM actividades_alumnos WHERE id_alumno = ".$id;
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+
+        $query = "DELETE FROM deudas_alumno WHERE id_alumno = ".$id;
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
