@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 require_once '../clases/consultas.php';
 
 $json = new StdClass();
@@ -7,7 +6,7 @@ $json = new StdClass();
 $apellido = trim($_POST['apellido']);
 $nombre = trim($_POST['nombre']);
 $edad = trim($_POST['edad']);
-$actividad = trim($_POST['nombre']);
+$actividad = trim($_POST['actividad']);
 
 $datos = datos::busqueda($apellido,$nombre,$edad,$actividad);
 
