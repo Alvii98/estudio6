@@ -267,7 +267,7 @@ class datos{
     
     static public function datos_actividad($id_actividad){
 
-        $query = "SELECT CONCAT(a.apellido,' ',a.nombre) as alumno,av.actividad,av.dias_horarios,av.profe 
+        $query = "SELECT CONCAT(a.nombre,' ',a.apellido) as alumno,av.actividad,av.dias_horarios,av.profe 
         FROM actividades_alumnos aa, actividades_valores av,alumnos a 
         WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno AND a.baja IS NULL ORDER BY 1";
 
