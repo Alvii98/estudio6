@@ -229,9 +229,10 @@ class datos{
         $query = "SELECT * FROM actividades_valores WHERE id =".$id_actividad;
 
         if (empty($id_actividad)) {
-            $query = "SELECT av.*, (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa
-            JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL)) AS disponibles
-            FROM actividades_valores av GROUP BY av.id ORDER BY av.id ASC";    
+            $query = "SELECT av.*,(av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa 
+            JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL)) AS disponibles,
+            (av.cupos - (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa JOIN alumnos a ON a.id = aa.id_alumno 
+            WHERE aa.id_actividad = av.id AND a.baja IS NULL))) AS inscriptos FROM actividades_valores av GROUP BY av.id ORDER BY av.id ASC";
         }
 
         return datos::respuestaQuery($query);

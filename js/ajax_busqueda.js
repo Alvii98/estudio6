@@ -38,13 +38,14 @@ function buscar(){
     })
     .then(response => response.json())
     .then(function (json) {
-        let tbody = '',
-        baja = '',sinfoto = ''
+        let tbody = '',baja = '',sinfoto = '',contBajas = 0
         //console.log(json)
-        document.querySelector('#cant_res').textContent = (json.datos.length+json.foto_rota.length)+' alumnos.'
         if(json.foto_rota.length > 0){
             json.foto_rota.forEach(element => {
-                baja = element.baja !== null ? 'style="text-decoration:line-through;"' : ''
+                if (element.baja !== null) {
+                    baja = 'style="text-decoration:line-through;"'
+                    contBajas++
+                }
                 sinfoto = element.baja !== null ? '' : 'style="background-color:#fd5757;"'
                 tbody += `<tr `+sinfoto+` onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
                 <td>`+element.apellido+`</td>
@@ -56,29 +57,30 @@ function buscar(){
         }
         
         if(json.datos.length > 0 || json.foto_rota.length > 0){
-            json.datos.forEach(element => {                
-                if(element.vinculo == 'Familia'){
-                    tbody += `<tr style="background-color:#96b796;"onclick="alumno_id(`+element.id+`,'`+element.apellido+`')">
-                    <td colspan="4">`+element.vinculo+' '+element.apellido+`</td>
+            json.datos.forEach(element2 => {                
+                if(element2.vinculo == 'Familia'){
+                    tbody += `<tr style="background-color:#96b796;"onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')">
+                    <td colspan="4">`+element2.vinculo+' '+element2.apellido+`</td>
                     </tr>`
                 }else{
-
-                    baja = element.baja !== null ? 'style="text-decoration:line-through;"' : ''
-
-                    tbody += `<tr onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
-                    <td>`+element.apellido+`</td>
-                    <td>`+element.nombre+`</td>
-                    <td>`+element.edad+`</td>
-                    <td>`+element.actividad+`</td>
+                    if (element2.baja !== null) {
+                        baja = 'style="text-decoration:line-through;"'
+                        contBajas++
+                    }
+                    tbody += `<tr onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')" `+baja+`>
+                    <td>`+element2.apellido+`</td>
+                    <td>`+element2.nombre+`</td>
+                    <td>`+element2.edad+`</td>
+                    <td>`+element2.actividad+`</td>
                     </tr>`
                 }
 
             })
         }else{
-            document.querySelector('#cant_res').textContent = json.datos.length+' resultados.'
             tbody = '<th colspan="6" class="text-center">No se encontraron resultados</th>'
         }
 
+        document.querySelector('#cant_res').textContent = (json.datos.length+json.foto_rota.length-contBajas)+' alumnos y '+contBajas+' bajas.'
         document.querySelector('tbody').innerHTML = tbody
     })
     .catch(function (error){

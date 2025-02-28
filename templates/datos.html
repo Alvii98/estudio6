@@ -64,7 +64,9 @@
                     <div class="form-check">
                         <input {if $BAJA !== null} checked {/if} class="form-check-input" role="button" type="checkbox" name="baja_alumno" id="baja_alumno">
                         <label class="form-check-label">Baja del alumno/a</label>
-                        {if $BAJA !== null}<p class="form-check-label">Baja - {$BAJA|date_format:'%d/%m/%Y'}</p>{/if}
+                        <p class="form-check-label" id="info_baja" style="font-size: 12px;">
+                        {if $BAJA !== null}Baja - {$BAJA|date_format:'%d/%m/%Y'}{/if}
+                        </p>
                     </div>
                 </div>
                 {if empty({$VINCULO})}

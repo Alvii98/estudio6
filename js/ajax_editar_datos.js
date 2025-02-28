@@ -161,7 +161,13 @@ function baja_alumno(event) {
         })
         .then(response => response.json())
         .then(function (json) {
+            let fechaActual = new Date(), dia = fechaActual.getDate(),
+            mes = fechaActual.getMonth() + 1,anio = fechaActual.getFullYear()
+            dia = dia < 10 ? '0'+dia : dia
+            mes = mes < 10 ? '0'+mes : mes
+            let info_baja = event.target.checked == true ? 'Baja - '+dia+'/'+mes+'/'+anio : ''
             
+            document.querySelector('#info_baja').textContent = info_baja
             alertify.success('Guardado correctamente.')
             return
         })

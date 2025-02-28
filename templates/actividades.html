@@ -85,6 +85,7 @@
                                 <th>Profe</th>
                                 <th>Edades</th>
                                 <th style="min-width: 68px !important;">Cupos</th>
+                                <th style="min-width: 68px !important;">Insc.</th>
                                 <th style="min-width: 68px !important;">Disp.</th>
                                 <th>Editar</th>
                                 <th>Eliminar</th>
@@ -100,6 +101,7 @@
                                 <td onclick="datos_actividad('{$value.id}')">{$value.profe|escape:'utf8_encode'}</td>
                                 <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.min_edad} a {$value.max_edad}</td>
                                 <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.cupos|escape:'utf8_encode'}</td>
+                                <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.inscriptos|escape:'utf8_encode'}</td>
                                 <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.disponibles|escape:'utf8_encode'}</td>
                                 <th><i class="bi bi-pencil-square" onclick="editar_actividad(this,'{$value.id}')"></i></th>
                                 <th><i class="bi bi-trash" onclick="eliminar_actividad_bdd(this,'{$value.id}')"></i></th>
