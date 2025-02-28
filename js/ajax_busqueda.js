@@ -80,7 +80,7 @@ function buscar(){
             tbody = '<th colspan="6" class="text-center">No se encontraron resultados</th>'
         }
 
-        document.querySelector('#cant_res').textContent = (json.datos.length+json.foto_rota.length-contBajas)+' alumnos y '+contBajas+' bajas.'
+        document.querySelector('#cant_res').textContent = 'Alumnos: '+json.cant_alumnos+' Bajas: '+json.cant_bajas+' Grupos familiares: '+json.cant_familiares
         document.querySelector('tbody').innerHTML = tbody
     })
     .catch(function (error){

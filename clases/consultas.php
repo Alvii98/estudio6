@@ -72,9 +72,7 @@ class datos{
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
-        $resp = mysqli_insert_id($conn);
-        if (is_int($resp)) return true;
-        else return false;
+        return true;
     }
 
     static public function vinculos(){
@@ -300,7 +298,7 @@ class datos{
             if (!mysqli_query($conn, $query)) {
                 return mysqli_error($conn);
             }
-            self::actualizar_historico();
+            // self::actualizar_historico();
 
             return $id_alumno;
         }
@@ -565,19 +563,3 @@ class datos{
         return $diferencia->format("%y");
     }
 }
-
-// foreach (datos::alumnos() as $key) {
-//     # code...
-//     $arr = explode('|', $key['actividad']);
-//     $dato = '';
-//     foreach ($arr as $key2) {
-//         # code...
-//         $dato .= $key2;
-//         // echo $key2.'|';
-//     }
-//     echo $dato.'|';
-//     echo $key['id'].'<br>';
-//     // datos::update_actividad($key['id'],$dato);
-// }
-// exit;
-// print'<pre>';print_r(datos::alumnos());exit;

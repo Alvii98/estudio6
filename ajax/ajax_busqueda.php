@@ -4,12 +4,21 @@ require_once '../clases/consultas.php';
 
 $json = new StdClass();
 
-$datos = datos::busqueda(trim($_POST['apellido']),trim($_POST['nombre']),trim($_POST['edad']),trim($_POST['actividad']));
+$apellido = trim($_POST['apellido']);
+$nombre = trim($_POST['nombre']);
+$edad = trim($_POST['edad']);
+$actividad = trim($_POST['nombre']);
+
+$datos = datos::busqueda($apellido,$nombre,$edad,$actividad);
 
 $alumnos = array();
 $foto_rota = array();
 $foto = true;
 $id = 0;
+$cant_alumnos = 0;
+$cant_bajas = 0;
+$cant_familiares = 0;
+
 foreach ($datos as $value) {
     if($value['edad'] != datos::obtener_edad($value['fecha_nac'])){
         datos::update_acomodar_edad($value['id'],datos::obtener_edad($value['fecha_nac']));
@@ -23,6 +32,9 @@ foreach ($datos as $value) {
             continue;
         }
         $id = $value['id'];
+
+        if (empty($value['baja'])) $cant_alumnos = $cant_alumnos + 1;
+        else $cant_bajas = $cant_bajas + 1;
 
         $foto_rota[] = ['id' => $value['id'],
         'apellido' => $value['apellido'],
@@ -41,7 +53,8 @@ foreach ($datos as $value) {
         continue;
     }
     $id = $value['id'];
-
+    if (empty($value['baja'])) $cant_alumnos = $cant_alumnos + 1;
+    else $cant_bajas = $cant_bajas + 1;
     $alumnos[] = ['id' => $value['id'],
                 'apellido' => $value['apellido'],
                 'nombre' => $value['nombre'],
@@ -50,14 +63,17 @@ foreach ($datos as $value) {
                 'edad' => datos::obtener_edad($value['fecha_nac']),
                 'actividad' => $value['actividad'].' - '.$value['dias_horarios']];
 }
-if(!empty(trim($_POST['apellido']))){
 
-    $datos2 = datos::busqueda_familiar(trim($_POST['apellido']));
+if((empty($nombre) && empty($edad) && empty($actividad)) || !empty($apellido) ){
+
+    $datos2 = datos::busqueda_familiar($apellido);
     $vinculo = '';
+
     foreach ($datos2 as $value) {
         if($vinculo == $value['vinculo']) continue;
         $vinculo = $value['vinculo'];
-        
+        $cant_familiares = $cant_familiares + 1;
+
         $alumnos[] = ['id' => '0',
         'apellido' => $value['vinculo'],
         'nombre' => '',
@@ -65,11 +81,13 @@ if(!empty(trim($_POST['apellido']))){
         'baja' => '',
         'edad' => '',
         'actividad' => ''];
-        
     }
 }
 $json->datos = $alumnos ;
 $json->foto_rota = $foto_rota;
+$json->cant_alumnos = $cant_alumnos;
+$json->cant_bajas = $cant_bajas;
+$json->cant_familiares = $cant_familiares;
 
 print json_encode($json);
 
