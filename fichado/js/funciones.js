@@ -4,13 +4,27 @@ function closeNav() { document.getElementById("mySidenav").style.width = "0" }
 function cambiar_datos(event) {
     if (event.id == 'bot-agentes') {        
         document.querySelector('#agentes').style.display = ''
+        document.querySelector('#registros-pendientes').style.display = 'none'
         document.querySelector('#registros').style.display = 'none'
+        document.querySelector('#fechas_registros').style.display = 'none'
         document.querySelector('#bot-agentes').style = 'background-color: #464646;'
+        document.querySelector('#bot-registros-pendientes').style = 'background-color: #000000;'
+        document.querySelector('#bot-registros').style = 'background-color: #000000;'
+    }else if (event.id == 'bot-registros-pendientes') {
+        document.querySelector('#agentes').style.display = 'none'
+        document.querySelector('#registros-pendientes').style.display = ''
+        document.querySelector('#registros').style.display = 'none'
+        document.querySelector('#fechas_registros').style.display = ''
+        document.querySelector('#bot-agentes').style = 'background-color: #000000;'
+        document.querySelector('#bot-registros-pendientes').style = 'background-color: #464646;'
         document.querySelector('#bot-registros').style = 'background-color: #000000;'
     }else{
-        document.querySelector('#registros').style.display = ''
         document.querySelector('#agentes').style.display = 'none'
+        document.querySelector('#registros-pendientes').style.display = 'none'
+        document.querySelector('#registros').style.display = ''
+        document.querySelector('#fechas_registros').style.display = ''
         document.querySelector('#bot-agentes').style = 'background-color: #000000;'
+        document.querySelector('#bot-registros-pendientes').style = 'background-color: #000000;'
         document.querySelector('#bot-registros').style = 'background-color: #464646;'
     }
 }
@@ -71,9 +85,10 @@ function carga_diferida(){
 }
 
 function eliminar(event,id,tipo){
-    const datosPost = new FormData()
-    datosPost.append('id_'+tipo, id)
     alertify.confirm('Registros de fichado', '¿Seguro quiere eliminar este '+tipo+'?', function(){
+        console.log('entro')
+        const datosPost = new FormData()
+        datosPost.append('id_'+tipo, id)
         fetch('ajax/ajax_eliminar.php', {
             method: "POST",
             // Set the post data
@@ -85,6 +100,31 @@ function eliminar(event,id,tipo){
                 
             event.parentNode.parentNode.remove()
             alertify.error(json.resp)
+        })
+        .catch(function (error){
+            console.log(error)
+            alertify.error('Ocurrio un error inesperado, vuelva a intentar.')
+        })
+    }, function(){ 
+        return alertify.error('Cancelado')
+    })
+}
+
+function aceptar(event,id){
+    alertify.confirm('Registros pendientes', '¿Seguro quiere aceptar este fichado?', function(){
+        const datosPost = new FormData()
+        datosPost.append('id_registro', id)
+        fetch('ajax/ajax_aceptar.php', {
+            method: "POST",
+            // Set the post data
+            body: datosPost
+        })
+        .then(response => response.json())
+        .then(function (json) {
+            if (json.error != '') return alertify.error(json.error)
+                
+            event.parentNode.parentNode.remove()
+            alertify.success(json.resp)
         })
         .catch(function (error){
             console.log(error)

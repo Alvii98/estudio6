@@ -17,6 +17,7 @@
     <!-- JS -->
    <script src="js/funciones.js?{$NO_CACHE}"></script> 
    <script src="js/buscador.js?{$NO_CACHE}"></script> 
+   <script src="js/login.js?{$NO_CACHE}"></script> 
    <script src="js/excel.js?{$NO_CACHE}"></script> 
    <script src="js/exportar_excel.js?{$NO_CACHE}"></script> 
     <!-- ESTILOS -->
@@ -36,6 +37,8 @@
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="col-md-3 boton-cargar" style="background-color: rgb(70, 70, 70);" id="bot-agentes" role="button" onclick="cambiar_datos(this)">
                 Agentes</div>
+                <div class="col-md-3 boton-cargar" id="bot-registros-pendientes" role="button" onclick="cambiar_datos(this)">
+                Registros pendientes</div>
                 <div class="col-md-3 boton-cargar" id="bot-registros" role="button" onclick="cambiar_datos(this)">
                 Registros</div>
             </div>
@@ -84,6 +87,57 @@
                             <th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos agentes disponibles</th>
                         </tbody>
                     </table>
+                    <div class="col-md-12 p-5" id="fechas_registros" style="display: none;">
+                        <div class="form-group col-md-3 float-left">
+                            <label for="fecha">Fecha incio</label>
+                            <input type="datetime-local" id="fecha_inicio" class="form-control">
+                        </div>
+                        <div class="form-group col-md-3 float-left">
+                            <label for="fecha">Fecha final</label>
+                            <input type="datetime-local" id="fecha_final" class="form-control">
+                        </div>
+                    </div>
+                    <table class="table table-bordered text-body" id="registros-pendientes" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th colspan="15" class="text-center">
+                                    <select name="columna" id="columna" class="mt-1 form-control col-md-2 mr-2 float-left">
+                                        <option value="-">-- Buscar por --</option>
+                                        <option value="0">Agente</option>
+                                        <option value="2">Fecha</option>
+                                        <option value="3">Lugar</option>
+                                    </select>
+                                    <input type="text" id="buscar" autocomplete="off" style="display:none;" placeholder="Buscar en columna" class="mt-1 form-control col-md-2 float-left">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Agente</th>
+                                <th>Cruce</th>
+                                <th style="min-width: 134px;">Fecha y hora</th>
+                                <th>Lugar</th>
+                                <th>Observaci&oacute;n</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach from=$REGISTROS_PENDIENTES item=value}
+                            <tr>
+                                <td>{$value.agente|escape:'utf8_encode'}</td>
+                                <td>{$value.cruce|escape:'utf8_encode'}</td>
+                                <td>{$value.fecha|date_format:'%d/%m/%Y %H:%M:%S'}</td>
+                                <td>{$value.lugar|escape:'utf8_encode'}</td>
+                                <td>{$value.observacion|escape:'utf8_encode'}</td>
+                                <th style="padding: 0px;padding-left: 25px;">
+                                    <i style="font-size: xx-large;color: green;" onclick="aceptar(this,'{$value.id}')" class="bi bi-check-circle"></i>
+                                    <i style="font-size: xx-large;color: red;" onclick="eliminar(this,'{$value.id}','registro')" class="bi bi-x-circle"></i>
+                                </th>
+                            </tr>
+                            {foreachelse}
+                            <tr><td colspan="15" class="text-center">No encontramos registros disponibles</td></tr>
+                            {/foreach}
+                            <th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos registros disponibles</th>
+                        </tbody>
+                    </table>
                     <table class="table table-bordered text-body" id="registros" style="display: none;">
                         <thead>
                             <tr>
@@ -99,7 +153,6 @@
                             </tr>
                             <tr>
                                 <th>Agente</th>
-                                <!-- <th>Documento</th> -->
                                 <th>Cruce</th>
                                 <th style="min-width: 134px;">Fecha y hora</th>
                                 <th>Lugar</th>
@@ -110,7 +163,6 @@
                             {foreach from=$REGISTROS item=value}
                             <tr>
                                 <td>{$value.agente|escape:'utf8_encode'}</td>
-                                <!-- <td>{$value.documento|escape:'utf8_encode'}</td> -->
                                 <td>{$value.cruce|escape:'utf8_encode'}</td>
                                 <td>{$value.fecha|date_format:'%d/%m/%Y %H:%M:%S'}</td>
                                 <td>{$value.lugar|escape:'utf8_encode'}</td>

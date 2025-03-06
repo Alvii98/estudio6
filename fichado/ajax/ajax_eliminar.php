@@ -6,7 +6,7 @@ $json = new StdClass();
 $json->resp = '';
 $json->error = '';
 
-if (!empty($_POST['id_registro'])) {
+if (!empty($_POST['id_registro'])) {    
     $resp = datos::eliminar_registro($_POST['id_registro']);
     if ($resp) {
         $json->resp = 'Eliminado correctamente';

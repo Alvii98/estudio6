@@ -247,7 +247,7 @@ class datos{
     
     static public function administracion(){
 
-        $query = "SELECT * FROM administracion ORDER BY id DESC LIMIT 1";    
+        $query = "SELECT * FROM administracion ORDER BY id DESC LIMIT 1";
 
         return datos::respuestaQuery($query);
     }

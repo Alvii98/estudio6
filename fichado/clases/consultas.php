@@ -38,11 +38,25 @@ class datos{
         return $resp->fetch_all(MYSQLI_ASSOC);
     }
 
+    static public function administracion(){
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+
+        $query = "SELECT * FROM administracion ORDER BY id DESC LIMIT 1";
+
+        $stmt = $conn->prepare($query);
+    
+        $stmt->execute();
+        $resp = $stmt->get_result();
+    
+        return $resp->fetch_all(MYSQLI_ASSOC);
+    }
+
     static public function registros(){
         $instancia = SingletonConexion::getInstance();        
         $conn = $instancia->getConnection();
 
-        $query = "SELECT r.id,a.agente,a.documento,r.cruce,r.fecha,r.lugar
+        $query = "SELECT r.id,a.agente,a.documento,r.cruce,r.fecha,r.lugar,r.observacion,r.estado
         FROM registros r, agentes a WHERE r.documento = a.documento and r.estado = 0 ORDER BY fecha desc";
     
         $stmt = $conn->prepare($query);
@@ -53,15 +67,30 @@ class datos{
         return $resp->fetch_all(MYSQLI_ASSOC);
     }
 
-    static public function foto_agente($documento,$foto) {
+    static public function registros_pendientes(){
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+
+        $query = "SELECT r.id,a.agente,a.documento,r.cruce,r.fecha,r.lugar,r.observacion,r.estado
+        FROM registros r, agentes a WHERE r.documento = a.documento and r.estado = 1 ORDER BY fecha desc";
+    
+        $stmt = $conn->prepare($query);
+    
+        $stmt->execute();
+        $resp = $stmt->get_result();
+    
+        return $resp->fetch_all(MYSQLI_ASSOC);
+    }
+
+    static public function aceptar_registro($id_registro) {
         $instancia = SingletonConexion::getInstance();        
         $conn = $instancia->getConnection();
     
-        $query = "UPDATE agentes SET foto = ? WHERE documento = ?";
+        $query = "UPDATE registros SET estado = 0 WHERE id = ?";
     
         $stmt = $conn->prepare($query);
 
-        $stmt->bind_param("ss", $foto,$documento);
+        $stmt->bind_param("i", $id_registro);
 
         if (!$stmt->execute()) return $stmt->error;
     
@@ -70,15 +99,16 @@ class datos{
         return true;
     }
 
-    static public function cargar_agente($agente,$documento,$foto) {
+
+    static public function cargar_agente($agente,$documento) {
         $instancia = SingletonConexion::getInstance();        
         $conn = $instancia->getConnection();
     
-        $query = "INSERT INTO agentes(agente,documento,foto) VALUES (?, ?, ?)";
+        $query = "INSERT INTO agentes(agente,documento,fecha_registro) VALUES (?, ?, now())";
     
         $stmt = $conn->prepare($query);
 
-        $stmt->bind_param("sss", $agente,$documento,$foto);
+        $stmt->bind_param("ss", $agente,$documento);
     
         if (!$stmt->execute()) return $stmt->error;
     

@@ -125,7 +125,7 @@ function copiar_texto(id_deuda) {
                 nuevoPrecio = combo.split(',')[0].slice(0, -2) + '00';
             }
             texto += 'Precio promocional por combo de actividades o grupo familiar: '+nuevoPrecio
-            texto += ' (aplica únicamente abonando en efectivo en el Estudio)\n'
+            texto += ' (aplica únicamente abonando en efectivo en el Estudio del 1 al 15 del mes)\n'
         }
         texto += '\n'+detalle_cuota+'\n'
         texto += texto_deuda
