@@ -44,9 +44,6 @@ $array_insert = ['apellido' => $datos->alumno->apellido,
 if(!empty(trim($array_insert['fecha_nac']))){
     $actividades = $datos->alumno->actividades;
     $json->respAlumno = datos::insert_datos($array_insert,$actividades);
-    datos::actualizar_historico();
-
-    // $json->respAlumno = $array_insert;
 }else{
     $json->error = 'Complete los campos requeridos';
 }

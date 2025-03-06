@@ -56,23 +56,50 @@ class datos{
 
     static public function busqueda_historico($ape = '',$nom = ''){
 
-        $query = "SELECT * FROM historico WHERE apellido like '%$ape%' AND nombre like '%$nom%'
-        ORDER BY apellido";  
+        $query = "SELECT *,
+        (SELECT COUNT(*) FROM historico WHERE apellido LIKE '%$ape%' AND nombre LIKE '%$nom%') AS cantidad,
+        (SELECT COUNT(*) FROM historico WHERE apellido LIKE '%$ape%' AND nombre LIKE '%$nom%' AND baja IS NOT NULL) AS bajas,
+        (SELECT COUNT(*) FROM historico h LEFT JOIN alumnos a ON h.apellido = a.apellido AND h.nombre = a.nombre AND
+         h.documento = a.documento WHERE a.documento IS NULL) AS solohistorico
+        FROM historico WHERE apellido like '%$ape%' AND nombre like '%$nom%' ORDER BY apellido";  
         return datos::respuestaQuery($query);
 
     }
-    
-    static public function actualizar_historico(){
-        $instancia = SingletonConexion::getInstance();
-        $conn = $instancia->getConnection();
 
-        $query = "INSERT INTO historico (SELECT a.* FROM alumnos a 
-        LEFT JOIN historico h ON a.apellido = h.apellido AND a.nombre = h.nombre AND a.documento = h.documento WHERE h.id IS NULL);";  
+    static public function busqueda_historico_bajas(){
+
+        $query = "SELECT * FROM historico WHERE baja IS NOT NULL ORDER BY apellido";  
+        return datos::respuestaQuery($query);
+
+    }
+
+    static public function busqueda_historico_solo(){
+
+        $query = "SELECT h.* FROM historico h LEFT JOIN alumnos a ON h.apellido = a.apellido AND h.nombre = a.nombre AND
+        h.documento = a.documento WHERE a.documento IS NULL";  
+        return datos::respuestaQuery($query);
+
+    }
+
+    static public function actualizar_historico(){
+        try {
+            $instancia = SingletonConexion::getInstance();
+            $conn = $instancia->getConnection();
+            
+            $query = "INSERT INTO historico (SELECT a.* FROM alumnos a 
+            LEFT JOIN historico h ON a.apellido = h.apellido AND a.nombre = h.nombre AND a.documento = h.documento WHERE h.id IS NULL)";  
+
+            if (!mysqli_query($conn, $query)) return false;
+            
+            $query = "UPDATE historico h JOIN alumnos a ON h.apellido = a.apellido AND h.nombre = a.nombre AND h.documento = a.documento
+            SET h.baja = a.baja WHERE (h.baja <> a.baja OR (h.baja IS NULL AND a.baja IS NOT NULL) OR (h.baja IS NOT NULL AND a.baja IS NULL))";
+            
+            if (!mysqli_query($conn, $query)) return false;
         
-        if (!mysqli_query($conn, $query)) {
-            return mysqli_error($conn);
+            return true;
+        } catch (\Throwable $th) {
+            return false;
         }
-        return true;
     }
 
     static public function vinculos(){
@@ -298,8 +325,6 @@ class datos{
             if (!mysqli_query($conn, $query)) {
                 return mysqli_error($conn);
             }
-            // self::actualizar_historico();
-
             return $id_alumno;
         }
         return false;
@@ -393,8 +418,8 @@ class datos{
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    
         
-        if ($baja == 1) $query = "UPDATE alumnos a, historico h SET a.baja = NOW(),h.baja = NOW() WHERE a.id = $id_alumno and h.id = $id_alumno";
-        else $query = "UPDATE alumnos a, historico h SET a.baja = NULL,h.baja = NULL WHERE a.id = $id_alumno and h.id = $id_alumno";
+        if ($baja == 1) $query = "UPDATE alumnos SET baja = NOW() WHERE id = $id_alumno";
+        else $query = "UPDATE alumnos SET baja = NULL WHERE id = $id_alumno";
 
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);

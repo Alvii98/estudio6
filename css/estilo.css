@@ -300,10 +300,6 @@ th{
     display: flex;
     justify-content: space-between;
 }
-#detalle_cuota{
-    font-size: 10px;
-}
-
 .logo{
     width: 350px !important;
     height: 80px !important;
@@ -320,17 +316,33 @@ select {
     border: 1px solid #ccc !important; /* Borde del input */
     border-radius: 4px !important; /* Bordes redondeados */
 } 
-.detalle_cuota i{
+
+.descuentos input{
+    font-size: 20px !important;
+    text-align: center;
+    height: 40px !important;
+}
+.descuentos p{
     position: absolute;
-    bottom: 10%;
-    margin-left: 84%;
+    bottom: 1%;
+    left: 19%;
+    font-size: 25px;
 }
 .descuentos i{
     position: absolute;
-    bottom: 38%;
-    margin-left: 74%
+    bottom: 12%;
+    left: 25%;
+    font-size: 25px;
 }
-
+.detalle_cuota i{
+    position: absolute;
+    bottom: 5%;
+    left: 99%;
+    font-size: 25px;
+}
+.detalle_cuota textarea{
+    width: 250px;
+}
 .foto-navbar {
     height: 60px !important;
     border-radius: 50% !important;
@@ -338,17 +350,37 @@ select {
     object-fit: cover;
     cursor: pointer;
 }
+#usuario{
+    width: 50%;
+}
+#clave{
+    width: 50%;
+}
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
-    .detalle_cuota i{
+    #usuario{
+        width: 80%;
+    }
+    #clave{
+        width: 80%;
+    }
+    .descuentos p{
         position: absolute;
-        bottom: 0%;
-        margin-left: 74%;
+        bottom: 1%;
+        left: 31%;
+        font-size: 25px;
     }
     .descuentos i{
         position: absolute;
-        bottom: 33%;
-        margin-left: 55%;
+        bottom: 12%;
+        left: 40%;
+        font-size: 25px;
+    }
+    .detalle_cuota i{
+        position: absolute;
+        bottom: 5%;
+        left: 83%;
+        font-size: 25px;
     }
     .detalle_cuota{
         float: left !important;

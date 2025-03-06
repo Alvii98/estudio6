@@ -3,12 +3,19 @@ window.addEventListener("keyup", function(event){
 })
 window.addEventListener("click", function(event){
     if(event.target.className == 'foto-navbar') abrirImagen(event)
+    if(event.target.id == 'alumnosTotales') buscar('alumnosTotales')
+    if(event.target.id == 'bajasTotales') buscar('bajasTotales')
+    if(event.target.id == 'soloHistorica') buscar('soloHistorica')
 })
 
-function buscar(){
+function buscar(tipo = ''){
     const datosPost = new FormData()
-    datosPost.append('apellido', document.querySelector('#apellido').value)
-    datosPost.append('nombre', document.querySelector('#nombre').value)
+    if (tipo != '') {
+        datosPost.append('tipo', tipo)
+    }else {
+        datosPost.append('apellido', document.querySelector('#apellido').value)
+        datosPost.append('nombre', document.querySelector('#nombre').value)
+    }
     
     fetch('ajax/ajax_historico.php', {
         method: "POST",

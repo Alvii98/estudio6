@@ -31,7 +31,7 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
-                <h3>Buscar alumno/a</h3>
+                <h3>Buscar alumno/a en la tabla historica</h3>
             </div>
         </div>
     </div>
@@ -47,9 +47,13 @@
                     <input type="text" id="nombre" placeholder="Nombre" class="form-control">
                 </div>
             </div>
+            {if $ACTUALIZAR}<p style="color: green;">La tabla historica esta actualizada <i class="bi bi-check-circle"></i></p>
+            {else}<p style="color: red;">La tabla historica no se pudo actualizar <i class="bi bi-x-circle"></i></p>{/if}
             <div class="col-md-12 text-center">
-                <label id="cant_res"></label>
-                <div class="scroll mb-3">
+                <button class="btn btn-dark rounded-pill" id="alumnosTotales" style="cursor:pointer;">Alumnos: {$CANTIDAD}</button>
+                <button class="btn btn-dark rounded-pill" id="bajasTotales" style="cursor:pointer;">Bajas: {$BAJAS}</button>
+                <button class="btn btn-dark rounded-pill" id="soloHistorica" style="cursor:pointer;">Solo en historica: {$SOLOHISTORICA}</button>
+                <div class="scroll mb-3 mt-2">
                     <table class="table table-bordered text-body">
                         <thead align="center">
                             <tr>
