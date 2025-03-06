@@ -327,8 +327,20 @@ select {
     border: 1px solid #ccc !important; /* Borde del input */
     border-radius: 4px !important; /* Bordes redondeados */
 } 
+#usuario{
+    width: 50%;
+}
+#clave{
+    width: 50%;
+}
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
+    #usuario{
+        width: 80%;
+    }
+    #clave{
+        width: 80%;
+    }
     .param-busqueda{
         display: block !important;
     }
