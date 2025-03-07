@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-03-06 19:56:17
+/* Smarty version 3.1.34-dev-7, created on 2025-03-07 21:05:44
   from 'C:\xampp\htdocs\estudio6\fichado\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_67c9efd1a005b3_89156955',
+  'unifunc' => 'content_67cb5198ae7749_59619027',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a6f508831a347ebd997820f55cabbbaea4743fac' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\fichado\\templates\\index.html',
-      1 => 1741261668,
+      1 => 1741375924,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_67c9efd1a005b3_89156955 (Smarty_Internal_Template $_smarty_tpl) {
+function content_67cb5198ae7749_59619027 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),1=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <!DOCTYPE html>
@@ -90,6 +90,17 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
             </div>
             <div class="col-md-12">
                 <i class="bi bi-file-earmark-spreadsheet-fill float-right h2 mr-5 mt-1" onclick="exportarExcel()"></i>
+                <div class="col-md-12 d-flex justify-content-center" id="fechas_registros" style="display: none !important;">
+                    <div class="form-group col-md-3 float-left">
+                        <label for="fecha">Fecha incio</label>
+                        <input type="datetime-local" id="fecha_inicio" class="form-control">
+                    </div>
+                    <div class="form-group col-md-3 float-left">
+                        <label for="fecha">Fecha final</label>
+                        <input type="datetime-local" id="fecha_final" class="form-control">
+                    </div>
+                    <i class="bi bi-search" onclick="busqueda_registros()" style="font-size: 34px;margin-top: 18px;"></i>
+                </div>
             </div>
             <div class="col-md-12 mt-2">
                 <div class="scroll mb-3">
@@ -124,10 +135,11 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
 </td>
                                 <td><?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['value']->value['documento'], 'utf8_encode');?>
 </td>
-                                <td><?php if (empty($_smarty_tpl->tpl_vars['value']->value['foto'])) {?>
+                                <td>
+                                    <?php if (!file_exists($_smarty_tpl->tpl_vars['value']->value['foto'])) {?>
                                     <img src="img/icono.jpg" class="foto-navbar">
                                     <?php } else { ?>
-                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($_smarty_tpl->tpl_vars['value']->value['foto']);?>
+                                    <img src="<?php echo $_smarty_tpl->tpl_vars['value']->value['foto'];?>
 " class="foto-navbar">
                                     <?php }?>
                                 </td>
@@ -147,16 +159,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos agentes disponibles</th>
                         </tbody>
                     </table>
-                    <div class="col-md-12 p-5" id="fechas_registros" style="display: none;">
-                        <div class="form-group col-md-3 float-left">
-                            <label for="fecha">Fecha incio</label>
-                            <input type="datetime-local" id="fecha_inicio" class="form-control">
-                        </div>
-                        <div class="form-group col-md-3 float-left">
-                            <label for="fecha">Fecha final</label>
-                            <input type="datetime-local" id="fecha_final" class="form-control">
-                        </div>
-                    </div>
                     <table class="table table-bordered text-body" id="registros-pendientes" style="display: none;">
                         <thead>
                             <tr>
@@ -236,7 +238,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datos_registros">
                             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['REGISTROS']->value, 'value');
 $_smarty_tpl->tpl_vars['value']->do_else = true;

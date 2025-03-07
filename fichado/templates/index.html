@@ -44,6 +44,17 @@
             </div>
             <div class="col-md-12">
                 <i class="bi bi-file-earmark-spreadsheet-fill float-right h2 mr-5 mt-1" onclick="exportarExcel()"></i>
+                <div class="col-md-12 d-flex justify-content-center" id="fechas_registros" style="display: none !important;">
+                    <div class="form-group col-md-3 float-left">
+                        <label for="fecha">Fecha incio</label>
+                        <input type="datetime-local" id="fecha_inicio" class="form-control">
+                    </div>
+                    <div class="form-group col-md-3 float-left">
+                        <label for="fecha">Fecha final</label>
+                        <input type="datetime-local" id="fecha_final" class="form-control">
+                    </div>
+                    <i class="bi bi-search" onclick="busqueda_registros()" style="font-size: 34px;margin-top: 18px;"></i>
+                </div>
             </div>
             <div class="col-md-12 mt-2">
                 <div class="scroll mb-3">
@@ -71,10 +82,11 @@
                             <tr>
                                 <td>{$value.agente|escape:'utf8_encode'}</td>
                                 <td>{$value.documento|escape:'utf8_encode'}</td>
-                                <td>{if empty($value.foto)}
+                                <td>
+                                    {if !file_exists($value.foto)}
                                     <img src="img/icono.jpg" class="foto-navbar">
                                     {else}
-                                    <img src="data:image/jpeg;base64,{$value.foto|base64_encode}" class="foto-navbar">
+                                    <img src="{$value.foto}" class="foto-navbar">
                                     {/if}
                                 </td>
                                 <th style="padding: 0px;padding-left: 25px;">
@@ -87,16 +99,6 @@
                             <th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos agentes disponibles</th>
                         </tbody>
                     </table>
-                    <div class="col-md-12 p-5" id="fechas_registros" style="display: none;">
-                        <div class="form-group col-md-3 float-left">
-                            <label for="fecha">Fecha incio</label>
-                            <input type="datetime-local" id="fecha_inicio" class="form-control">
-                        </div>
-                        <div class="form-group col-md-3 float-left">
-                            <label for="fecha">Fecha final</label>
-                            <input type="datetime-local" id="fecha_final" class="form-control">
-                        </div>
-                    </div>
                     <table class="table table-bordered text-body" id="registros-pendientes" style="display: none;">
                         <thead>
                             <tr>
@@ -159,7 +161,7 @@
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datos_registros">
                             {foreach from=$REGISTROS item=value}
                             <tr>
                                 <td>{$value.agente|escape:'utf8_encode'}</td>

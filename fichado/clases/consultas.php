@@ -6,7 +6,7 @@ class datos{
         $conn = $instancia->getConnection();
     
         if ($documento == '') {
-            $query = "SELECT * FROM agentes ORDER BY agente";
+            $query = "SELECT *,CONCAT('img/fotos/',documento,'.png') as foto FROM agentes ORDER BY agente";
             $stmt = $conn->prepare($query);
         }else {
             $query = "SELECT a.*,r.* FROM agentes a
@@ -60,6 +60,23 @@ class datos{
         FROM registros r, agentes a WHERE r.documento = a.documento and r.estado = 0 ORDER BY fecha desc";
     
         $stmt = $conn->prepare($query);
+    
+        $stmt->execute();
+        $resp = $stmt->get_result();
+    
+        return $resp->fetch_all(MYSQLI_ASSOC);
+    }
+
+    static public function busqueda_registros($fecha_inicio,$fecha_final){
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+
+        $query = "SELECT r.id,a.agente,a.documento,r.cruce,r.fecha,r.lugar FROM registros r, agentes a 
+        WHERE r.documento = a.documento and r.estado = 0 and r.fecha >= ? and r.fecha <= ? ORDER BY fecha desc";
+    
+        $stmt = $conn->prepare($query);
+    
+        $stmt->bind_param("ss", $fecha_inicio,$fecha_final);
     
         $stmt->execute();
         $resp = $stmt->get_result();

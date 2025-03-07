@@ -6,7 +6,7 @@ function cambiar_datos(event) {
         document.querySelector('#agentes').style.display = ''
         document.querySelector('#registros-pendientes').style.display = 'none'
         document.querySelector('#registros').style.display = 'none'
-        document.querySelector('#fechas_registros').style.display = 'none'
+        document.querySelector('#fechas_registros').setAttribute('style','display:none !important;')
         document.querySelector('#bot-agentes').style = 'background-color: #464646;'
         document.querySelector('#bot-registros-pendientes').style = 'background-color: #000000;'
         document.querySelector('#bot-registros').style = 'background-color: #000000;'
@@ -14,7 +14,7 @@ function cambiar_datos(event) {
         document.querySelector('#agentes').style.display = 'none'
         document.querySelector('#registros-pendientes').style.display = ''
         document.querySelector('#registros').style.display = 'none'
-        document.querySelector('#fechas_registros').style.display = ''
+        document.querySelector('#fechas_registros').setAttribute('style','display:none !important;')
         document.querySelector('#bot-agentes').style = 'background-color: #000000;'
         document.querySelector('#bot-registros-pendientes').style = 'background-color: #464646;'
         document.querySelector('#bot-registros').style = 'background-color: #000000;'
@@ -132,5 +132,39 @@ function aceptar(event,id){
         })
     }, function(){ 
         return alertify.error('Cancelado')
+    })
+}
+
+function busqueda_registros(){
+    let fecha_inicio = document.querySelector('#fecha_inicio').value,
+    fecha_final = document.querySelector('#fecha_final').value
+
+    const datosPost = new FormData()
+    datosPost.append('fecha_inicio', fecha_inicio)
+    datosPost.append('fecha_final', fecha_final)
+
+    fetch('ajax/ajax_busqueda.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.error != '') return alertify.error(json.error)
+        
+        let datos = ''
+        json.datos.forEach(element => {
+            datos += '<tr><td>'+element.agente+'</td><td>'+element.cruce+'</td>'
+            datos += '<td>'+element.fecha+'</td><td>'+element.lugar+'</td><th style="padding: 0px;padding-left: 25px;">'
+            datos += `<i style="font-size: xx-large;" class="bi bi-trash" onclick="eliminar(this,'+element.id+','registro')"></i></th></tr>`
+            datos += '<th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos agentes disponibles</th>'
+        })
+        
+        datos = datos == '' ? '<tr><td colspan="15" class="text-center">No encontramos agentes disponibles</td></tr>' : datos
+        document.querySelector('#datos_registros').innerHTML = datos
+    })
+    .catch(function (error){
+        console.log(error)
+        alertify.error('Ocurrio un error inesperado, vuelva a intentar.')
     })
 }

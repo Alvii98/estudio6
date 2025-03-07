@@ -1,76 +1,26 @@
 <?php
-error_reporting(0);
 require_once '../clases/consultas.php';
-
 
 $json = new StdClass();
 
-$datos = datos::busqueda(trim($_POST['apellido']),trim($_POST['nombre']),trim($_POST['edad']),trim($_POST['actividad']));
+$json->datos = '';
+$json->error = '';
 
-$alumnos = array();
-$foto_rota = array();
-$foto = true;
-$id = 0;
-foreach ($datos as $value) {
-    if($value['edad'] != datos::obtener_edad($value['fecha_nac'])){
-        datos::update_acomodar_edad($value['id'],datos::obtener_edad($value['fecha_nac']));
-    }
-    $value['actividad'] = is_null($value['actividad']) ? '' : $value['actividad'];
-    if((!file_exists('../'.$value['foto_perfil']) && $value['baja'] == 0) || ($value['foto_perfil'] == '' && $value['baja'] == 0)) {
-        if ($id == $value['id']) {
-            $ultimo_alumno = end($foto_rota);
-            $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].' <br> '.$value['actividad'].' - '.$value['dias_horarios'];
-            $foto_rota[key($foto_rota)] = $ultimo_alumno;        
-            continue;
-        }
-        $id = $value['id'];
-
-        $foto_rota[] = ['id' => $value['id'],
-        'apellido' => $value['apellido'],
-        'nombre' => $value['nombre'],
-        'vinculo' =>'Sin vinculo',
-        'baja' =>$value['baja'],
-        'edad' => datos::obtener_edad($value['fecha_nac']),
-        'actividad' => $value['actividad'].' - '.$value['dias_horarios']];
-
-        continue;
-    }
-    if ($id == $value['id']) {
-        $ultimo_alumno = end($alumnos);
-        $ultimo_alumno['actividad'] = $ultimo_alumno['actividad'].'<br>'.$value['actividad'].' - '.$value['dias_horarios'];
-        $alumnos[key($alumnos)] = $ultimo_alumno;        
-        continue;
-    }
-    $id = $value['id'];
-
-    $alumnos[] = ['id' => $value['id'],
-                'apellido' => $value['apellido'],
-                'nombre' => $value['nombre'],
-                'vinculo' =>'Sin vinculo',
-                'baja' =>$value['baja'],
-                'edad' => datos::obtener_edad($value['fecha_nac']),
-                'actividad' => $value['actividad'].' - '.$value['dias_horarios']];
-}
-if(!empty(trim($_POST['apellido']))){
-
-    $datos2 = datos::busqueda_familiar(trim($_POST['apellido']));
-    $vinculo = '';
-    foreach ($datos2 as $value) {
-        if($vinculo == $value['vinculo']) continue;
-        $vinculo = $value['vinculo'];
+if (!empty($_POST['fecha_inicio']) && !empty($_POST['fecha_final'])) {
+    $datos = array();
+    foreach (datos::busqueda_registros($_POST['fecha_inicio'],$_POST['fecha_final']) as $value) {
         
-        $alumnos[] = ['id' => '0',
-        'apellido' => $value['vinculo'],
-        'nombre' => '',
-        'vinculo' => 'Familia',
-        'baja' => '',
-        'edad' => '',
-        'actividad' => ''];
-        
+        $datos[] = ['id' => $value['id'],
+                    'agente' => $value['agente'],
+                    'cruce' => $value['cruce'],
+                    'fecha' =>$value['fecha'],
+                    'lugar' => $value['lugar']];
     }
+    $json->datos = $datos;
+}else {
+    $json->error = 'Complete las fechas y vuelva a intentar.';
 }
-$json->datos = $alumnos ;
-$json->foto_rota = $foto_rota;
+
 
 print json_encode($json);
 
