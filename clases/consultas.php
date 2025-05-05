@@ -54,6 +54,13 @@ class datos{
         return datos::respuestaQuery($query);
     }
 
+    static public function fotos_path($path){
+
+        $query = "SELECT * FROM alumnos WHERE foto_perfil LIKE '%$path%' LIMIT 1"; 
+        
+        return datos::respuestaQuery($query);
+    }
+
     static public function busqueda_historico($ape = '',$nom = ''){
 
         $query = "SELECT *,
