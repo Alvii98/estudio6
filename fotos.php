@@ -19,11 +19,10 @@ if (count($fotos) > 0) {
         }else unlink($foto);
     }
 }
+// print'<pre>';print_r($fotos_data);exit;
 usort($fotos_data, function($a, $b) {
     return $b['edad'] <=> $a['edad'];
 });
-// print'<pre>';print_r($fotos_data);exit;
-
 $smarty->assign('FOTOS', $fotos_data);
 $smarty->assign('HEADER', $smarty->fetch('partials/header.html'));
 $smarty->assign('FOOTER', $smarty->fetch('partials/footer.html'));

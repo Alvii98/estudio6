@@ -34,7 +34,7 @@ foreach ($actividades as $value) {
 }
 
 $id_alumno = datos::insert_datos($array_insert,$actividades);
-
+// datos::actualizar_historico();
 if (is_int($id_alumno)) {
     $json->respAlumno = true;
 

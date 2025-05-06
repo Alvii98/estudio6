@@ -1,4 +1,3 @@
-
 function exportarExcel(name = ''){
     try {
         fetch('ajax/ajax_datos_alumnos.php', {

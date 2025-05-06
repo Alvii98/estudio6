@@ -64,7 +64,7 @@ class datos{
     static public function busqueda_historico($ape = '',$nom = ''){
 
         $query = "SELECT *,
-        (SELECT COUNT(*) FROM historico WHERE apellido LIKE '%$ape%' AND nombre LIKE '%$nom%') AS cantidad,
+        (SELECT COUNT(*) FROM historico WHERE apellido LIKE '%$ape%' AND nombre LIKE '%$nom%' AND baja IS NULL) AS cantidad,
         (SELECT COUNT(*) FROM historico WHERE apellido LIKE '%$ape%' AND nombre LIKE '%$nom%' AND baja IS NOT NULL) AS bajas,
         (SELECT COUNT(*) FROM historico h LEFT JOIN alumnos a ON h.apellido = a.apellido AND h.nombre = a.nombre AND
          h.documento = a.documento WHERE a.documento IS NULL) AS solohistorico
