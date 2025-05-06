@@ -6,6 +6,7 @@ window.addEventListener("click", function(event){
     if(event.target.id == 'guardar_vinculo') guardar_vinculo(event)
     if(event.target.id == 'desvincular') desvincular(event)
     if(event.target.id == 'agregar_nueva_actividad') agregar_nueva_actividad(event)
+    if(event.target.id == 'guardar_notas') muchas_notas()
 })
 
 window.addEventListener("change", function(event){
@@ -404,6 +405,28 @@ function datos_vinculo(event) {
     .catch(function (error){
         console.log(error)
         // Catch errors
+        alertify.error('Ocurrio un error al cargar los datos, vuelva a intentar.')
+    })
+}
+
+
+function muchas_notas(){
+    const contenido = document.querySelector('#muchas_notas').value,
+    datosPost = new FormData()
+    datosPost.append('contenido', contenido)
+
+    fetch('ajax/ajax_guardar_notas.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.error != '') return alertify.error(json.error)
+        return alertify.success(json.resp)
+    })
+    .catch(function (error){
+        console.log(error)
         alertify.error('Ocurrio un error al cargar los datos, vuelva a intentar.')
     })
 }
