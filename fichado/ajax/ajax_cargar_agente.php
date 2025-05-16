@@ -10,8 +10,12 @@ if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['doc
     
     $foto = isset($_FILES['foto']) ? file_get_contents($_FILES['foto']['tmp_name']) : '';
     if ($foto != '') {
-        if (!file_put_contents('img/fotos/'.$_POST['documento'].'.png', $foto)) {
-            $json->error = 'Ocurrio un error inesperado al cargar la foto, vuelva a intentar.';
+        $path = '../img/fotos/';
+        
+        if (!is_dir($path)) mkdir($path, 0777, true);
+
+        if (!file_put_contents($path.$_POST['documento'].'.png', $foto)) {
+            $json->error = 'Ocurrio un error inesperado al cargar la foto, vuelva a intentar.'.$foto;
         }
     }
     if ($json->error == '') {

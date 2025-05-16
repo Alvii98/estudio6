@@ -135,17 +135,17 @@ class datos{
         return is_int($resp) ? true : false;
     }
 
-    static public function cargar_fichado($documento,$cruce,$lugar,$fecha = '',$estado = 0) {
+    static public function cargar_fichado($documento,$cruce,$lugar,$fecha = '',$observacion = '',$estado = 0) {
         $instancia = SingletonConexion::getInstance();        
         $conn = $instancia->getConnection();
     
-        $query = "INSERT INTO registros(documento,cruce,fecha,lugar,estado) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO registros(documento,cruce,fecha,lugar,observacion,estado) VALUES (?, ?, ?, ?, ?, ?)";
     
         $stmt = $conn->prepare($query);
 
         $fecha = $fecha == '' ? date('Y-m-d H:i:s') : $fecha;
         
-        $stmt->bind_param("isssi", $documento,$cruce,$fecha,$lugar,$estado);
+        $stmt->bind_param("issssi", $documento,$cruce,$fecha,$lugar,$observacion,$estado);
     
         if (!$stmt->execute()) return $stmt->error;
     

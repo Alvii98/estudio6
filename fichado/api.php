@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $crucePost = filter_input(INPUT_POST, 'cruce', FILTER_SANITIZE_STRING);
         $lugar = filter_input(INPUT_POST, 'lugar', FILTER_SANITIZE_STRING);
         $fecha = filter_input(INPUT_POST, 'fecha', FILTER_SANITIZE_STRING);
+        $observacion = filter_input(INPUT_POST, 'observacion', FILTER_SANITIZE_STRING);
 
         $agenteData = datos::agente($documento);
         if (empty($agenteData)) {
@@ -43,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $cruce = $agenteData[0]['cruce'] == 'ENTRADA' ? 'SALIDA' : 'ENTRADA';
         $cruce = $crucePost != '' ? $crucePost : $cruce;
 
-        if (datos::cargar_fichado($documento, $cruce, $lugar, $fecha, $estado)) {
+        if (datos::cargar_fichado($documento, $cruce, $lugar, $fecha, $observacion, $estado)) {
             echo json_encode(["status" => "success", "message" => "Fichado correctamente, $cruce $fecha"]);
         } else {
             echo json_encode(["status" => "error", "message" => "Error al registrar"]);
