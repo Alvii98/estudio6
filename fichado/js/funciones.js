@@ -1,8 +1,62 @@
 function openNav() { document.getElementById("mySidenav").style.width = "250px" }
 function closeNav() { document.getElementById("mySidenav").style.width = "0" }
 
+function cargar_datos(op) {
+    const datosPost = new FormData()
+    datosPost.append('op', op)
+    fetch('ajax/ajax_cargar_datos.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost,
+        contentType: false,
+        processData: false
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        let datos = ''
+        if (json.error != '') return alertify.error(json.error)
+        if (op == 'agentes') {
+            json.datos.forEach(element => {
+                datos += '<tr><td>'+element.agente+'</td><td>'+element.documento+'</td><td><img src="'+element.foto+'" class="foto-navbar"></td>'
+                datos += '<th style="padding: 0px;padding-left: 25px;"><i style="font-size: xx-large;" class="bi bi-trash"'
+                datos += `onclick="eliminar(this,'`+element.id+`','agente')"></i></th></tr>`
+            });            
+            if (datos == '') datos = '<tr><td colspan="15" class="text-center">No encontramos agentes disponibles</td></tr>'
+            else datos += '<th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos agentes disponibles</th>'
+            document.querySelector('#datos_agentes').innerHTML = datos
+
+        }else if(op == 'registros') {
+            json.datos.forEach(element => {
+                datos += '<tr><td>'+element.agente+'</td><td>'+element.cruce+'</td><td>'+element.fecha+'</td>'
+                datos += '<td>'+element.lugar+'</td><th style="padding: 0px;padding-left: 25px;">'
+                datos += `<i style="font-size: xx-large;" class="bi bi-trash" onclick="eliminar(this,'`+element.id+`','registro')"></i></th></tr>`
+                
+                if (datos == '') datos = '<tr><td colspan="15" class="text-center">No encontramos registros disponibles</td></tr>'
+                else datos += '<th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos registros disponibles</th>'
+                document.querySelector('#datos_registros').innerHTML = datos
+            });
+        }else if(op == 'registros_pendientes') {
+            json.datos.forEach(element => {
+                datos += '<tr><td>'+element.agente+'</td><td>'+element.cruce+'</td><td>'+element.fecha+'</td>'
+                datos += '<td>'+element.lugar+'</td><td>'+element.observacion+'</td><th style="padding: 0px;padding-left: 25px;">'
+                datos += `<i style="font-size: xx-large;color: green;" onclick="aceptar(this,`+element.id+`)" class="bi bi-check-circle"></i>
+                <i style="font-size: xx-large;color: red;" onclick="eliminar(this,'`+element.id+`','registro')" class="bi bi-x-circle"></i></th></tr>`
+            });
+            if (datos == '') datos = '<tr><td colspan="15" class="text-center">No encontramos registros disponibles</td></tr>'
+            else datos += '<th colspan="15" id="no_datos" style="display: none;" class="text-center">No encontramos registros disponibles</th>'
+            document.querySelector('#datos_registros_pendientes').innerHTML = datos
+        }
+    })
+    .catch(function (error){
+        console.log(error)
+        alertify.error('Ocurrio un error inesperado, vuelva a intentar.')
+    })
+}
+
+
 function cambiar_datos(event) {
     if (event.id == 'bot-agentes') {        
+        cargar_datos('agentes')
         document.querySelector('#agentes').style.display = ''
         document.querySelector('#registros-pendientes').style.display = 'none'
         document.querySelector('#registros').style.display = 'none'
@@ -11,6 +65,7 @@ function cambiar_datos(event) {
         document.querySelector('#bot-registros-pendientes').style = 'background-color: #000000;'
         document.querySelector('#bot-registros').style = 'background-color: #000000;'
     }else if (event.id == 'bot-registros-pendientes') {
+        cargar_datos('registros_pendientes')
         document.querySelector('#agentes').style.display = 'none'
         document.querySelector('#registros-pendientes').style.display = ''
         document.querySelector('#registros').style.display = 'none'
@@ -19,6 +74,7 @@ function cambiar_datos(event) {
         document.querySelector('#bot-registros-pendientes').style = 'background-color: #464646;'
         document.querySelector('#bot-registros').style = 'background-color: #000000;'
     }else{
+        cargar_datos('registros')
         document.querySelector('#agentes').style.display = 'none'
         document.querySelector('#registros-pendientes').style.display = 'none'
         document.querySelector('#registros').style.display = ''
@@ -86,7 +142,7 @@ function carga_diferida(){
 
 function eliminar(event,id,tipo){
     alertify.confirm('Registros de fichado', '¿Seguro quiere eliminar este '+tipo+'?', function(){
-        console.log('entro')
+        console.log('id_'+tipo)
         const datosPost = new FormData()
         datosPost.append('id_'+tipo, id)
         fetch('ajax/ajax_eliminar.php', {

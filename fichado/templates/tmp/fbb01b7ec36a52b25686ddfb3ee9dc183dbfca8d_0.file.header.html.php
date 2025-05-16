@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-05-12 21:52:07
+/* Smarty version 3.1.34-dev-7, created on 2025-05-17 00:15:39
   from 'C:\xampp\htdocs\estudio6\fichado\templates\partials\header.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_68225167f30436_09273509',
+  'unifunc' => 'content_6827b90bad8b44_72040492',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fbb01b7ec36a52b25686ddfb3ee9dc183dbfca8d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\fichado\\templates\\partials\\header.html',
-      1 => 1741261668,
+      1 => 1747417941,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_68225167f30436_09273509 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6827b90bad8b44_72040492 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header class="container-fluid border-bottom border-color p-3">
     <div class="row">
         <div class="col-md-12">

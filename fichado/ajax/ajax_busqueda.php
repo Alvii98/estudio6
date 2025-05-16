@@ -11,10 +11,10 @@ if (!empty($_POST['fecha_inicio']) && !empty($_POST['fecha_final'])) {
     foreach (datos::busqueda_registros($_POST['fecha_inicio'],$_POST['fecha_final']) as $value) {
         
         $datos[] = ['id' => $value['id'],
-                    'agente' => $value['agente'],
+                    'agente' => utf8_encode($value['agente']),
                     'cruce' => $value['cruce'],
-                    'fecha' =>$value['fecha'],
-                    'lugar' => $value['lugar']];
+                    'fecha' => !empty($value['fecha']) ? date("d/m/Y H:i:s", strtotime($value['fecha'])) : '',
+                    'lugar' => utf8_encode($value['lugar'])];
     }
     $json->datos = $datos;
 }else {

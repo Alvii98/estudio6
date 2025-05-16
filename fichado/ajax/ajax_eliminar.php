@@ -13,7 +13,7 @@ if (!empty($_POST['id_registro'])) {
     }else {
         $json->error = 'Ocurrio un error inesperado, vuelva a intentar.';
     }
-}if (!empty($_POST['id_agente'])) {
+}elseif (!empty($_POST['id_agente'])) {
     $resp = datos::eliminar_agente($_POST['id_agente']);
     if ($resp) {
         $json->resp = 'Eliminado correctamente';

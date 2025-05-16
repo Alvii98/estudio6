@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-05-12 21:52:08
+/* Smarty version 3.1.34-dev-7, created on 2025-05-17 00:15:39
   from 'C:\xampp\htdocs\estudio6\fichado\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_682251685d2333_29270680',
+  'unifunc' => 'content_6827b90bc653e4_60301918',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a6f508831a347ebd997820f55cabbbaea4743fac' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\fichado\\templates\\index.html',
-      1 => 1741375924,
+      1 => 1747431988,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_682251685d2333_29270680 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6827b90bc653e4_60301918 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),1=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <!DOCTYPE html>
@@ -123,7 +123,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datos_agentes">
                             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['AGENTES']->value, 'value');
 $_smarty_tpl->tpl_vars['value']->do_else = true;
@@ -181,7 +181,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                 <th>Estado</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datos_registros_pendientes">
                             <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['REGISTROS_PENDIENTES']->value, 'value');
 $_smarty_tpl->tpl_vars['value']->do_else = true;

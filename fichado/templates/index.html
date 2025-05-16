@@ -77,7 +77,7 @@
                                 <th>Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datos_agentes">
                             {foreach from=$AGENTES item=value}
                             <tr>
                                 <td>{$value.agente|escape:'utf8_encode'}</td>
@@ -121,7 +121,7 @@
                                 <th>Estado</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="datos_registros_pendientes">
                             {foreach from=$REGISTROS_PENDIENTES item=value}
                             <tr>
                                 <td>{$value.agente|escape:'utf8_encode'}</td>
