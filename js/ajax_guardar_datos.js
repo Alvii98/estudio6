@@ -357,7 +357,7 @@ function datos_actividad(id_actividad) {
             let datos =  '',
             nom_actividad = document.querySelector('#nom_actividad')
             json.datosActividad.forEach(dato => {
-                nom_actividad .textContent = dato.actividad+' - '+dato.dias_horarios
+                nom_actividad.textContent = dato.actividad+' - '+dato.dias_horarios
                 datos += `<tr>
                 <td>`+dato.alumno+`</td>
               </tr>`
