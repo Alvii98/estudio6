@@ -224,3 +224,33 @@ function busqueda_registros(){
         alertify.error('Ocurrio un error inesperado, vuelva a intentar.')
     })
 }
+
+
+function cargar_horario(){
+    const datosPost = new FormData()
+    datosPost.append('dia', document.querySelector('#dia').value)
+    datosPost.append('hora_entrada', document.querySelector('#hora_entrada').value)
+    datosPost.append('hora_salida', document.querySelector('#hora_salida').value)
+    datosPost.append('observacion', document.querySelector('#observacion').value)
+    fetch('ajax/ajax_cargar_horarios.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost,
+        contentType: false,
+        processData: false
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.error != '') return alertify.error(json.error)
+
+        document.querySelector('#dia').value = ''
+        document.querySelector('#hora_entrada').value = ''
+        document.querySelector('#hora_salida').value = ''
+        document.querySelector('#observacion').value = ''
+        alertify.success(json.resp)
+    })
+    .catch(function (error){
+        console.log(error)
+        alertify.error('Ocurrio un error inesperado, vuelva a intentar.')
+    })
+}

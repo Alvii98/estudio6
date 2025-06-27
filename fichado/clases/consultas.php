@@ -38,6 +38,57 @@ class datos{
         return $resp->fetch_all(MYSQLI_ASSOC);
     }
 
+    static public function horarios(){
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+
+        $query = "SELECT * FROM horarios ORDER BY 2,3";
+    
+        $stmt = $conn->prepare($query);
+
+        $stmt->execute();
+        $resp = $stmt->get_result();
+    
+        return $resp->fetch_all(MYSQLI_ASSOC);
+    }
+
+    static public function dispositivos($dispositivo = ''){
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+
+        if ($dispositivo == '') {
+            $query = "SELECT * FROM dispositivos ORDER BY alta DESC";
+            $stmt = $conn->prepare($query);
+        }else {
+            $query = "SELECT * FROM dispositivos WHERE dispositivo = ? ORDER BY alta DESC";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("s", trim($dispositivo));
+        }    
+
+        $stmt->execute();
+        $resp = $stmt->get_result();
+    
+        return $resp->fetch_all(MYSQLI_ASSOC);
+    }
+
+    static public function agregar_dispositivo($dispositivo) {
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+    
+        $query = "INSERT INTO dispositivos(dispositivo,alta) VALUES (?,now())";
+    
+        $stmt = $conn->prepare($query);
+
+        $stmt->bind_param("s", $dispositivo);
+    
+        if (!$stmt->execute()) return $stmt->error;
+    
+        $resp = $stmt->insert_id;
+        $stmt->close();
+    
+        return is_int($resp) ? true : false;
+    }
+
     static public function administracion(){
         $instancia = SingletonConexion::getInstance();        
         $conn = $instancia->getConnection();
@@ -135,6 +186,24 @@ class datos{
         return is_int($resp) ? true : false;
     }
 
+    static public function cargar_horarios($dia,$entrada,$salida,$observacion) {
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+    
+        $query = "INSERT INTO horarios(dia,hora_entrada,hora_salida,observacion) VALUES (?,?,?,?)";
+    
+        $stmt = $conn->prepare($query);
+
+        $stmt->bind_param("ssss", $dia,$entrada,$salida,$observacion);
+    
+        if (!$stmt->execute()) return $stmt->error;
+    
+        $resp = $stmt->insert_id;
+        $stmt->close();
+    
+        return is_int($resp) ? true : false;
+    }
+
     static public function cargar_fichado($documento,$cruce,$lugar,$fecha = '',$observacion = '',$estado = 0) {
         $instancia = SingletonConexion::getInstance();        
         $conn = $instancia->getConnection();
@@ -153,6 +222,21 @@ class datos{
         $stmt->close();
     
         return is_int($resp) ? true : false;
+    }
+
+    static public function eliminar_horario($id) {
+        $instancia = SingletonConexion::getInstance();        
+        $conn = $instancia->getConnection();
+    
+        $query = "DELETE FROM horarios WHERE id = ?";
+    
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $id);
+    
+        if (!$stmt->execute()) return $stmt->error;
+    
+        $stmt->close();
+        return true;
     }
 
     static public function eliminar_agente($id) {

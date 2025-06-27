@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-05-17 00:15:39
+/* Smarty version 3.1.34-dev-7, created on 2025-06-25 20:33:03
   from 'C:\xampp\htdocs\estudio6\fichado\templates\partials\header.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_6827b90bad8b44_72040492',
+  'unifunc' => 'content_685c40df235d04_90665730',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fbb01b7ec36a52b25686ddfb3ee9dc183dbfca8d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\fichado\\templates\\partials\\header.html',
-      1 => 1747417941,
+      1 => 1750770734,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6827b90bad8b44_72040492 (Smarty_Internal_Template $_smarty_tpl) {
+function content_685c40df235d04_90665730 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header class="container-fluid border-bottom border-color p-3">
     <div class="row">
         <div class="col-md-12">
@@ -35,6 +35,7 @@ function content_6827b90bad8b44_72040492 (Smarty_Internal_Template $_smarty_tpl)
     <a href="index.php">Inicio</a>
     <a href="registrar.php">Registrar agente</a>
     <a href="cargas.php">Carga diferida</a>
+    <a href="horarios.php">Horarios</a>
     <a href="#" onclick="iniciar_sesion(true)">Cerrar sesión</a>
 </div>
 <?php }

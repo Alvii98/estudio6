@@ -12,8 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $tipo = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_STRING);
     $documento = filter_input(INPUT_POST, 'documento', FILTER_SANITIZE_STRING);
-    //$tipo = 'VALIDAR AGENTE';
-    //$documento = '40756445';
 
     if ($tipo == 'INSERTAR REGISTRO') {
         $agente = filter_input(INPUT_POST, 'agente', FILTER_SANITIZE_STRING);
@@ -45,9 +43,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $cruce = $crucePost != '' ? $crucePost : $cruce;
 
         if (datos::cargar_fichado($documento, $cruce, $lugar, $fecha, $observacion, $estado)) {
-            echo json_encode(["status" => "success", "message" => "Fichado correctamente, $cruce $fecha"]);
+            echo json_encode(["status" => "success", "message" => "Usted ficho $cruce correctamente."]);
         } else {
             echo json_encode(["status" => "error", "message" => "Error al registrar"]);
+        }
+    } elseif ($tipo == 'AGREGAR_DISPOSITIVO') {
+        $dispositivo = filter_input(INPUT_POST, 'dispositivo', FILTER_SANITIZE_STRING);
+        if (!empty($dispositivo)) {
+            $datos = datos::dispositivos($dispositivo);
+            if (!isset($datos[0]['local'])) {
+                if (datos::agregar_dispositivos($dispositivo)) {
+                    echo json_encode(["status" => "success", "local" => '', "mensaje" => '']);
+                }else {
+                    echo json_encode(["status" => "error", "message" => "Ocurrio un error al cargar el dispositivo."]);
+                }
+            }else {
+                echo json_encode(["status" => "success", "local" => $datos[0]['local'], "mensaje" => $datos[0]['mensaje']]);
+            }
+        }else {
+            echo json_encode(["status" => "error", "message" => "Ocurrio un error al cargar el dispositivo."]);
+        }
+    } elseif ($tipo == 'ADMIN') {
+        $usuario = filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_STRING);
+        $clave = filter_input(INPUT_POST, 'clave', FILTER_SANITIZE_STRING);
+
+        $datos = datos::administracion()[0];
+        if (trim($usuario) == $datos['usuario'] && trim($clave) == $datos['clave']) {
+            echo json_encode(["status" => "success", "message" => "OK"]);
+        }else {
+            echo json_encode(["status" => "error", "message" => "Los datos ingresados no son correctos."]);
         }
     } elseif ($tipo == 'VALIDAR AGENTE') {
 
@@ -65,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($tipo == 'REGISTROS AGENTE') {
         $registros = datos::registros_agente($documento);
         if (!empty($registros)) {
-            echo json_encode(["status" => "success", "message" => "El agente existe", "data" => $registros]);
+            echo json_encode(["status" => "success", "message" => "Registros cargados.", "data" => $registros]);
         } else {
             echo json_encode(["status" => "error", "message" => "El agente no existe"]);
         }

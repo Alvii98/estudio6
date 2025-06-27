@@ -22,7 +22,6 @@ function iniciar_sesion(cerrar_sesion = false) {
     })
     .then(response => response.json())
     .then(function (json) {
-        console.log(json)
         if (cerrar_sesion) {
             location.reload()
             return

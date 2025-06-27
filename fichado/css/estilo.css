@@ -333,6 +333,12 @@ select {
 #clave{
     width: 50%;
 }
+#validar_agente #documento{
+    width: 50%;
+}
+#validar_agente button{
+    width: 50%;
+}
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
     #usuario{

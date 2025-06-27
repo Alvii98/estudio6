@@ -27,7 +27,11 @@ function busqueda(event,limpiar = 0) {
     if(limpiar == 1) {
         for (let i = 0; i < tr.length; i++) {
             tr[i].setAttribute('style','')
-            event.target.parentNode.parentNode.parentNode.parentNode.querySelector("#no_datos").setAttribute('style','display:none;')
+            if (tr[i].getElementsByTagName("td").length == 0) {
+                event.target.parentNode.parentNode.parentNode.parentNode.querySelector("#no_datos").setAttribute('style','')
+            }else{
+                event.target.parentNode.parentNode.parentNode.parentNode.querySelector("#no_datos").setAttribute('style','display:none;')
+            }
         }
         return false
     }
@@ -57,6 +61,7 @@ function busqueda(event,limpiar = 0) {
     }
     // td_cont va a contar todos los td y td_none va a contar todos los que puso en none
     // si son iguales es porque no encontro ningun dato con los parametros
+    console.log(td_cont,td_none)
     if(td_cont == td_none){
         // console.log('no datos')
         event.target.parentNode.parentNode.parentNode.parentNode.querySelector("#no_datos").setAttribute('style','')

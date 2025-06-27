@@ -19,11 +19,15 @@ if (!empty($_POST['nombre']) && !empty($_POST['apellido']) && !empty($_POST['doc
         }
     }
     if ($json->error == '') {
-        $resp = datos::cargar_agente($_POST['apellido'].' '.$_POST['nombre'],$_POST['documento']);
-        if ($resp) {
-            $json->resp = 'Registrado correctamente';
+        if (empty(datos::agente_existe($_POST['documento']))) {
+            $resp = datos::cargar_agente($_POST['apellido'].' '.$_POST['nombre'],$_POST['documento']);
+            if ($resp) {
+                $json->resp = 'Registrado correctamente';
+            }else {
+                $json->error = 'Ocurrio un error inesperado, vuelva a intentar.';
+            }
         }else {
-            $json->error = 'Ocurrio un error inesperado, vuelva a intentar.';
+            $json->error = 'Ya existe un agente registrado con ese documento.';
         }
     }
 }else {
