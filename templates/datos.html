@@ -52,7 +52,7 @@
                 </div>
                 {if empty({$VINCULO})}
                     <div class="form-group float-right">
-                        <i class="bi bi-copy" onclick="copiar_texto('deudas_alumno')" style="font-size: xx-large;"></i>
+                        <i class="bi bi-copy" onclick="copiar_texto('deudas_alumno','afavor_alumno')" style="font-size: xx-large;"></i>
                     </div>
                     <div class="form-group float-right mr-4">
                         <div class="form-check">
@@ -93,7 +93,7 @@
                         </div>
                         <div class="ml-3 float-left">
                             <label>Saldo a favor</label>
-                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center f-10" value="${$AFAVOR|number_format:0:",":"."}">
+                            <input type="text" id="afavor" readonly="true" class="form-control col-md-6 text-center f-10" value="${$AFAVOR|number_format:0:",":"."}">
                         </div>
                     </div>
                 {else}

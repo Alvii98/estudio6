@@ -75,22 +75,33 @@ function editar_detalle() {
         alertify.error('Ocurrio un error al guardar los datos.')
     })
 }
-function copiar_texto(id_deuda) {
+function copiar_texto(id_deuda,id_afavor) {
     try {
 
         let texto = '',actividades = '',
         valor = document.querySelector('#valor').value.trim().replace(/\s+/g, '.'),
         combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.'),
+        afavor = document.querySelector('#afavor').value.trim().replace(/\s+/g, '.'),
         detalle_cuota = document.querySelector('#detalle_cuota').value.trim()
         const textarea = document.createElement('textarea')                
         let div = document.querySelector("#"+id_deuda+""),
         inputs = div.getElementsByTagName("input"),
-        texto_deuda = ''
+        texto_deuda = '',
+        div_afavor = document.querySelector("#"+id_afavor+""),
+        inputs_afavor = div_afavor.getElementsByTagName("input"),
+        texto_afavor = ''
 
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value > 0) {
                 if (texto_deuda == '') texto_deuda += '\nSe registra la siguiente deuda:\n'
                 texto_deuda += '$'+inputs[i].value+' del mes de '+inputs[i].id.replace('2', '')+'\n'
+            }
+        }
+
+        for (let i = 0; i < inputs_afavor.length; i++) {
+            if (inputs_afavor[i].value > 0) {
+                if (texto_afavor == '') texto_afavor += '\nSe registra un saldo a favor de:\n'
+                texto_afavor += '$'+inputs_afavor[i].value+' del mes de '+inputs_afavor[i].id.replace('3', '').replace('4', '')+'\n'
             }
         }
 
@@ -129,6 +140,7 @@ function copiar_texto(id_deuda) {
         }
         texto += '\n'+detalle_cuota+'\n'
         texto += texto_deuda
+        texto += texto_afavor
         // console.log(texto)
         // return
         textarea.value = texto
@@ -141,6 +153,7 @@ function copiar_texto(id_deuda) {
 
         alertify.success('Copiado correctamente.')
     } catch (error) {
+        // console.log(error)
         alertify.error('Ocurrio un error al copiar el texto.')
     }
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-07-16 15:57:08
+/* Smarty version 3.1.34-dev-7, created on 2025-07-16 17:20:47
   from 'C:\xampp\htdocs\estudio6\templates\partials\modal.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_6877afb4119246_56599806',
+  'unifunc' => 'content_6877c34f9c27a8_17613696',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2b2bfa454260b7d848f597979df3a7f26c42878f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\partials\\modal.html',
-      1 => 1752599248,
+      1 => 1752675979,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6877afb4119246_56599806 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6877c34f9c27a8_17613696 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- <div class="modal-overlay"></div> -->
 <div id="datos_actividad" class="modal-login" style="display: none;">
     <div class="modal-dialog" role="document">
@@ -233,7 +233,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         <div class="modal-content">
             <i class="bi bi-x exit-card" onclick="document.querySelector('#afavor_alumno').style.display = 'none'"></i>
             <div class="modal-header d-flex justify-content-center">
-                <h4>A favor del alumno</h4>
+                <h4>Saldo a favor del alumno</h4>
             </div>
             <div class="col-md-12 p-3">
                 <div class="scroll-modal mb-3">
@@ -321,7 +321,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         <div class="modal-content">
             <i class="bi bi-x exit-card" onclick="document.querySelector('#afavor_vinculo').style.display = 'none'"></i>
             <div class="modal-header d-flex justify-content-center">
-                <h4>A favor del vinculo familiar</h4>
+                <h4>Saldo a favor del vinculo familiar</h4>
             </div>
             <div class="col-md-12 p-3">
                 <div class="scroll-modal mb-3">
