@@ -192,6 +192,82 @@ class datos{
         return true;
     }
 
+    static public function afavor_alumno($id_alumno){
+
+        $query = "SELECT *,(enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre) AS total
+        FROM afavor_alumno WHERE id_alumno = ".$id_alumno." ORDER BY id DESC LIMIT 1";    
+
+        return datos::respuestaQuery($query);
+    }
+
+    static public function insert_afavor_alumno($id_alumno,$array){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();
+
+        $query = "INSERT INTO afavor_alumno(id_alumno,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre)
+        VALUES (".$id_alumno.",".$array['enero'].",".$array['febrero'].",".$array['marzo'].",".$array['abril'].",".$array['mayo'].",".$array['junio']
+        .",".$array['julio'].",".$array['agosto'].",".$array['septiembre'].",".$array['octubre'].",".$array['noviembre'].",".$array['diciembre'].")";    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        $resp = mysqli_insert_id($conn);
+        if (is_int($resp)) return true;
+        else return false;
+    }
+
+    static public function update_afavor_alumno($id_alumno,$array){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();
+
+        $query = "UPDATE afavor_alumno SET enero=".$array['enero'].",febrero=".$array['febrero'].",marzo=".$array['marzo'].",abril=".$array['abril'].",
+        mayo=".$array['mayo'].",junio=".$array['junio'].",julio=".$array['julio'].",agosto=".$array['agosto'].",septiembre=".$array['septiembre'].",
+        octubre=".$array['octubre'].",noviembre=".$array['noviembre'].",diciembre=".$array['diciembre']." WHERE id_alumno = ".$id_alumno;    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        return true;
+    }
+
+    static public function afavor_vinculo($vinculo){
+
+        $query = "SELECT *,(enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre) AS total
+        FROM afavor_vinculo WHERE vinculo = '".$vinculo."' ORDER BY id DESC LIMIT 1";
+
+        return datos::respuestaQuery($query);
+    }
+
+    static public function insert_afavor_vinculo($vinculo,$array){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();
+
+        $query = "INSERT INTO afavor_vinculo(vinculo,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre)
+        VALUES ('".$vinculo."',".$array['enero'].",".$array['febrero'].",".$array['marzo'].",".$array['abril'].",".$array['mayo'].",".$array['junio']
+        .",".$array['julio'].",".$array['agosto'].",".$array['septiembre'].",".$array['octubre'].",".$array['noviembre'].",".$array['diciembre'].")";    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        $resp = mysqli_insert_id($conn);
+        if (is_int($resp)) return true;
+        else return false;
+    }
+
+    static public function update_afavor_vinculo($vinculo,$array){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();
+
+        $query = "UPDATE afavor_vinculo SET enero=".$array['enero'].",febrero=".$array['febrero'].",marzo=".$array['marzo'].",abril=".$array['abril'].",
+        mayo=".$array['mayo'].",junio=".$array['junio'].",julio=".$array['julio'].",agosto=".$array['agosto'].",septiembre=".$array['septiembre'].",
+        octubre=".$array['octubre'].",noviembre=".$array['noviembre'].",diciembre=".$array['diciembre']." WHERE vinculo = '".$vinculo."'";    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        return true;
+    }
+    
     static public function datos_vinculo($vinculo){
 
         $query = "SELECT v.vinculo,CONCAT(a.apellido,' ',a.nombre) AS alumno 
@@ -551,9 +627,14 @@ class datos{
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
-
+        
+        $query = "DELETE FROM afavor_alumno WHERE id_alumno = ".$id;
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
         return true;
     }
+    
     static public function delete_familiar($id){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();    

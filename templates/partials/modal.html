@@ -165,3 +165,142 @@
         </div>
     </div>
 </div>
+
+
+<div id="afavor_alumno" class="modal-login" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <i class="bi bi-x exit-card" onclick="document.querySelector('#afavor_alumno').style.display = 'none'"></i>
+            <div class="modal-header d-flex justify-content-center">
+                <h4>A favor del alumno</h4>
+            </div>
+            <div class="col-md-12 p-3">
+                <div class="scroll-modal mb-3">
+                    {foreach from=$AFAVOR_ALUMNO item=value}
+                        <div class="form-group col-md-3 float-left">
+                            <label>Enero</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="enero3" class="form-control" value="{$value.enero|number_format:0:',':'.'}">
+                        </div>
+                        <div class="form-group col-md-3 float-left">
+                            <label>Febrero</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="febrero3" class="form-control" value="{$value.febrero|number_format:0:',':'.'}">
+                        </div>
+                        <div class="form-group col-md-3 float-left">
+                            <label>Marzo</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="marzo3" class="form-control" value="{$value.marzo|number_format:0:',':'.'}">
+                        </div>
+                        <div class="form-group col-md-3 float-left">
+                            <label>Abril</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="abril3" class="form-control" value="{$value.abril|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Mayo</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="mayo3" class="form-control" value="{$value.mayo|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Junio</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="junio3" class="form-control" value="{$value.junio|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Julio</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="julio3" class="form-control" value="{$value.julio|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Agosto</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="agosto3" class="form-control" value="{$value.agosto|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Septiembre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="septiembre3" class="form-control" value="{$value.septiembre|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Octubre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="octubre3" class="form-control" value="{$value.octubre|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Noviembre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="noviembre3" class="form-control" value="{$value.noviembre|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Diciembre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="diciembre3" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
+                        </div>
+                    {/foreach}
+                    <div class="form-group col-md-12 mt-3">
+                        <button onclick="guardar_afavor_alumno()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<div id="afavor_vinculo" class="modal-login" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <i class="bi bi-x exit-card" onclick="document.querySelector('#afavor_vinculo').style.display = 'none'"></i>
+            <div class="modal-header d-flex justify-content-center">
+                <h4>A favor del vinculo familiar</h4>
+            </div>
+            <div class="col-md-12 p-3">
+                <div class="scroll-modal mb-3">
+                    {foreach from=$AFAVOR_VINCULO item=value}
+                        <div class="form-group col-md-3 float-left">
+                            <label>Enero</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="enero4" class="form-control" value="{$value.enero|number_format:0:',':'.'}">
+                        </div>
+                        <div class="form-group col-md-3 float-left">
+                            <label>Febrero</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="febrero4" class="form-control" value="{$value.febrero|number_format:0:',':'.'}">
+                        </div>
+                        <div class="form-group col-md-3 float-left">
+                            <label>Marzo</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="marzo4" class="form-control" value="{$value.marzo|number_format:0:',':'.'}">
+                        </div>
+                        <div class="form-group col-md-3 float-left">
+                            <label>Abril</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="abril4" class="form-control" value="{$value.abril|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Mayo</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="mayo4" class="form-control" value="{$value.mayo|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Junio</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="junio4" class="form-control" value="{$value.junio|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Julio</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="julio4" class="form-control" value="{$value.julio|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Agosto</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="agosto4" class="form-control" value="{$value.agosto|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Septiembre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="septiembre4" class="form-control" value="{$value.septiembre|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Octubre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="octubre4" class="form-control" value="{$value.octubre|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Noviembre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="noviembre4" class="form-control" value="{$value.noviembre|number_format:0:',':'.'}">
+                        </div>                
+                        <div class="form-group col-md-3 float-left">
+                            <label>Diciembre</label>
+                            <input type="text" oninput="validateNumberPunto(this)" id="diciembre4" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
+                        </div>
+                    {/foreach}
+                    <div class="form-group col-md-12 mt-3">
+                        <button onclick="guardar_afavor_vinculo()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

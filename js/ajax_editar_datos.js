@@ -165,9 +165,11 @@ function baja_alumno(event) {
             mes = fechaActual.getMonth() + 1,anio = fechaActual.getFullYear()
             dia = dia < 10 ? '0'+dia : dia
             mes = mes < 10 ? '0'+mes : mes
-            let info_baja = event.target.checked == true ? 'Baja - '+dia+'/'+mes+'/'+anio : ''
+            let info_baja = event.target.checked == true ? 'Baja: '+dia+'/'+mes+'/'+anio : ''
             
             document.querySelector('#info_baja').textContent = info_baja
+            if (info_baja == '') document.querySelector('#info_baja').setAttribute('style','font-size:12px;')
+            else document.querySelector('#info_baja').setAttribute('style','padding:4px;background:#f9b8b8;border-radius:7px;font-size:12px;')
             alertify.success('Guardado correctamente.')
             return
         })
@@ -363,6 +365,68 @@ function guardar_deuda_vinculo() {
         method: "POST",
         // Set the post data
         body: JSON.stringify({'deudas_vinculo':deudas_vinculo,'vinculo':vinculo})
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.resp) {
+            alertify.success('Guardados correctamente.')
+        }else {
+            alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+        }
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+    })
+}
+
+
+function guardar_afavor_alumno() {
+    let div = document.querySelector("#afavor_alumno"),
+    id_alumno = document.querySelector("#id_alumno").value,
+    inputs = div.getElementsByTagName("input"),
+    datos_deuda = {}
+
+    for (let i = 0; i < inputs.length; i++) {
+        datos_deuda[inputs[i].id.replace('3', '')] = inputs[i].value.trim() == '' ? 0 : inputs[i].value.replace('.', '')
+    }
+
+    fetch('ajax/ajax_afavor.php', {
+        method: "POST",
+        // Set the post data
+        body: JSON.stringify({'afavor_alumno':datos_deuda,'id_alumno':id_alumno})
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.resp) {
+            alertify.success('Guardados correctamente.')
+        }else {
+            alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+        }
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+    })
+}
+
+
+function guardar_afavor_vinculo() {
+    let div = document.querySelector("#afavor_vinculo"),
+    vinculo = document.querySelector("#nombre_vinculo").value,
+    inputs = div.getElementsByTagName("input"),
+    afavor_vinculo = {}
+
+    for (let i = 0; i < inputs.length; i++) {
+        afavor_vinculo[inputs[i].id.replace('4', '')] = inputs[i].value.trim() == '' ? 0 : inputs[i].value.replace('.', '')
+    }
+
+    fetch('ajax/ajax_afavor.php', {
+        method: "POST",
+        // Set the post data
+        body: JSON.stringify({'afavor_vinculo':afavor_vinculo,'vinculo':vinculo})
     })
     .then(response => response.json())
     .then(function (json) {

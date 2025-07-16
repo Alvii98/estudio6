@@ -57,6 +57,7 @@
                     <div class="form-group float-right mr-4">
                         <div class="form-check">
                             <i class="bi bi-calendar-x" role="button" onclick="document.querySelector('#deudas_alumno').style.display = 'block'" style="font-size: xx-large;"></i>
+                            <i class="bi bi-calendar-check ml-3" role="button" onclick="document.querySelector('#afavor_alumno').style.display = 'block'" style="font-size: xx-large;"></i>
                         </div>
                     </div>
                 {/if}
@@ -64,24 +65,35 @@
                     <div class="form-check">
                         <input {if $BAJA !== null} checked {/if} class="form-check-input" role="button" type="checkbox" name="baja_alumno" id="baja_alumno">
                         <label class="form-check-label">Baja del alumno/a</label>
-                        <p class="form-check-label" id="info_baja" style="font-size: 12px;">
-                        {if $BAJA !== null}Baja - {$BAJA|date_format:'%d/%m/%Y'}{/if}
+                        <p class="form-check-label mb-1" id="info_baja" {if $BAJA !== null}style="padding:4px;background:#f9b8b8;border-radius:7px;font-size:12px;"{else}style="font-size: 12px;"{/if}>
+                        {if $BAJA !== null}Baja: {$BAJA|date_format:'%d/%m/%Y'}{/if}
                         </p>
+                        <p class="form-check-label" style="font-size: 12px;padding: 4px;background: #beffbe;border-radius: 7px;">Alta: {$ALTA|date_format:'%d/%m/%Y'}</p>
                     </div>
                 </div>
                 {if empty({$VINCULO})}
                     <div class="form-group col-md-12 d-flex justify-content-center">
                         <div class="float-left">
                             <label>A pagar</label>
-                            <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center" value="${$VALOR|number_format:0:",":"."}">
+                            <input type="text" id="valor" readonly="true" name="alumno" class="form-control col-md-6 text-center f-10" value="${$VALOR|number_format:0:",":"."}">
                         </div>
                         <div class="ml-3 float-left">
                             <label>Combo</label>
-                            <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center" value="${$COMBO|number_format:0:",":"."}">
+                            <input type="text" id="combo" readonly="true" class="form-control col-md-6 text-center f-10" value="${$COMBO|number_format:0:",":"."}">
                         </div>
                         <div class="ml-3 float-left">
+                            <label>Con recargo</label>
+                            <input type="text" id="recargo" readonly="true" class="form-control col-md-6 text-center f-10" value="${$RECARGO|number_format:0:",":"."}">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 d-flex justify-content-center">
+                        <div class="ml-3 float-left">
                             <label>Adeuda</label>
-                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center" value="${$ADEUDA|number_format:0:",":"."}">
+                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center f-10" value="${$ADEUDA|number_format:0:",":"."}">
+                        </div>
+                        <div class="ml-3 float-left">
+                            <label>Saldo a favor</label>
+                            <input type="text" id="adeuda" readonly="true" class="form-control col-md-6 text-center f-10" value="${$AFAVOR|number_format:0:",":"."}">
                         </div>
                     </div>
                 {else}

@@ -32,11 +32,21 @@ if(isset($_GET['id'])){
     }else {
         $smarty->assign('ADEUDA', round($deudas[0]['total'], -2));
     }
+    $afavor = datos::afavor_alumno($_GET['id']);
+    if (empty($afavor)) {
+        $afavor = array(array("enero" => 0,"febrero" => 0,"marzo" => 0,"abril" => 0,"mayo" => 0,"junio" => 0,
+                "julio" => 0,"agosto" => 0,"septiembre" => 0,"octubre" => 0,"noviembre" => 0,"diciembre" => 0));
+        $smarty->assign('AFAVOR', 0);
+    }else {
+        $smarty->assign('AFAVOR', round($afavor[0]['total'], -2));
+    }
     
+    $smarty->assign('AFAVOR_ALUMNO', $afavor);
     $smarty->assign('DEUDAS_ALUMNO', $deudas);
     $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
     $smarty->assign('ALUMNO', $alumno[0]);
     $smarty->assign('BAJA', $alumno[0]['baja']);
+    $smarty->assign('ALTA', $alumno[0]['fecha_alta']);
     $smarty->assign('APELLIDO', $alumno[0]['apellido']);
     $smarty->assign('NOMBRE', $alumno[0]['nombre']);
     $smarty->assign('FECHA_NAC', $alumno[0]['fecha_nac']);
@@ -58,6 +68,7 @@ if(isset($_GET['id'])){
     $valores = valores::precio_por_alumno($_GET['id']);
 
     $smarty->assign('VALOR', round($valores['valor'], -2));
+    $smarty->assign('RECARGO',(round($valores['valor'], -2)) * 1.10);
     $smarty->assign('COMBO', round($valores['combo'], -2));
 
     $smarty->assign('FAMILIAR', datos::familiar($_GET['id']));
@@ -89,6 +100,15 @@ if(isset($_GET['id'])){
         $smarty->assign('ADEUDA', round($deudas[0]['total'], -2));
     }
     $smarty->assign('DEUDAS_VINCULO', $deudas);
+    $afavor = datos::afavor_vinculo($_GET['vinculo']);
+    if (empty($afavor)) {
+        $afavor = array(array("enero" => 0,"febrero" => 0,"marzo" => 0,"abril" => 0,"mayo" => 0,"junio" => 0,
+                "julio" => 0,"agosto" => 0,"septiembre" => 0,"octubre" => 0,"noviembre" => 0,"diciembre" => 0));
+        $smarty->assign('AFAVOR', 0);
+    }else {
+        $smarty->assign('AFAVOR', round($afavor[0]['total'], -2));
+    }
+    $smarty->assign('AFAVOR_VINCULO', $afavor);
     $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
     $smarty->assign('VINCULO', $_GET['vinculo']);
     $smarty->assign('ALUMNOS', $alumnos);

@@ -356,6 +356,11 @@ select {
 #clave{
     width: 50%;
 }
+
+.f-10{
+    font-size: 10px !important;
+}
+
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
     #usuario{
