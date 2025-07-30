@@ -11,6 +11,9 @@ window.addEventListener("click", function(event){
 function buscar(tipo = ''){
     const datosPost = new FormData()
     if (tipo != '') {
+        document.querySelector('#alumnosTotales').disabled = true
+        document.querySelector('#bajasTotales').disabled = true
+        document.querySelector('#soloHistorica').disabled = true
         datosPost.append('tipo', tipo)
     }else {
         datosPost.append('apellido', document.querySelector('#apellido').value)
@@ -24,6 +27,9 @@ function buscar(tipo = ''){
     })
     .then(response => response.json())
     .then(function (json) {
+        document.querySelector('#alumnosTotales').disabled = false
+        document.querySelector('#bajasTotales').disabled = false
+        document.querySelector('#soloHistorica').disabled = false
         let datos = '',baja = ''
 
         if (json.datos.length > 0) {
@@ -46,6 +52,9 @@ function buscar(tipo = ''){
     .catch(function (error){
         console.log(error)
         // Catch errors
+        document.querySelector('#alumnosTotales').disabled = false
+        document.querySelector('#bajasTotales').disabled = false
+        document.querySelector('#soloHistorica').disabled = false
         alertify.alert('Datos alumnos','Ocurrio un error en la busqueda.')
     })
 
