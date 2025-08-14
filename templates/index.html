@@ -80,6 +80,36 @@
                     </table>
                 </div>
             </div>
+            <div class="col-md-12"><hr></div>
+            <div class="col-md-12 text-center">
+                <h3><u>Estadisticas</u></h3>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <select class="form-control col-md-4" id="estadistica">
+                        <option>Deudas totales</option>
+                    </select>
+                </div>
+                <label id="cant_resp"></label>
+                <div class="scroll mb-3">
+                    <table class="table table-bordered text-body" id="tabla_alumnos">
+                        <thead align="center">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Total deuda</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach from=$DEUDAS_TOTALES item=value}
+                                {if !empty($value.total_deuda)}
+                                <tr onclick="alumno_id('{$value.id}','{$value.apellido}')">
+                                    <td>{$value.nombre|escape:'utf8_encode'}</td>
+                                    <td>${$value.total_deuda|number_format:0:",":"."}</td>
+                                </tr>
+                                {/if}
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
     {$FOOTER}

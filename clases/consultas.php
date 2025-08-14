@@ -36,7 +36,7 @@ class datos{
         $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos WHERE id_alumno = ".$id;  
         
         if(empty($id)){
-            $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos WHERE vinculo LIKE '%".$vinculo."%'";  
+            $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos WHERE vinculo LIKE '%".$vinculo."%' ORDER BY 2";  
         }
 
         return datos::respuestaQuery($query);
@@ -120,6 +120,22 @@ class datos{
 
         $query = "SELECT *,(enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre) AS total
         FROM deudas_alumno WHERE id_alumno = ".$id_alumno." ORDER BY id DESC LIMIT 1";    
+
+        return datos::respuestaQuery($query);
+    }
+
+    static public function deudas_totales(){
+
+        $query = "SELECT CONCAT('ALUMNO: ', b.apellido, ' ', b.nombre) AS nombre,b.id,b.apellido,
+        SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
+        a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
+        FROM deudas_alumno a JOIN alumnos b ON a.id_alumno = b.id
+        GROUP BY a.id_alumno, b.apellido, b.nombre
+        UNION ALL
+        SELECT CONCAT('VINCULO: ', a.vinculo) AS nombre,0,a.vinculo as apellido,
+        SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
+        a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
+        FROM deudas_vinculo a GROUP BY a.vinculo;";
 
         return datos::respuestaQuery($query);
     }

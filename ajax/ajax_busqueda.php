@@ -22,6 +22,7 @@ foreach ($datos as $value) {
     if($value['edad'] != datos::obtener_edad($value['fecha_nac'])){
         datos::update_acomodar_edad($value['id'],datos::obtener_edad($value['fecha_nac']));
     }
+    $deuda = datos::deudas_alumno($value['id']);
     $value['actividad'] = is_null($value['actividad']) ? '' : $value['actividad'];
     if((!file_exists('../'.$value['foto_perfil']) && $value['baja'] == 0) || ($value['foto_perfil'] == '' && $value['baja'] == 0)) {
         if ($id == $value['id']) {
@@ -39,6 +40,7 @@ foreach ($datos as $value) {
         'apellido' => $value['apellido'],
         'nombre' => $value['nombre'],
         'vinculo' =>'Sin vinculo',
+        'deuda' => empty($deuda) ? 0 : $deuda[0]['total'],
         'baja' =>$value['baja'],
         'edad' => datos::obtener_edad($value['fecha_nac']),
         'actividad' => $value['actividad'].' - '.$value['dias_horarios']];
@@ -58,6 +60,7 @@ foreach ($datos as $value) {
                 'apellido' => $value['apellido'],
                 'nombre' => $value['nombre'],
                 'vinculo' =>'Sin vinculo',
+                'deuda' => empty($deuda) ? 0 : $deuda[0]['total'],
                 'baja' =>$value['baja'],
                 'edad' => datos::obtener_edad($value['fecha_nac']),
                 'actividad' => $value['actividad'].' - '.$value['dias_horarios']];
@@ -67,16 +70,17 @@ if((empty($nombre) && empty($edad) && empty($actividad)) || !empty($apellido) ){
 
     $datos2 = datos::busqueda_familiar($apellido);
     $vinculo = '';
-
     foreach ($datos2 as $value) {
         if($vinculo == $value['vinculo']) continue;
         $vinculo = $value['vinculo'];
+        $deuda = datos::deudas_vinculo($value['vinculo']);
         $cant_familiares = $cant_familiares + 1;
 
         $alumnos[] = ['id' => '0',
         'apellido' => $value['vinculo'],
         'nombre' => '',
         'vinculo' => 'Familia',
+        'deuda' => empty($deuda) ? 0 : $deuda[0]['total'],
         'baja' => '',
         'edad' => '',
         'actividad' => ''];

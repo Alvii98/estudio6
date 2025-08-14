@@ -81,6 +81,7 @@ function copiar_texto(id_deuda,id_afavor) {
         let texto = '',actividades = '',
         valor = document.querySelector('#valor').value.trim().replace(/\s+/g, '.'),
         combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.'),
+        adeuda = document.querySelector('#adeuda').value.trim().replace(/\s+/g, '.'),
         afavor = document.querySelector('#afavor').value.trim().replace(/\s+/g, '.'),
         detalle_cuota = document.querySelector('#detalle_cuota').value.trim()
         const textarea = document.createElement('textarea')                
@@ -89,7 +90,7 @@ function copiar_texto(id_deuda,id_afavor) {
         texto_deuda = '',
         div_afavor = document.querySelector("#"+id_afavor+""),
         inputs_afavor = div_afavor.getElementsByTagName("input"),
-        texto_afavor = ''
+        texto_afavor = '',saldo_total = '',texto_total = ''
 
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value > 0) {
@@ -125,6 +126,7 @@ function copiar_texto(id_deuda,id_afavor) {
             } else {
                 nuevoPrecio = valor.split(',')[0].slice(0, -2) + '00';
             }
+            saldo_total = parseInt(adeuda.trim().replace('$', '').replace('.', ''))+parseInt(nuevoPrecio.trim().replace('$', '').replace('.', ''))
             texto += 'Valor: '+nuevoPrecio+'\n'
         }
 
@@ -135,14 +137,18 @@ function copiar_texto(id_deuda,id_afavor) {
             } else {
                 nuevoPrecio = combo.split(',')[0].slice(0, -2) + '00';
             }
+            saldo_total = parseInt(adeuda.trim().replace('$', '').replace('.', ''))+parseInt(nuevoPrecio.trim().replace('$', '').replace('.', ''))
             texto += 'Precio promocional por combo de actividades o grupo familiar: '+nuevoPrecio
             texto += ' (aplica únicamente abonando en efectivo en el Estudio del 1 al 15 del mes)\n'
+        }
+        if (adeuda != '$0') {
+            texto_total = '\nSaldo total a pagar: $'+saldo_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         }
         texto += '\n'+detalle_cuota+'\n'
         texto += texto_deuda
         texto += texto_afavor
-        // console.log(texto)
-        // return
+        texto += texto_total
+
         textarea.value = texto
         textarea.style.position = 'absolute'
         textarea.style.left = '-9999px'

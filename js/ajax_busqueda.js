@@ -39,14 +39,18 @@ function buscar(){
     .then(response => response.json())
     .then(function (json) {
         let tbody = '',baja = '',sinfoto = '',contBajas = 0
-        //console.log(json)
+        console.log(json)
         if(json.foto_rota.length > 0){
             json.foto_rota.forEach(element => {
+                baja = ''
                 if (element.baja !== null) {
                     baja = 'style="text-decoration:line-through;"'
                     contBajas++
                 }
-                sinfoto = element.baja !== null ? '' : 'style="background-color:#fd5757;"'
+                if (element.deuda > 0 && baja == '') {
+                    baja = 'style="background-color:#ffffa4;"'
+                }
+                sinfoto = baja == '' ? 'style="background-color:#ec9090;"' : ''
                 tbody += `<tr `+sinfoto+` onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
                 <td>`+element.apellido+`</td>
                 <td>`+element.nombre+`</td>
@@ -57,15 +61,24 @@ function buscar(){
         }
         
         if(json.datos.length > 0 || json.foto_rota.length > 0){
-            json.datos.forEach(element2 => {                
+            json.datos.forEach(element2 => {  
+                baja = ''
                 if(element2.vinculo == 'Familia'){
-                    tbody += `<tr style="background-color:#96b796;"onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')">
+                    if (element2.deuda > 0) {
+                        baja = 'style="background-color:#ffffa4;"'
+                    }else{
+                        baja = 'style="background-color:#96b796;"'
+                    }
+                    tbody += `<tr onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')" `+baja+`>
                     <td colspan="4">`+element2.vinculo+' '+element2.apellido+`</td>
                     </tr>`
                 }else{
                     if (element2.baja !== null) {
                         baja = 'style="text-decoration:line-through;"'
                         contBajas++
+                    } 
+                    if (element2.deuda > 0 && baja == '') {
+                        baja = 'style="background-color:#ffffa4;"'
                     }
                     tbody += `<tr onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')" `+baja+`>
                     <td>`+element2.apellido+`</td>
