@@ -116,26 +116,40 @@ class datos{
         return datos::respuestaQuery($query);
     }
 
-    static public function deudas_alumno($id_alumno){
+    static public function deudas_alumno($id_alumno = ''){
 
         $query = "SELECT *,(enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre) AS total
-        FROM deudas_alumno WHERE id_alumno = ".$id_alumno." ORDER BY id DESC LIMIT 1";    
+        FROM deudas_alumno WHERE id_alumno = ".$id_alumno." ORDER BY id DESC LIMIT 1";
+        
+        if (empty($id_alumno)) {
+            $query = "SELECT b.apellido,b.nombre,b.fecha_nac,b.baja,b.foto_perfil,b.id,b.edad,av.actividad,av.dias_horarios,
+            SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
+            a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
+            FROM deudas_alumno a JOIN alumnos b ON a.id_alumno = b.id
+            LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
+            LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
+            WHERE ((a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
+            a.septiembre + a.octubre + a.noviembre + a.diciembre) > 0)
+            GROUP BY a.id_alumno, b.apellido, b.nombre ORDER BY 1";
+        }
 
         return datos::respuestaQuery($query);
     }
 
     static public function deudas_totales(){
 
-        $query = "SELECT CONCAT('ALUMNO: ', b.apellido, ' ', b.nombre) AS nombre,b.id,b.apellido,
+        $query = "SELECT 'ALUMNO' as op,b.apellido,b.nombre,b.fecha_nac,b.baja,b.foto_perfil,b.id,b.edad,av.actividad,av.dias_horarios,
         SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
         a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
         FROM deudas_alumno a JOIN alumnos b ON a.id_alumno = b.id
+		LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
+        LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
         GROUP BY a.id_alumno, b.apellido, b.nombre
         UNION ALL
-        SELECT CONCAT('VINCULO: ', a.vinculo) AS nombre,0,a.vinculo as apellido,
+        SELECT 'VINCULO' as op,a.vinculo,'','','','',0,'','','',
         SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
         a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
-        FROM deudas_vinculo a GROUP BY a.vinculo;";
+        FROM deudas_vinculo a GROUP BY a.vinculo";
 
         return datos::respuestaQuery($query);
     }
@@ -170,11 +184,19 @@ class datos{
         return true;
     }
 
-    static public function deudas_vinculo($vinculo){
+    static public function deudas_vinculo($vinculo = ''){
 
         $query = "SELECT *,(enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre) AS total
         FROM deudas_vinculo WHERE vinculo = '".$vinculo."' ORDER BY id DESC LIMIT 1";
 
+        if (empty($vinculo)) {
+            $query = "SELECT a.vinculo,SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
+            a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
+            FROM deudas_vinculo a 
+            WHERE ((a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
+            a.septiembre + a.octubre + a.noviembre + a.diciembre) > 0)
+            GROUP BY a.vinculo ORDER BY 1";
+        }
         return datos::respuestaQuery($query);
     }
 

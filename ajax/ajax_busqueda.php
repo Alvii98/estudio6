@@ -7,8 +7,11 @@ $apellido = trim($_POST['apellido']);
 $nombre = trim($_POST['nombre']);
 $edad = trim($_POST['edad']);
 $actividad = trim($_POST['actividad']);
-
-$datos = datos::busqueda($apellido,$nombre,$edad,$actividad);
+if (isset($_POST['deudores'])) {
+    $datos = datos::deudas_alumno();
+}else{
+    $datos = datos::busqueda($apellido,$nombre,$edad,$actividad);
+}
 
 $alumnos = array();
 $foto_rota = array();
@@ -67,10 +70,14 @@ foreach ($datos as $value) {
 }
 
 if((empty($nombre) && empty($edad) && empty($actividad)) || !empty($apellido) ){
-
-    $datos2 = datos::busqueda_familiar($apellido);
+    if (isset($_POST['deudores'])) {
+        $datos2 = datos::deudas_vinculo();
+    }else {
+        $datos2 = datos::busqueda_familiar($apellido);
+    }
     $vinculo = '';
     foreach ($datos2 as $value) {
+        
         if($vinculo == $value['vinculo']) continue;
         $vinculo = $value['vinculo'];
         $deuda = datos::deudas_vinculo($value['vinculo']);

@@ -14,7 +14,14 @@ document.addEventListener('change', function (event) {
         buscar()
     }
 })
-
+document.addEventListener('click', function (event) {
+    if(event.target.id == 'deudores'){
+        document.querySelector('#apellido').value = ''
+        document.querySelector('#nombre').value = ''
+        document.querySelector('#edad').value = ''
+        buscar(1)
+    }
+})
 document.addEventListener('DOMContentLoaded', function (event) {
     buscar()    
     if (window.screen.width < 600) {
@@ -24,12 +31,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
     }
 })
 
-function buscar(){
+function buscar(deudores = 0){
     const datosPost = new FormData()
     datosPost.append('apellido', document.querySelector('#apellido').value)
     datosPost.append('nombre', document.querySelector('#nombre').value)
     datosPost.append('edad', document.querySelector('#edad').value)
     datosPost.append('actividad', document.querySelector('#actividad').value)
+    if (deudores == 1) {
+        datosPost.append('deudores', true)
+    }
     
     fetch('ajax/ajax_busqueda.php', {
         method: "POST",
@@ -39,7 +49,6 @@ function buscar(){
     .then(response => response.json())
     .then(function (json) {
         let tbody = '',baja = '',sinfoto = '',contBajas = 0
-        console.log(json)
         if(json.foto_rota.length > 0){
             json.foto_rota.forEach(element => {
                 baja = ''

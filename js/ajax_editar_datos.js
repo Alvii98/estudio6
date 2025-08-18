@@ -77,7 +77,6 @@ function editar_detalle() {
 }
 function copiar_texto(id_deuda,id_afavor) {
     try {
-
         let texto = '',actividades = '',
         valor = document.querySelector('#valor').value.trim().replace(/\s+/g, '.'),
         combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.'),
@@ -137,12 +136,12 @@ function copiar_texto(id_deuda,id_afavor) {
             } else {
                 nuevoPrecio = combo.split(',')[0].slice(0, -2) + '00';
             }
-            saldo_total = parseInt(adeuda.trim().replace('$', '').replace('.', ''))+parseInt(nuevoPrecio.trim().replace('$', '').replace('.', ''))
+            // saldo_total = parseInt(adeuda.trim().replace('$', '').replace('.', ''))+parseInt(nuevoPrecio.trim().replace('$', '').replace('.', ''))
             texto += 'Precio promocional por combo de actividades o grupo familiar: '+nuevoPrecio
             texto += ' (aplica únicamente abonando en efectivo en el Estudio del 1 al 15 del mes)\n'
         }
         if (adeuda != '$0') {
-            texto_total = '\nSaldo total a pagar: $'+saldo_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+            texto_total = '\nTotal: $'+saldo_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         }
         texto += '\n'+detalle_cuota+'\n'
         texto += texto_deuda
