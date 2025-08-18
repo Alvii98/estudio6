@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-08-18 15:50:33
+/* Smarty version 3.1.34-dev-7, created on 2025-08-18 17:25:20
   from 'C:\xampp\htdocs\estudio6\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_68a32fa9a16da7_63664227',
+  'unifunc' => 'content_68a345e0e47172_05000815',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '93a80a132461c145b652dd9815556fc6a82093ca' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\index.html',
-      1 => 1755197657,
+      1 => 1755530145,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_68a32fa9a16da7_63664227 (Smarty_Internal_Template $_smarty_tpl) {
+function content_68a345e0e47172_05000815 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
