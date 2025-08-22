@@ -122,15 +122,15 @@ class datos{
         FROM deudas_alumno WHERE id_alumno = ".$id_alumno." ORDER BY id DESC LIMIT 1";
         
         if (empty($id_alumno)) {
-            $query = "SELECT b.apellido,b.nombre,b.fecha_nac,b.baja,b.foto_perfil,b.id,b.edad,av.actividad,av.dias_horarios,
-            SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
-            a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
-            FROM deudas_alumno a JOIN alumnos b ON a.id_alumno = b.id
+            $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios,
+            (d.enero + d.febrero + d.marzo + d.abril + d.mayo + d.junio + d.julio + d.agosto +
+            d.septiembre + d.octubre + d.noviembre + d.diciembre) as total_deuda FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
-            WHERE ((a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
-            a.septiembre + a.octubre + a.noviembre + a.diciembre) > 0)
-            GROUP BY a.id_alumno, b.apellido, b.nombre ORDER BY 1";
+            LEFT JOIN deudas_alumno d ON ((d.enero + d.febrero + d.marzo + d.abril + d.mayo + d.junio + d.julio + d.agosto +
+            d.septiembre + d.octubre + d.noviembre + d.diciembre) > 0)             
+            WHERE a.id = d.id_alumno
+            ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }
 
         return datos::respuestaQuery($query);
