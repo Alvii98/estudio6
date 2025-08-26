@@ -48,24 +48,31 @@ function buscar(deudores = 0){
     })
     .then(response => response.json())
     .then(function (json) {
-        let tbody = '',baja = '',sinfoto = '',contBajas = 0
+        let tbody = '',tbody2 = '',baja = '',sinfoto = '',contBajas = 0
         if(json.foto_rota.length > 0){
             json.foto_rota.forEach(element => {
                 baja = ''
                 if (element.baja !== null) {
                     baja = 'style="text-decoration:line-through;"'
                     contBajas++
+                    tbody2 += `<tr `+sinfoto+` onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
+                    <td>`+element.apellido+`</td>
+                    <td>`+element.nombre+`</td>
+                    <td>`+element.edad+`</td>
+                    <td>`+element.actividad+`</td>
+                    </tr>`
+                }else {
+                    if (element.deuda > 0 && baja == '') {
+                        baja = 'style="background-color:#ffffa4;"'
+                    }
+                    sinfoto = baja == '' ? 'style="background-color:#ec9090;"' : ''
+                    tbody += `<tr `+sinfoto+` onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
+                    <td>`+element.apellido+`</td>
+                    <td>`+element.nombre+`</td>
+                    <td>`+element.edad+`</td>
+                    <td>`+element.actividad+`</td>
+                    </tr>`
                 }
-                if (element.deuda > 0 && baja == '') {
-                    baja = 'style="background-color:#ffffa4;"'
-                }
-                sinfoto = baja == '' ? 'style="background-color:#ec9090;"' : ''
-                tbody += `<tr `+sinfoto+` onclick="alumno_id(`+element.id+`,'`+element.apellido+`')" `+baja+`>
-                <td>`+element.apellido+`</td>
-                <td>`+element.nombre+`</td>
-                <td>`+element.edad+`</td>
-                <td>`+element.actividad+`</td>
-                </tr>`
             })
         }
         
@@ -85,16 +92,23 @@ function buscar(deudores = 0){
                     if (element2.baja !== null) {
                         baja = 'style="text-decoration:line-through;"'
                         contBajas++
-                    } 
-                    if (element2.deuda > 0 && baja == '') {
-                        baja = 'style="background-color:#ffffa4;"'
+                        tbody2 += `<tr onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')" `+baja+`>
+                        <td>`+element2.apellido+`</td>
+                        <td>`+element2.nombre+`</td>
+                        <td>`+element2.edad+`</td>
+                        <td>`+element2.actividad+`</td>
+                        </tr>`
+                    }else {
+                        if (element2.deuda > 0 && baja == '') {
+                            baja = 'style="background-color:#ffffa4;"'
+                        }
+                        tbody += `<tr onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')" `+baja+`>
+                        <td>`+element2.apellido+`</td>
+                        <td>`+element2.nombre+`</td>
+                        <td>`+element2.edad+`</td>
+                        <td>`+element2.actividad+`</td>
+                        </tr>`
                     }
-                    tbody += `<tr onclick="alumno_id(`+element2.id+`,'`+element2.apellido+`')" `+baja+`>
-                    <td>`+element2.apellido+`</td>
-                    <td>`+element2.nombre+`</td>
-                    <td>`+element2.edad+`</td>
-                    <td>`+element2.actividad+`</td>
-                    </tr>`
                 }
 
             })
@@ -103,7 +117,7 @@ function buscar(deudores = 0){
         }
 
         document.querySelector('#cant_res').textContent = 'Alumnos: '+json.cant_alumnos+' Bajas: '+json.cant_bajas+' Grupos familiares: '+json.cant_familiares
-        document.querySelector('tbody').innerHTML = tbody
+        document.querySelector('tbody').innerHTML = tbody+tbody2
     })
     .catch(function (error){
         console.log(error)
