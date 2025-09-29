@@ -75,9 +75,10 @@ function editar_detalle() {
         alertify.error('Ocurrio un error al guardar los datos.')
     })
 }
+texto = ''
 function copiar_texto(id_deuda,id_afavor) {
     try {
-        let texto = '',actividades = '',
+        let actividades = '',
         valor = document.querySelector('#valor').value.trim().replace(/\s+/g, '.'),
         combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.'),
         adeuda = document.querySelector('#adeuda').value.trim().replace(/\s+/g, '.'),
@@ -459,4 +460,15 @@ function guardar_afavor_vinculo() {
         // Catch errors
         alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
     })
+}
+
+function enviar_whatsapp(numero) {
+    document.getElementById("copiar_datos").click()
+    console.log(texto)
+    numero.replace(/\D/g, "")
+    if (numero.substring(0, 2) != '54') {
+        numero = '549'+numero    
+    }
+    const link = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(texto)}`;
+    window.open(link, "_blank")
 }

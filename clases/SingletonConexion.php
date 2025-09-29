@@ -10,7 +10,7 @@ class SingletonConexion
         if(_HOST_ == 'estudio6.site'){
             $this->conn = mysqli_connect(_SERVER_, _DB_USER_, _DB_PASS_, _DB_NAME_);
         }else{
-            $this->conn = mysqli_connect('localhost', 'root', '', 'estudio');
+            $this->conn = mysqli_connect('localhost', 'root', '', 'c2721191_estudio');
         }
 
     }

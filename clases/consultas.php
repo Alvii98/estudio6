@@ -427,10 +427,10 @@ class datos{
         $conn = $instancia->getConnection();
 
         $query = "INSERT INTO alumnos(apellido, nombre, foto_perfil, fecha_nac, edad, nacionalidad, documento,
-        domicilio, localidad, autoriza, tel_movil, mail, salud, observaciones) VALUES 
+        domicilio, localidad, autoriza, tel_movil, mail, salud, observaciones,fecha_alta) VALUES 
         ('".$array['apellido']."','".$array['nombre']."','".$array['foto_perfil']."','".$array['fecha_nac']."',".$array['edad'].",'".$array['nacionalidad']."',
         '".$array['documento']."','".$array['domicilio']."','".$array['localidad']."','".$array['autoriza']."','".$array['tel_alumno']."',
-        '".$array['correo']."','".$array['salud']."','".$array['observacion_alumno']."')";
+        '".$array['correo']."','".$array['salud']."','".$array['observacion_alumno']."',now())";
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
@@ -455,8 +455,8 @@ class datos{
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();
 
-        $query = "INSERT INTO familiar(id_alumno, nombre_apellido, telefono, vinculo, observacion)
-        VALUES (".$array['id_alumno'].",'".$array['nom_ape']."','".$array['tel_familiar']."','".$array['vinculo']."','".$array['observacion_familiar']."')";
+        $query = "INSERT INTO familiar(id_alumno, nombre_apellido, telefono, vinculo, observacion, fecha_alta)
+        VALUES (".$array['id_alumno'].",'".$array['nom_ape']."','".$array['tel_familiar']."','".$array['vinculo']."','".$array['observacion_familiar']."',now())";
         
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);

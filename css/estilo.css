@@ -362,6 +362,12 @@ select {
 .f-10{
     font-size: 10px !important;
 }
+.enviar-what{
+    float: right;
+    position: relative;
+    bottom: 28px;
+    right: 8px;
+}
 
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){

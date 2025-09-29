@@ -52,7 +52,7 @@
                 </div>
                 {if empty({$VINCULO})}
                     <div class="form-group float-right">
-                        <i class="bi bi-copy" onclick="copiar_texto('deudas_alumno','afavor_alumno')" style="font-size: xx-large;"></i>
+                        <i class="bi bi-copy" id="copiar_datos" onclick="copiar_texto('deudas_alumno','afavor_alumno')" style="font-size: xx-large;"></i>
                     </div>
                     <div class="form-group float-right mr-4">
                         <div class="form-check">
@@ -205,6 +205,7 @@
                 <div class="form-group col-md-3 float-left">
                     <label>Tel. movil</label>
                     <input type="text" id="tel_alumno" class="form-control" value="{$TEL_MOVIL|escape:'utf8_encode'}">
+                    <i class="bi bi-whatsapp enviar-what" onclick="enviar_whatsapp('{$TEL_MOVIL}')"></i>
                 </div>
                 <div class="form-group col-md-3 float-left">
                     <label>¿Se retira solo?</label>
@@ -250,6 +251,7 @@
                     <div class="form-group col-md-4 float-left">
                         <label>Telefono</label>
                         <input type="text" id="tel_familiar" class="form-control" value="{$value.telefono}">
+                        <i class="bi bi-whatsapp enviar-what" onclick="enviar_whatsapp('{$value.telefono}')"></i>
                     </div>
                 </div>
                 <div class="col-md-12">
