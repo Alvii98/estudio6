@@ -467,8 +467,9 @@ function enviar_whatsapp(numero) {
     console.log(texto)
     numero.replace(/\D/g, "")
     if (numero.substring(0, 2) != '54') {
-        numero = '549'+numero    
+        numero = '54'+numero    
     }
+
     const link = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(texto)}`;
     window.open(link, "_blank")
 }

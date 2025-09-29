@@ -205,7 +205,9 @@
                 <div class="form-group col-md-3 float-left">
                     <label>Tel. movil</label>
                     <input type="text" id="tel_alumno" class="form-control" value="{$TEL_MOVIL|escape:'utf8_encode'}">
+                    {if !empty($TEL_MOVIL)}
                     <i class="bi bi-whatsapp enviar-what" onclick="enviar_whatsapp('{$TEL_MOVIL}')"></i>
+                    {/if}
                 </div>
                 <div class="form-group col-md-3 float-left">
                     <label>¿Se retira solo?</label>
@@ -251,7 +253,9 @@
                     <div class="form-group col-md-4 float-left">
                         <label>Telefono</label>
                         <input type="text" id="tel_familiar" class="form-control" value="{$value.telefono}">
+                        {if !empty($value.telefono)}
                         <i class="bi bi-whatsapp enviar-what" onclick="enviar_whatsapp('{$value.telefono}')"></i>
+                        {/if}
                     </div>
                 </div>
                 <div class="col-md-12">
