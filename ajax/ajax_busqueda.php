@@ -7,10 +7,11 @@ $apellido = trim($_POST['apellido']);
 $nombre = trim($_POST['nombre']);
 $edad = trim($_POST['edad']);
 $actividad = trim($_POST['actividad']);
+$historico = empty($_POST['historico']) ? 0 : $_POST['historico'];
 if (isset($_POST['deudores'])) {
     $datos = datos::deudas_alumno();
 }else{
-    $datos = datos::busqueda($apellido,$nombre,$edad,$actividad);
+    $datos = datos::busqueda($apellido,$nombre,$edad,$actividad,$historico);
 }
 
 $alumnos = array();
@@ -73,7 +74,7 @@ if((empty($nombre) && empty($edad) && empty($actividad)) || !empty($apellido) ){
     if (isset($_POST['deudores'])) {
         $datos2 = datos::deudas_vinculo();
     }else {
-        $datos2 = datos::busqueda_familiar($apellido);
+        $datos2 = datos::busqueda_familiar($apellido,'',$historico);
     }
     $vinculo = '';
     foreach ($datos2 as $value) {

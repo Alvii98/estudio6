@@ -82,6 +82,7 @@ function copiar_texto(id_deuda,id_afavor) {
         valor = document.querySelector('#valor').value.trim().replace(/\s+/g, '.'),
         combo = document.querySelector('#combo').value.trim().replace(/\s+/g, '.'),
         adeuda = document.querySelector('#adeuda').value.trim().replace(/\s+/g, '.'),
+        recargo = document.querySelector('#recargo').value.trim().replace(/\s+/g, '.'),
         afavor = document.querySelector('#afavor').value.trim().replace(/\s+/g, '.'),
         detalle_cuota = document.querySelector('#detalle_cuota').value.trim()
         const textarea = document.createElement('textarea')                
@@ -90,8 +91,10 @@ function copiar_texto(id_deuda,id_afavor) {
         texto_deuda = '',
         div_afavor = document.querySelector("#"+id_afavor+""),
         inputs_afavor = div_afavor.getElementsByTagName("input"),
-        texto_afavor = '',saldo_total = '',texto_total = ''
-
+        texto_afavor = '',saldo_total = '',texto_total = ''        
+        let hoy = new Date(),
+        dia = hoy.getDate()
+        // dia = 16
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value > 0) {
                 if (texto_deuda == '') texto_deuda += '\nSe registra la siguiente deuda:\n'
@@ -120,6 +123,8 @@ function copiar_texto(id_deuda,id_afavor) {
         texto += 'Actividades:\n'+actividades+'\n'
         
         if (valor != '$0') {
+            if (dia > 15) valor = recargo
+
             if (parseInt(valor.split(',')[0].slice(-2)) > 50) {
                 penultimo = parseInt(valor.split(',')[0].slice(-3, -2)) + 1;
                 nuevoPrecio = valor.split(',')[0].slice(0, -3) + penultimo + '00';
@@ -144,10 +149,13 @@ function copiar_texto(id_deuda,id_afavor) {
         if (adeuda != '$0') {
             texto_total = '\nTotal: $'+saldo_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
         }
-        texto += '\n'+detalle_cuota+'\n'
         texto += texto_deuda
         texto += texto_afavor
-        texto += texto_total
+        texto += texto_total+'\n'
+        if (dia <= 15) {
+            texto += 'Los valores corresponden al pago realizado del 1 al 15 del mes, fuera de esa fecha tienen un 10% de recargo con actualización mensual.\n'
+        }
+        texto += '\n'+detalle_cuota+'\n'
 
         textarea.value = texto
         textarea.style.position = 'absolute'
@@ -472,4 +480,12 @@ function enviar_whatsapp(numero) {
 
     const link = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(texto)}`;
     window.open(link, "_blank")
+}
+
+
+function agregar_saldo(mes) {
+    let valor = document.querySelector('#'+mes).value.replace('.',''),
+    agregar = document.querySelector('#recargo').value.replace('$','').replace('.','')
+    valor = valor.trim() == 0 || valor.trim() == '' ? 0 : valor.trim()
+    document.querySelector('#'+mes).value = parseFloat(valor)+parseFloat(agregar)
 }

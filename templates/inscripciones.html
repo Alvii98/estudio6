@@ -27,6 +27,7 @@
 </head>
 <body>
     {$HEADER}
+    {IF $INSCRIPCION_OP == 1}
     <div id="datos_alumno">
         <div class="container mt-3">
             <div class="row">
@@ -399,6 +400,14 @@
             </div>
         </div>
     </div>
+    {ELSE}
+        <div class="col-md-12 d-flex justify-content-center m-5">
+            <div class="col-md-5 alert alert-danger" role="alert">
+                <h4 class="alert-heading">Estudio 6</h4>
+                Las inscripciones estan cerradas momentanemente.
+            </div>
+        </div>
+    {/IF}
     {$FOOTER}
 </body>
 </html>

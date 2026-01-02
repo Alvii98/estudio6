@@ -250,6 +250,16 @@ th{
 .agregar_actividad:hover{
   color: rgb(0, 255, 0) !important;
 }
+.agregar_saldo{
+    position:relative;
+    top:3;
+    left:10;
+    font-size: 15px;
+    cursor: pointer;
+}
+.agregar_saldo:hover{
+  color: rgb(0, 255, 0) !important;
+}
 .eliminar_actividad{
     position:relative;
     top:3;

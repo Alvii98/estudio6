@@ -31,61 +31,59 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
-                <h3>Buscar alumno/a en la tabla historica</h3>
+                <h3>Historico de alumno/as</h3>
             </div>
         </div>
     </div>
     <div class="container border border-color rounded mb-4 text-body">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-12 d-flex justify-content-center param-busqueda mt-4">
-                <div class="form-group col-md-3">
-                    <label>Apellido</label>
-                    <input type="text" id="apellido" placeholder="Apellido" class="form-control">
+            <div class="col-md-12 mt-3">
+                <div class="form-group float-left">
+                    <a class="btn btn-dark btn-lg rounded-pill" href="javascript:history.back()">Volver</a>
+                </div>
+            </div>            
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="form-group col-md-2">
+                    <label>A&ntilde;o:</label>
+                    <select id="anio" class="form-control">
+                        <option value="0">-- A&ntilde;o --</option>
+                        <option value="{$smarty.now|date_format:"%Y"|cat:""|intval-1}">{$smarty.now|date_format:"%Y"|cat:""|intval-1}</option>
+                        <option value="{$smarty.now|date_format:"%Y"}">{$smarty.now|date_format:"%Y"}</option>
+                        <option value="{$smarty.now|date_format:"%Y"|cat:""|intval+1}">{$smarty.now|date_format:"%Y"|cat:""|intval+1}</option>
+                    </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label>Nombre</label>
-                    <input type="text" id="nombre" placeholder="Nombre" class="form-control">
+                    <button class="btn btn-dark btn-lg rounded-pill float-right mt-3" onclick="historico_alumnos('archivar')">Archivar</button>
+                    <button class="btn btn-dark btn-lg rounded-pill mr-2 float-right mt-3" onclick="historico_alumnos('busqueda')">Buscar</button>
                 </div>
+            </div>            
+            <div class="col-md-10 d-flex justify-content-center param-busqueda">
+                <input type="text" id="apellido" placeholder="Apellido" class="form-control ml-2 col-md-3 mt-3" disabled="true">
+                <input type="text" id="nombre" placeholder="Nombre" class="form-control ml-2 col-md-3 mt-3" disabled="true">
+                <input type="text" id="edad" placeholder="Edad" class="form-control ml-2 col-md-2 mt-3" disabled="true">
+                <select class="form-control ml-2 col-md-3 mt-3" id="actividad" disabled="true">
+                    <option selected value="0">-- Seleccione una actividad --</option>
+                    {foreach from=$ACTIVIDADES item=value}
+                        <option value="{$value.id}">
+                            {$value.actividad|escape:'utf8_encode'} - {$value.dias_horarios|escape:'utf8_encode'}
+                        </option>
+                    {/foreach}
+                </select>
             </div>
-            {if $ACTUALIZAR}<p style="color: green;">La tabla historica esta actualizada <i class="bi bi-check-circle"></i></p>
-            {else}<p style="color: red;">La tabla historica no se pudo actualizar <i class="bi bi-x-circle"></i></p>{/if}
             <div class="col-md-12 text-center">
-                <button class="btn btn-dark rounded-pill" id="alumnosTotales" style="cursor:pointer;">Alumnos: {$CANTIDAD}</button>
-                <button class="btn btn-dark rounded-pill" id="bajasTotales" style="cursor:pointer;">Bajas: {$BAJAS}</button>
-                <button class="btn btn-dark rounded-pill" id="soloHistorica" style="cursor:pointer;">Solo en historica: {$SOLOHISTORICA}</button>
-                <div class="scroll mb-3 mt-2">
-                    <table class="table table-bordered text-body">
+                <label id="cant_res"></label>
+                <div class="scroll mb-3">
+                    <table class="table table-bordered text-body" id="tabla_alumnos">
                         <thead align="center">
                             <tr>
-                                <th>Foto</th>
                                 <th>Apellido</th>
                                 <th>Nombre</th>
                                 <th>Edad</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Contacto</th>
-                                <th>Baja</th>
-                                <!-- <th>Eliminar</th> -->
+                                <th>Actividad</th>
                             </tr>
                         </thead>
-                        <tbody id="datos_historicos">
-                            {foreach from=$ALUMNOS item=value}
-                            <tr {if !empty($value.baja)}style="text-decoration:line-through;"{/if}>
-                                {if file_exists($value.foto_perfil)}
-                                    <td><img src="{$value.foto_perfil}" class="foto-navbar"></td>
-                                {else}
-                                    <td><img src="img/icono.jpg" class="foto-navbar"></td>
-                                {/if}
-                                <td>{$value.apellido|escape:'utf8_encode'}</td>
-                                <td>{$value.nombre|escape:'utf8_encode'}</td>
-                                <td>{$value.edad|escape:'utf8_encode'}</td>
-                                <td>{$value.fecha_nac|date_format:'%d/%m/%Y'}</td>
-                                <td>{$value.tel_movil|escape:'utf8_encode'}</td>
-                                <td>{$value.baja|date_format:'%d/%m/%Y'}</td>
-                                <!-- <th><i class="bi bi-trash" onclick="eliminar_alumno(this,'{$value.id}')"></i></th> -->
-                            </tr>
-                            {foreachelse}
-                            <tr><td colspan="7">NO ENCONTRAMOS DATOS HISTORICOS</td></tr>
-                            {/foreach}
+                        <tbody>
+                            <tr><th colspan="6" class="text-center">No se encontraron resultados</th></tr>
                         </tbody>
                     </table>
                 </div>

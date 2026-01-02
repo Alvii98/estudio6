@@ -1,7 +1,11 @@
 <?php
 require_once '../clases/consultas.php';
 $json = new StdClass();
-if(isset($_POST['baja'])){
+if(isset($_POST['inscripciones'])){
+    $op = $_POST['op'];
+    if ($op != 1 && $op != 0) $op = 0;
+    $json->respAlumno = datos::acceso_inscripciones($op);
+}else if(isset($_POST['baja'])){
     $json->respAlumno = datos::baja_alumno($_POST['id_alumno'],$_POST['baja']);
 }else{
 

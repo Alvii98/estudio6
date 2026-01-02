@@ -40,7 +40,7 @@ if(isset($_GET['id'])){
     }else {
         $smarty->assign('AFAVOR', round($afavor[0]['total'], -2));
     }
-    
+    $smarty->assign('HISTORICO', $alumno[0]['historico']);
     $smarty->assign('AFAVOR_ALUMNO', $afavor);
     $smarty->assign('DEUDAS_ALUMNO', $deudas);
     $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
@@ -84,6 +84,7 @@ if(isset($_GET['id'])){
     $vinculos = datos::busqueda_familiar_datos($_GET['vinculo']);
     $alumnos = array();
     foreach ($vinculos as $value) {
+        $historico = $value['historico'];
         $alumno = datos::alumno_id($value['id_alumno']);
 
         $alumnos[] = array('id' => $value['id_alumno'],
@@ -108,14 +109,16 @@ if(isset($_GET['id'])){
     }else {
         $smarty->assign('AFAVOR', round($afavor[0]['total'], -2));
     }
+    $smarty->assign('HISTORICO', $historico);
     $smarty->assign('AFAVOR_VINCULO', $afavor);
     $smarty->assign('MODAL_DEUDAS', $smarty->fetch('partials/modal.html'));
     $smarty->assign('VINCULO', $_GET['vinculo']);
     $smarty->assign('ALUMNOS', $alumnos);
-
+    
     $valores = valores::precio_por_familia($alumnos);
-
+    
     $smarty->assign('VALOR', round($valores['valor'], -2));
+    $smarty->assign('RECARGO',(round($valores['valor'], -2)) * 1.10);
     $smarty->assign('COMBO', round($valores['combo'], -2));
 
     if (!isset($_SESSION['USUARIO'])) {

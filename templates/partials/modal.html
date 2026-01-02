@@ -40,56 +40,70 @@
                     {foreach from=$DEUDAS_ALUMNO item=value}
                         <div class="form-group col-md-3 float-left">
                             <label>Enero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('enero')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="enero" class="form-control" value="{$value.enero|number_format:0:',':'.'}">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Febrero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('febrero')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="febrero" class="form-control" value="{$value.febrero|number_format:0:',':'.'}">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Marzo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('marzo')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="marzo" class="form-control" value="{$value.marzo|number_format:0:',':'.'}">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Abril</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('abril')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="abril" class="form-control" value="{$value.abril|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Mayo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('mayo')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="mayo" class="form-control" value="{$value.mayo|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Junio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('junio')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="junio" class="form-control" value="{$value.junio|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Julio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('julio')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="julio" class="form-control" value="{$value.julio|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Agosto</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('agosto')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="agosto" class="form-control" value="{$value.agosto|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Septiembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('septiembre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="septiembre" class="form-control" value="{$value.septiembre|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Octubre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('octubre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="octubre" class="form-control" value="{$value.octubre|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Noviembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('noviembre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="noviembre" class="form-control" value="{$value.noviembre|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Diciembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('diciembre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
                         </div>
                     {/foreach}
+                    {if $HISTORICO == 0}
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_deuda_alumno()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    {/if}
                 </div>
             </div>
             <div class="modal-footer"></div>
@@ -109,56 +123,70 @@
                     {foreach from=$DEUDAS_VINCULO item=value}
                         <div class="form-group col-md-3 float-left">
                             <label>Enero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('enero2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="enero2" class="form-control" value="{$value.enero|number_format:0:',':'.'}">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Febrero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('febrero2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="febrero2" class="form-control" value="{$value.febrero|number_format:0:',':'.'}">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Marzo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('marzo2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="marzo2" class="form-control" value="{$value.marzo|number_format:0:',':'.'}">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Abril</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('abril2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="abril2" class="form-control" value="{$value.abril|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Mayo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('mayo2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="mayo2" class="form-control" value="{$value.mayo|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Junio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('junio2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="junio2" class="form-control" value="{$value.junio|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Julio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('julio2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="julio2" class="form-control" value="{$value.julio|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Agosto</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('agosto2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="agosto2" class="form-control" value="{$value.agosto|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Septiembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('septiembre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="septiembre2" class="form-control" value="{$value.septiembre|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Octubre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('octubre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="octubre2" class="form-control" value="{$value.octubre|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Noviembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('noviembre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="noviembre2" class="form-control" value="{$value.noviembre|number_format:0:',':'.'}">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Diciembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('diciembre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre2" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
                         </div>
                     {/foreach}
+                    {if $HISTORICO == 0}
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_deuda_vinculo()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    {/if}
                 </div>
             </div>
             <div class="modal-footer"></div>
@@ -226,9 +254,11 @@
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre3" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
                         </div>
                     {/foreach}
+                    {if $HISTORICO == 0}
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_afavor_alumno()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    {/if}
                 </div>
             </div>
             <div class="modal-footer"></div>
@@ -295,9 +325,11 @@
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre4" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
                         </div>
                     {/foreach}
+                    {if $HISTORICO == 0}
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_afavor_vinculo()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    {/if}
                 </div>
             </div>
             <div class="modal-footer"></div>

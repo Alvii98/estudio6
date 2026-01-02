@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-09-29 15:10:57
+/* Smarty version 3.1.34-dev-7, created on 2026-01-02 21:55:54
   from 'C:\xampp\htdocs\estudio6\templates\partials\modal.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_68da856106b6f2_98807984',
+  'unifunc' => 'content_695830daa111f6_21370330',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2b2bfa454260b7d848f597979df3a7f26c42878f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\partials\\modal.html',
-      1 => 1757335242,
+      1 => 1767385024,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_68da856106b6f2_98807984 (Smarty_Internal_Template $_smarty_tpl) {
+function content_695830daa111f6_21370330 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- <div class="modal-overlay"></div> -->
 <div id="datos_actividad" class="modal-login" style="display: none;">
     <div class="modal-dialog" role="document">
@@ -68,70 +68,84 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
 ?>
                         <div class="form-group col-md-3 float-left">
                             <label>Enero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('enero')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="enero" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['enero'],0,',','.');?>
 ">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Febrero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('febrero')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="febrero" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['febrero'],0,',','.');?>
 ">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Marzo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('marzo')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="marzo" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['marzo'],0,',','.');?>
 ">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Abril</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('abril')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="abril" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['abril'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Mayo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('mayo')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="mayo" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['mayo'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Junio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('junio')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="junio" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['junio'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Julio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('julio')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="julio" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['julio'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Agosto</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('agosto')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="agosto" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['agosto'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Septiembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('septiembre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="septiembre" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['septiembre'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Octubre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('octubre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="octubre" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['octubre'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Noviembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('noviembre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="noviembre" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['noviembre'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Diciembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('diciembre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['diciembre'],0,',','.');?>
 ">
                         </div>
                     <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    <?php if ($_smarty_tpl->tpl_vars['HISTORICO']->value == 0) {?>
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_deuda_alumno()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    <?php }?>
                 </div>
             </div>
             <div class="modal-footer"></div>
@@ -156,70 +170,84 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
 ?>
                         <div class="form-group col-md-3 float-left">
                             <label>Enero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('enero2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="enero2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['enero'],0,',','.');?>
 ">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Febrero</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('febrero2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="febrero2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['febrero'],0,',','.');?>
 ">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Marzo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('marzo2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="marzo2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['marzo'],0,',','.');?>
 ">
                         </div>
                         <div class="form-group col-md-3 float-left">
                             <label>Abril</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('abril2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="abril2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['abril'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Mayo</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('mayo2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="mayo2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['mayo'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Junio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('junio2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="junio2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['junio'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Julio</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('julio2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="julio2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['julio'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Agosto</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('agosto2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="agosto2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['agosto'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Septiembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('septiembre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="septiembre2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['septiembre'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Octubre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('octubre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="octubre2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['octubre'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Noviembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('noviembre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="noviembre2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['noviembre'],0,',','.');?>
 ">
                         </div>                
                         <div class="form-group col-md-3 float-left">
                             <label>Diciembre</label>
+                            <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('diciembre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre2" class="form-control" value="<?php echo number_format($_smarty_tpl->tpl_vars['value']->value['diciembre'],0,',','.');?>
 ">
                         </div>
                     <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    <?php if ($_smarty_tpl->tpl_vars['HISTORICO']->value == 0) {?>
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_deuda_vinculo()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    <?php }?>
                 </div>
             </div>
             <div class="modal-footer"></div>
@@ -306,9 +334,11 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
                     <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    <?php if ($_smarty_tpl->tpl_vars['HISTORICO']->value == 0) {?>
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_afavor_alumno()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    <?php }?>
                 </div>
             </div>
             <div class="modal-footer"></div>
@@ -394,9 +424,11 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
                     <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                    <?php if ($_smarty_tpl->tpl_vars['HISTORICO']->value == 0) {?>
                     <div class="form-group col-md-12 mt-3">
                         <button onclick="guardar_afavor_vinculo()" class="btn btn-dark btn-lg rounded-pill float-right">Guardar datos</button>
                     </div>
+                    <?php }?>
                 </div>
             </div>
             <div class="modal-footer"></div>

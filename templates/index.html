@@ -44,6 +44,12 @@
                 <i class="bi bi-file-earmark-spreadsheet-fill float-right h2" onclick="exportarExcel('alumnos')" id="exportar_excel"
                 style="position:absolute;top:4%;right:5%;"></i>
             </div>
+            <div class="col-md-12 d-flex justify-content-center">
+                <select class="form-control ml-2 col-md-3 mt-3" onchange="acceso_inscripciones(this.value)">
+                    <option {IF $INSCRIPCION_OP == 1}selected{/if} value="1">Inscripciones abiertas</option>
+                    <option {IF $INSCRIPCION_OP == 0}selected{/if} value="0">Inscripciones cerradas</option>
+                </select>
+            </div>
             <div class="col-md-10 d-flex justify-content-center param-busqueda">
                 <input type="text" id="apellido" placeholder="Apellido" class="form-control ml-2 col-md-3 mt-3">
                 <input type="text" id="nombre" placeholder="Nombre" class="form-control ml-2 col-md-3 mt-3">

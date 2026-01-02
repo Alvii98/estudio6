@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-09-29 15:10:57
+/* Smarty version 3.1.34-dev-7, created on 2026-01-02 21:55:54
   from 'C:\xampp\htdocs\estudio6\templates\datos.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_68da85615e5d69_66354077',
+  'unifunc' => 'content_695830daf1d547_50416639',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ce26efb37a756fd2475f960eb278d3fb7e8b7031' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\datos.html',
-      1 => 1759150777,
+      1 => 1767382853,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_68da85615e5d69_66354077 (Smarty_Internal_Template $_smarty_tpl) {
+function content_695830daf1d547_50416639 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),1=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
@@ -307,8 +307,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     <label>Tel. movil</label>
                     <input type="text" id="tel_alumno" class="form-control" value="<?php echo smarty_modifier_escape($_smarty_tpl->tpl_vars['TEL_MOVIL']->value, 'utf8_encode');?>
 ">
+                    <?php if (!empty($_smarty_tpl->tpl_vars['TEL_MOVIL']->value)) {?>
                     <i class="bi bi-whatsapp enviar-what" onclick="enviar_whatsapp('<?php echo $_smarty_tpl->tpl_vars['TEL_MOVIL']->value;?>
 ')"></i>
+                    <?php }?>
                 </div>
                 <div class="form-group col-md-3 float-left">
                     <label>¿Se retira solo?</label>
@@ -368,8 +370,10 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
                         <label>Telefono</label>
                         <input type="text" id="tel_familiar" class="form-control" value="<?php echo $_smarty_tpl->tpl_vars['value']->value['telefono'];?>
 ">
+                        <?php if (!empty($_smarty_tpl->tpl_vars['value']->value['telefono'])) {?>
                         <i class="bi bi-whatsapp enviar-what" onclick="enviar_whatsapp('<?php echo $_smarty_tpl->tpl_vars['value']->value['telefono'];?>
 ')"></i>
+                        <?php }?>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -382,6 +386,7 @@ $_smarty_tpl->tpl_vars['value']->do_else = false;
             <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            <?php if ($_smarty_tpl->tpl_vars['HISTORICO']->value == 0) {?>
             <div class="col-md-12 mb-4 mt-3">
                 <div class="form-group col-md-12">
                     <button id="editar_datos" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Guardar datos</button>
@@ -390,6 +395,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 '" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Agregar familiar</button>
                 </div>
             </div>
+            <?php }?>
         </div>
     </div>
     <?php echo $_smarty_tpl->tpl_vars['FOOTER']->value;?>

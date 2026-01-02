@@ -265,6 +265,7 @@
                     </div>
                 </div>
             {/foreach}
+            {if $HISTORICO == 0}
             <div class="col-md-12 mb-4 mt-3">
                 <div class="form-group col-md-12">
                     <button id="editar_datos" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Guardar datos</button>
@@ -272,6 +273,7 @@
                     <button id="agregar_familiar" onclick="location.href='familiares.php?id={$ID}'" class="btn btn-dark btn-lg rounded-pill float-right col-md-2 mt-2">Agregar familiar</button>
                 </div>
             </div>
+            {/if}
         </div>
     </div>
     {$FOOTER}

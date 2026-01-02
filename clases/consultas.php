@@ -9,34 +9,36 @@ class datos{
 
         return $datos_usuarios->fetch_all(MYSQLI_ASSOC); 
     }
-    static public function busqueda($ape,$nom,$edad,$activ){
+    static public function busqueda($ape,$nom,$edad,$activ,$historico = 0){
         if ($activ != '0' && $activ != '') {
             $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_actividad = ".$activ."
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
-            WHERE a.id = aa.id_alumno
+            WHERE a.id = aa.id_alumno and a.historico = $historico
             ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }elseif(empty($edad)){
             $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
-            WHERE a.apellido LIKE '%".$ape."%' AND a.nombre LIKE '%".$nom."%'
+            WHERE a.apellido LIKE '%".$ape."%' AND a.nombre LIKE '%".$nom."%' and a.historico = $historico
             ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }else{
             $query = "SELECT a.id,a.apellido,a.nombre,a.edad,a.fecha_nac,a.baja,a.foto_perfil,av.actividad,av.dias_horarios FROM alumnos a
             LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
-            WHERE a.edad = ".$edad." ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
+            WHERE a.edad = ".$edad." and a.historico = $historico ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }
 
         return datos::respuestaQuery($query);
     }
-    static public function busqueda_familiar($vinculo,$id = ''){
+    static public function busqueda_familiar($vinculo,$id = '',$historico = 0){
 
-        $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos WHERE id_alumno = ".$id;  
+        $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos 
+        WHERE id_alumno = ".$id." and historico = $historico";  
         
         if(empty($id)){
-            $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos WHERE vinculo LIKE '%".$vinculo."%' ORDER BY 2";  
+            $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos 
+            WHERE vinculo LIKE '%".$vinculo."%' and historico = $historico ORDER BY 2";  
         }
 
         return datos::respuestaQuery($query);
@@ -47,7 +49,7 @@ class datos{
         $query = "SELECT DISTINCT id_alumno,vinculo FROM vinculos WHERE id_alumno = ".$id;  
         
         if(empty($id)){
-            $query = "SELECT v.id_alumno,v.vinculo,a.apellido,a.nombre FROM vinculos v,alumnos a 
+            $query = "SELECT v.id_alumno,v.vinculo,a.apellido,a.nombre,v.historico FROM vinculos v,alumnos a 
             WHERE v.vinculo = '".$vinculo."' AND v.id_alumno = a.id AND a.baja IS NULL";
         }
 
@@ -61,57 +63,9 @@ class datos{
         return datos::respuestaQuery($query);
     }
 
-    static public function busqueda_historico($ape = '',$nom = ''){
+    static public function vinculos($historico = 0){
 
-        $query = "SELECT *,
-        (SELECT COUNT(*) FROM historico WHERE apellido LIKE '%$ape%' AND nombre LIKE '%$nom%' AND baja IS NULL) AS cantidad,
-        (SELECT COUNT(*) FROM historico WHERE apellido LIKE '%$ape%' AND nombre LIKE '%$nom%' AND baja IS NOT NULL) AS bajas,
-        (SELECT COUNT(*) FROM historico h LEFT JOIN alumnos a ON h.apellido = a.apellido AND h.nombre = a.nombre AND
-         h.documento = a.documento WHERE a.documento IS NULL) AS solohistorico
-        FROM historico WHERE apellido like '%$ape%' AND nombre like '%$nom%' ORDER BY apellido";  
-        return datos::respuestaQuery($query);
-
-    }
-
-    static public function busqueda_historico_bajas(){
-
-        $query = "SELECT * FROM historico WHERE baja IS NOT NULL ORDER BY apellido";  
-        return datos::respuestaQuery($query);
-
-    }
-
-    static public function busqueda_historico_solo(){
-
-        $query = "SELECT h.* FROM historico h LEFT JOIN alumnos a ON h.apellido = a.apellido AND h.nombre = a.nombre AND
-        h.documento = a.documento WHERE a.documento IS NULL";  
-        return datos::respuestaQuery($query);
-
-    }
-
-    static public function actualizar_historico(){
-        try {
-            $instancia = SingletonConexion::getInstance();
-            $conn = $instancia->getConnection();
-            
-            $query = "INSERT INTO historico (SELECT a.* FROM alumnos a 
-            LEFT JOIN historico h ON a.apellido = h.apellido AND a.nombre = h.nombre AND a.documento = h.documento WHERE h.id IS NULL)";  
-
-            if (!mysqli_query($conn, $query)) return false;
-            
-            $query = "UPDATE historico h JOIN alumnos a ON h.apellido = a.apellido AND h.nombre = a.nombre AND h.documento = a.documento
-            SET h.baja = a.baja WHERE (h.baja <> a.baja OR (h.baja IS NULL AND a.baja IS NOT NULL) OR (h.baja IS NOT NULL AND a.baja IS NULL))";
-            
-            if (!mysqli_query($conn, $query)) return false;
-        
-            return true;
-        } catch (\Throwable $th) {
-            return false;
-        }
-    }
-
-    static public function vinculos(){
-
-        $query = "SELECT * FROM vinculos ORDER BY vinculo ASC";    
+        $query = "SELECT * FROM vinculos WHERE historico = $historico ORDER BY vinculo ASC";    
 
         return datos::respuestaQuery($query);
     }
@@ -129,27 +83,9 @@ class datos{
             LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
             LEFT JOIN deudas_alumno d ON ((d.enero + d.febrero + d.marzo + d.abril + d.mayo + d.junio + d.julio + d.agosto +
             d.septiembre + d.octubre + d.noviembre + d.diciembre) > 0)             
-            WHERE a.id = d.id_alumno
+            WHERE a.id = d.id_alumno AND a.historico = 0
             ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";
         }
-
-        return datos::respuestaQuery($query);
-    }
-
-    static public function deudas_totales(){
-
-        $query = "SELECT 'ALUMNO' as op,b.apellido,b.nombre,b.fecha_nac,b.baja,b.foto_perfil,b.id,b.edad,av.actividad,av.dias_horarios,
-        SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
-        a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
-        FROM deudas_alumno a JOIN alumnos b ON a.id_alumno = b.id
-		LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
-        LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
-        GROUP BY a.id_alumno, b.apellido, b.nombre
-        UNION ALL
-        SELECT 'VINCULO' as op,a.vinculo,'','','','',0,'','','',
-        SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
-        a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
-        FROM deudas_vinculo a GROUP BY a.vinculo";
 
         return datos::respuestaQuery($query);
     }
@@ -192,7 +128,8 @@ class datos{
         if (empty($vinculo)) {
             $query = "SELECT a.vinculo,SUM(a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
             a.septiembre + a.octubre + a.noviembre + a.diciembre) AS total_deuda
-            FROM deudas_vinculo a 
+            FROM deudas_vinculo a
+            JOIN vinculos b ON b.vinculo = a.vinculo AND b.historico = 0
             WHERE ((a.enero + a.febrero + a.marzo + a.abril + a.mayo + a.junio + a.julio + a.agosto +
             a.septiembre + a.octubre + a.noviembre + a.diciembre) > 0)
             GROUP BY a.vinculo ORDER BY 1";
@@ -320,6 +257,7 @@ class datos{
         a.autoriza,a.mail,a.salud,a.notas,a.observaciones,a.baja,CONCAT(av.actividad,' - ',av.dias_horarios) as actividad FROM alumnos a
         LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
         LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
+        WHERE a.historico = 0
         ORDER BY CASE WHEN a.baja IS NOT NULL THEN 1 ELSE 0 END,a.apellido ASC";    
 
         return datos::respuestaQuery($query);
@@ -327,7 +265,7 @@ class datos{
 
     static public function alumnos(){
 
-        $query = "SELECT * FROM alumnos ORDER BY apellido ASC";    
+        $query = "SELECT * FROM alumnos WHERE historico = 0 ORDER BY apellido ASC";    
 
         return datos::respuestaQuery($query);
     }
@@ -348,7 +286,9 @@ class datos{
 
     static public function familiares(){
 
-        $query = "SELECT * FROM familiar ORDER BY nombre_apellido ASC";    
+        $query = "SELECT a.* FROM familiar a
+        JOIN alumnos b ON b.id = a.id_alumno AND b.historico = 0
+        ORDER BY a.nombre_apellido ASC";    
 
         return datos::respuestaQuery($query);
     }
@@ -376,9 +316,9 @@ class datos{
 
         if (empty($id_actividad)) {
             $query = "SELECT av.*,(av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa 
-            JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL)) AS disponibles,
+            JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL AND historico = 0)) AS disponibles,
             (av.cupos - (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa JOIN alumnos a ON a.id = aa.id_alumno 
-            WHERE aa.id_actividad = av.id AND a.baja IS NULL))) AS inscriptos FROM actividades_valores av GROUP BY av.id ORDER BY av.id ASC";
+            WHERE aa.id_actividad = av.id AND a.baja IS NULL AND historico = 0))) AS inscriptos FROM actividades_valores av GROUP BY av.id ORDER BY av.id ASC";
         }
 
         return datos::respuestaQuery($query);
@@ -387,7 +327,7 @@ class datos{
     static public function actividad_disponible($id_actividad = ''){
         
         $query = "SELECT av.*, (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa
-        JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL)) AS disponibles
+        JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL AND historico = 0)) AS disponibles
         FROM actividades_valores av WHERE av.id = ".$id_actividad." GROUP BY av.id ORDER BY av.id ASC";    
 
         return datos::respuestaQuery($query);
@@ -417,7 +357,7 @@ class datos{
 
         $query = "SELECT CONCAT(SUBSTRING_INDEX(a.nombre, ' ', 1),' ',a.apellido) as alumno,av.actividad,av.dias_horarios,av.profe 
         FROM actividades_alumnos aa, actividades_valores av,alumnos a 
-        WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno AND a.baja IS NULL ORDER BY 1";
+        WHERE aa.id_actividad = ".$id_actividad." AND av.id = aa.id_actividad AND a.id = aa.id_alumno AND a.baja IS NULL AND historico = 0 ORDER BY 1";
 
         return datos::respuestaQuery($query);
     }
@@ -698,6 +638,60 @@ class datos{
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
+        return true;
+    }
+
+    static public function acceso_inscripciones($op){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();    
+
+        $query = "UPDATE administracion SET inscripciones = ".$op;
+        
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        return true;
+    } 
+   
+    static public function archivados($anio){
+
+        $query = "SELECT * FROM alumnos WHERE historico = $anio"; 
+        
+        return datos::respuestaQuery($query);
+    }
+
+    static public function archivar_alumnos($anio){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();
+
+        $query = "UPDATE alumnos SET historico = $anio WHERE historico = 0";    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+
+        $query = "UPDATE deudas_vinculo a
+        JOIN vinculos b ON b.vinculo = a.vinculo AND b.historico = 0
+        SET a.vinculo = CONCAT(a.vinculo,' $anio')";    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+
+        $query = "UPDATE afavor_vinculo a
+        JOIN vinculos b ON b.vinculo = a.vinculo AND b.historico = 0
+        SET a.vinculo = CONCAT(a.vinculo,' $anio')";    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }    
+
+        $query = "UPDATE vinculos SET vinculo = CONCAT(vinculo,' $anio'),historico = $anio WHERE historico = 0";    
+
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+            
         return true;
     }
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2025-09-29 15:10:56
+/* Smarty version 3.1.34-dev-7, created on 2026-01-02 21:55:54
   from 'C:\xampp\htdocs\estudio6\templates\partials\header.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_68da8560e1a892_87035218',
+  'unifunc' => 'content_695830da8af2c5_99078575',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '28605bfe1c1841904c582c9018b8e8a912184428' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\partials\\header.html',
-      1 => 1757335242,
+      1 => 1767118539,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_68da8560e1a892_87035218 (Smarty_Internal_Template $_smarty_tpl) {
+function content_695830da8af2c5_99078575 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header class="container-fluid border-bottom border-color p-3">
     <?php if ($_smarty_tpl->tpl_vars['LOGOUT']->value) {?><i class="bi bi-menu-button-wide" onclick="openNav()" style="font-size: xx-large;" role="button"></i><?php }?>
     <img src="img/logo-Negro.png" role="button" class="logo" <?php if ($_smarty_tpl->tpl_vars['INSCRIPCIONES']->value) {?>onclick="location.href='index.php'"<?php }?> width="350px" height="80px">
@@ -34,7 +34,7 @@ function content_68da8560e1a892_87035218 (Smarty_Internal_Template $_smarty_tpl)
     <a href="vinculos.php">Vinculos familiares</a>
     <a href="actividades.php">Actividades</a>
     <a href="inscripciones.php">Inscripciones</a>
-<!--    <a href="historico.php">Historico alumnos</a> -->
+    <a href="historico.php">Historico alumnos</a>
     <a href="#" onclick="iniciar_sesion(true)">Cerrar sesión</a>
 </div><?php }
 }

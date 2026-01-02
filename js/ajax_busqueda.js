@@ -132,3 +132,29 @@ function alumno_id(id,vinculo){
     if(id == 0) window.location.href = 'datos.php?vinculo='+vinculo
     else window.location.href = 'datos.php?id='+id
 }
+
+function acceso_inscripciones(op){
+    const datosPost = new FormData()
+    datosPost.append('inscripciones', true)
+    datosPost.append('op', op)
+    
+    fetch('ajax/ajax_editar_datos.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        if (json.respAlumno) {
+            if (op == 1) return alertify.success('Inscripciones abiertas correctamente')
+            else return alertify.success('Inscripciones cerradas correctamente')
+        }
+        return alertify.error('Ocurrio un error, vuelva a intentar por favor.')
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error, vuelva a intentar por favor.')
+    })
+
+}
