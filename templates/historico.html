@@ -47,14 +47,14 @@
                     <label>A&ntilde;o:</label>
                     <select id="anio" class="form-control">
                         <option value="0">-- A&ntilde;o --</option>
-                        <option value="{$smarty.now|date_format:"%Y"|cat:""|intval-1}">{$smarty.now|date_format:"%Y"|cat:""|intval-1}</option>
-                        <option value="{$smarty.now|date_format:"%Y"}">{$smarty.now|date_format:"%Y"}</option>
-                        <option value="{$smarty.now|date_format:"%Y"|cat:""|intval+1}">{$smarty.now|date_format:"%Y"|cat:""|intval+1}</option>
+                        {for $y=2025 to $smarty.now|date_format:"%Y"}
+                            <option value="{$y}">{$y}</option>
+                        {/for}
                     </select>
                 </div>
-                <div class="form-group col-md-3">
-                    <button class="btn btn-dark btn-lg rounded-pill float-right mt-3" onclick="historico_alumnos('archivar')">Archivar</button>
-                    <button class="btn btn-dark btn-lg rounded-pill mr-2 float-right mt-3" onclick="historico_alumnos('busqueda')">Buscar</button>
+                <div class="form-group col-md-4">
+                    <button class="btn btn-dark btn-lg rounded-pill mr-2 mt-3" onclick="historico_alumnos('busqueda')">Buscar</button>
+                    <button class="btn btn-dark btn-lg rounded-pill mt-3" onclick="historico_alumnos('archivar')">Archivar alumnos</button>
                 </div>
             </div>            
             <div class="col-md-10 d-flex justify-content-center param-busqueda">

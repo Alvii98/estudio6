@@ -276,6 +276,7 @@ function guardar_datos_inscripcion() {
     })
     .then(response => response.json())
     .then(function (json) {
+        if (json.error != '') return alertify.error(json.error)
         if (json.respActividad != '') return alertify.error(json.respActividad)
         if (!json.respAlumno) return alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
         if (!json.respFamiliar) return alertify.error('Ocurrio un error al cargar los contactos familiar/tercero.')
@@ -287,6 +288,70 @@ function guardar_datos_inscripcion() {
         console.log(error)
         return false
         alertify.error('Ocurrio un error al guardar los datos, vuelva a intentar por favor.')
+    })
+
+}
+
+function buscar_datos() {
+    let documento = document.querySelector('#documento_bus').value
+
+    if (documento.trim() == '') return alertify.error('Ingrese el documento.')
+
+    const datosPost = new FormData()
+    datosPost.append('documento', documento)
+    fetch('ajax/ajax_inscripcion.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        console.log(json.datos)
+        if (json.error != '') return alertify.error(json.error)
+
+        document.querySelector('#apellido').value = json.datos[0].apellido
+        document.querySelector('#nombre').value = json.datos[0].nombre
+        document.querySelector('#documento').value = json.datos[0].documento
+        document.querySelector('#correo').value = json.datos[0].mail
+        document.querySelector('#nacionalidad').value = json.datos[0].nacionalidad
+        document.querySelector('#localidad').value = json.datos[0].localidad
+        document.querySelector('#domicilio').value = json.datos[0].domicilio
+        document.querySelector('#fecha_nac').value = json.datos[0].fecha_nac
+        document.querySelector('#edad').value = json.datos[0].edad
+        document.querySelector('#telefono').value = json.datos[0].tel_movil
+        if (json.datos[0]['familiares'].length > 0) {
+            if (json.datos[0].edad >= 18) {
+                document.querySelector('#tercero_apellido').value = json.datos[0]['familiares'][0].apellido_fam
+                document.querySelector('#tercero_nombre').value = json.datos[0]['familiares'][0].nombre_fam
+                document.querySelector('#tercero_vinculo').value = json.datos[0]['familiares'][0].vinculo
+                document.querySelector('#tercero_telefono').value = json.datos[0]['familiares'][0].telefono
+            }else{
+                document.querySelector('#adulto_apellido').value = json.datos[0]['familiares'][0].apellido_fam
+                document.querySelector('#adulto_nombre').value = json.datos[0]['familiares'][0].nombre_fam
+                document.querySelector('#adulto_vinculo').value = json.datos[0]['familiares'][0].vinculo
+                document.querySelector('#adulto_telefono').value = json.datos[0]['familiares'][0].telefono
+            }
+        }
+        if (json.datos[0]['familiares'].length > 1) {
+            if (json.datos[0].edad >= 18) {
+                document.querySelector('#click_tercero').click()
+                document.querySelector('#click_tercero').check = true
+                document.querySelector('#tercero2_apellido').value = json.datos[0]['familiares'][0].apellido_fam
+                document.querySelector('#tercero2_nombre').value = json.datos[0]['familiares'][0].nombre_fam
+                document.querySelector('#tercero2_vinculo').value = json.datos[0]['familiares'][0].vinculo
+                document.querySelector('#tercero2_telefono').value = json.datos[0]['familiares'][0].telefono
+            }else{
+                document.querySelector('#click_adulto').click()
+                document.querySelector('#click_adulto').check = true
+                document.querySelector('#adulto2_apellido').value = json.datos[0]['familiares'][1].apellido_fam
+                document.querySelector('#adulto2_nombre').value = json.datos[0]['familiares'][1].nombre_fam
+                document.querySelector('#adulto2_vinculo').value = json.datos[0]['familiares'][1].vinculo
+                document.querySelector('#adulto2_telefono').value = json.datos[0]['familiares'][1].telefono
+            }
+        }        
+    })
+    .catch(function (error){
+        alertify.error('Ocurrio un error al cargar los datos.')
     })
 
 }

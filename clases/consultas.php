@@ -55,6 +55,19 @@ class datos{
 
         return datos::respuestaQuery($query);
     }
+    
+    static public function alumno_dni($documento,$tipo = ''){
+        if ($tipo == '') {
+            $query = "SELECT a.apellido,a.nombre,a.documento,a.mail,a.nacionalidad,a.localidad,a.domicilio,
+            a.fecha_nac,a.tel_movil,b.nombre_apellido,b.vinculo,b.telefono FROM alumnos a 
+            LEFT JOIN familiar b ON b.id_alumno = a.id 
+            WHERE a.id = (select id from alumnos WHERE documento = '$documento' ORDER BY fecha_alta DESC LIMIT 1);";
+        }else {
+            $query = "SELECT * FROM alumnos WHERE documento = '$documento' AND (historico is null OR historico = 0)";
+        }
+
+        return datos::respuestaQuery($query);
+    }
 
     static public function fotos_path($path){
 
@@ -94,9 +107,9 @@ class datos{
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();
 
-        $query = "INSERT INTO deudas_alumno(id_alumno,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre)
+        $query = "INSERT INTO deudas_alumno(id_alumno,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre,ultima_mod)
         VALUES (".$id_alumno.",".$array['enero'].",".$array['febrero'].",".$array['marzo'].",".$array['abril'].",".$array['mayo'].",".$array['junio']
-        .",".$array['julio'].",".$array['agosto'].",".$array['septiembre'].",".$array['octubre'].",".$array['noviembre'].",".$array['diciembre'].")";    
+        .",".$array['julio'].",".$array['agosto'].",".$array['septiembre'].",".$array['octubre'].",".$array['noviembre'].",".$array['diciembre'].",now())";    
 
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
@@ -112,7 +125,7 @@ class datos{
 
         $query = "UPDATE deudas_alumno SET enero=".$array['enero'].",febrero=".$array['febrero'].",marzo=".$array['marzo'].",abril=".$array['abril'].",
         mayo=".$array['mayo'].",junio=".$array['junio'].",julio=".$array['julio'].",agosto=".$array['agosto'].",septiembre=".$array['septiembre'].",
-        octubre=".$array['octubre'].",noviembre=".$array['noviembre'].",diciembre=".$array['diciembre']." WHERE id_alumno = ".$id_alumno;    
+        octubre=".$array['octubre'].",noviembre=".$array['noviembre'].",diciembre=".$array['diciembre'].",ultima_mod=now() WHERE id_alumno = ".$id_alumno;    
 
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
@@ -141,9 +154,9 @@ class datos{
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();
 
-        $query = "INSERT INTO deudas_vinculo(vinculo,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre)
+        $query = "INSERT INTO deudas_vinculo(vinculo,enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre,ultima_mod)
         VALUES ('".$vinculo."',".$array['enero'].",".$array['febrero'].",".$array['marzo'].",".$array['abril'].",".$array['mayo'].",".$array['junio']
-        .",".$array['julio'].",".$array['agosto'].",".$array['septiembre'].",".$array['octubre'].",".$array['noviembre'].",".$array['diciembre'].")";    
+        .",".$array['julio'].",".$array['agosto'].",".$array['septiembre'].",".$array['octubre'].",".$array['noviembre'].",".$array['diciembre'].",now())";    
 
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
@@ -159,13 +172,64 @@ class datos{
 
         $query = "UPDATE deudas_vinculo SET enero=".$array['enero'].",febrero=".$array['febrero'].",marzo=".$array['marzo'].",abril=".$array['abril'].",
         mayo=".$array['mayo'].",junio=".$array['junio'].",julio=".$array['julio'].",agosto=".$array['agosto'].",septiembre=".$array['septiembre'].",
-        octubre=".$array['octubre'].",noviembre=".$array['noviembre'].",diciembre=".$array['diciembre']." WHERE vinculo = '".$vinculo."'";    
+        octubre=".$array['octubre'].",noviembre=".$array['noviembre'].",diciembre=".$array['diciembre'].",ultima_mod=now() WHERE vinculo = '".$vinculo."'";    
 
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
         return true;
     }
+
+    static public function actualizar_deudas($id_alumno,$vinculo){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();
+
+        if (!empty($id_alumno)) {
+            $query = "UPDATE deudas_alumno
+            SET enero = IF(enero > 0 and month(curdate()) > 1,(enero * 1.10),enero),
+            febrero = IF(febrero > 0 and month(curdate()) > 2,(febrero * 1.10),febrero),
+            marzo = IF(marzo > 0 and month(curdate()) > 3,(marzo * 1.10),marzo),
+            abril = IF(abril > 0 and month(curdate()) > 4,(abril * 1.10),abril),
+            mayo = IF(mayo > 0 and month(curdate()) > 5,(mayo * 1.10),mayo),
+            junio = IF(junio > 0 and month(curdate()) > 6,(junio * 1.10),junio),
+            julio = IF(julio > 0 and month(curdate()) > 7,(julio * 1.10),julio),
+            agosto = IF(agosto > 0 and month(curdate()) > 8,(agosto * 1.10),agosto),
+            septiembre = IF(septiembre > 0 and month(curdate()) > 9,(septiembre * 1.10),septiembre),
+            octubre = IF(octubre > 0 and month(curdate()) > 10,(octubre * 1.10),octubre),
+            noviembre = IF(noviembre > 0 and month(curdate()) > 11,(noviembre * 1.10),noviembre),
+            diciembre = IF(diciembre > 0 and month(curdate()) > 12,(diciembre * 1.10),diciembre),
+            ultima_mod = now()
+            WHERE id_alumno = $id_alumno AND month(curdate()) > IF(ultima_mod is null,0,month(ultima_mod))";
+    
+            if (!mysqli_query($conn, $query)) {
+                return mysqli_error($conn);
+            }
+        }
+        if (!empty($vinculo)) {
+            $query = "UPDATE deudas_vinculo 
+            SET enero = IF(enero > 0 and month(curdate()) > 1,(enero * 1.10),enero),
+            febrero = IF(febrero > 0 and month(curdate()) > 2,(febrero * 1.10),febrero),
+            marzo = IF(marzo > 0 and month(curdate()) > 3,(marzo * 1.10),marzo),
+            abril = IF(abril > 0 and month(curdate()) > 4,(abril * 1.10),abril),
+            mayo = IF(mayo > 0 and month(curdate()) > 5,(mayo * 1.10),mayo),
+            junio = IF(junio > 0 and month(curdate()) > 6,(junio * 1.10),junio),
+            julio = IF(julio > 0 and month(curdate()) > 7,(julio * 1.10),julio),
+            agosto = IF(agosto > 0 and month(curdate()) > 8,(agosto * 1.10),agosto),
+            septiembre = IF(septiembre > 0 and month(curdate()) > 9,(septiembre * 1.10),septiembre),
+            octubre = IF(octubre > 0 and month(curdate()) > 10,(octubre * 1.10),octubre),
+            noviembre = IF(noviembre > 0 and month(curdate()) > 11,(noviembre * 1.10),noviembre),
+            diciembre = IF(diciembre > 0 and month(curdate()) > 12,(diciembre * 1.10),diciembre),
+            ultima_mod = now()
+            WHERE vinculo = '$vinculo' AND month(curdate()) > IF(ultima_mod is null,0,month(ultima_mod))";
+
+            if (!mysqli_query($conn, $query)) {
+                return mysqli_error($conn);
+            }
+        }
+
+        return true;
+    }
+
 
     static public function afavor_alumno($id_alumno){
 

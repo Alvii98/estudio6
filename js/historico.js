@@ -1,12 +1,14 @@
 document.addEventListener('keyup', function (event) {
-    if(event.target.id == 'edad'){
-        document.querySelector('#apellido').value = ''
-        document.querySelector('#nombre').value = ''
-    }else{
-        document.querySelector('#edad').value = ''
+    if(event.target.id == 'apellido' || event.target.id == 'nombre' || event.target.id == 'edad'){
+        if(event.target.id == 'edad'){
+            document.querySelector('#apellido').value = ''
+            document.querySelector('#nombre').value = ''
+        }else{
+            document.querySelector('#edad').value = ''
+        }
+        document.querySelector('#actividad').value = '0'
+        buscar()
     }
-    document.querySelector('#actividad').value = '0'
-    buscar()
 })
 document.addEventListener('change', function (event) {
     if(event.target.id == 'actividad'){
@@ -22,7 +24,10 @@ function historico_alumnos(tipo){
     let anio = document.querySelector('#anio').value
 
     if (anio == '' || anio == 0) return alertify.error('Seleccione un a&ntilde;o.')
-    
+    document.querySelector('#apellido').value = ''
+    document.querySelector('#nombre').value = ''
+    document.querySelector('#edad').value = ''
+    document.querySelector('#actividad').value = 0
     if (tipo == 'busqueda') {
         document.querySelector('#apellido').disabled = false
         document.querySelector('#nombre').disabled = false
@@ -33,7 +38,7 @@ function historico_alumnos(tipo){
     const datosPost = new FormData()
     datosPost.append('tipo', tipo)
     datosPost.append('anio', anio)
-    alertify.confirm('Archivar alumno/as', 'Esto archivar&aacute; a todos los alumnos no archivados. ¿Seguro los quiere archivar como '+anio+'?', function(){
+    alertify.confirm('Archivar alumnos', 'Esto archivar&aacute; a todos los alumnos no archivados. ¿Seguro los quiere archivar como '+anio+'?', function(){
         fetch('ajax/ajax_historico.php', {
             method: "POST",
             // Set the post data

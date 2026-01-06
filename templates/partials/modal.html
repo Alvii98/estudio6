@@ -36,8 +36,8 @@
                 <h4>Deudas del alumno</h4>
             </div>
             <div class="col-md-12 p-3">
-                <div class="scroll-modal mb-3">
-                    {foreach from=$DEUDAS_ALUMNO item=value}
+                <div class="scroll-modal">
+                    {foreach from=$DEUDAS_ALUMNO item=value}                
                         <div class="form-group col-md-3 float-left">
                             <label>Enero</label>
                             <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('enero')"></i>
@@ -98,6 +98,9 @@
                             <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('diciembre')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
                         </div>
+                        {if !empty($value.ultima_mod)}
+                            {assign var=fecha value=$value.ultima_mod|date_format:"%d/%m/%Y %H:%M"}
+                        {/if}
                     {/foreach}
                     {if $HISTORICO == 0}
                     <div class="form-group col-md-12 mt-3">
@@ -106,6 +109,11 @@
                     {/if}
                 </div>
             </div>
+            {if !empty($fecha)}
+            <div class="col-md-12 d-flex justify-content-center">
+                <small>Ultima actualizaci&oacute;n {$fecha}</small>
+            </div>   
+            {/if} 
             <div class="modal-footer"></div>
         </div>
     </div>
@@ -119,7 +127,7 @@
                 <h4>Deudas del vinculo familiar</h4>
             </div>
             <div class="col-md-12 p-3">
-                <div class="scroll-modal mb-3">
+                <div class="scroll-modal">
                     {foreach from=$DEUDAS_VINCULO item=value}
                         <div class="form-group col-md-3 float-left">
                             <label>Enero</label>
@@ -181,6 +189,9 @@
                             <i class="bi bi-plus-circle-dotted agregar_saldo" title="Agregar saldo" onclick="agregar_saldo('diciembre2')"></i>
                             <input type="text" oninput="validateNumberPunto(this)" id="diciembre2" class="form-control" value="{$value.diciembre|number_format:0:',':'.'}">
                         </div>
+                        {if !empty($value.ultima_mod)}
+                            {assign var=fecha value=$value.ultima_mod|date_format:"%d/%m/%Y %H:%M"}
+                        {/if}
                     {/foreach}
                     {if $HISTORICO == 0}
                     <div class="form-group col-md-12 mt-3">
@@ -189,6 +200,11 @@
                     {/if}
                 </div>
             </div>
+            {if !empty($fecha)}
+            <div class="col-md-12 d-flex justify-content-center">
+                <small>Ultima actualizaci&oacute;n {$fecha}</small>
+            </div>   
+            {/if}
             <div class="modal-footer"></div>
         </div>
     </div>

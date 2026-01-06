@@ -94,7 +94,7 @@ function copiar_texto(id_deuda,id_afavor) {
         texto_afavor = '',saldo_total = '',texto_total = ''        
         let hoy = new Date(),
         dia = hoy.getDate()
-        // dia = 16
+        dia = 16
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value > 0) {
                 if (texto_deuda == '') texto_deuda += '\nSe registra la siguiente deuda:\n'
@@ -485,7 +485,43 @@ function enviar_whatsapp(numero) {
 
 function agregar_saldo(mes) {
     let valor = document.querySelector('#'+mes).value.replace('.',''),
-    agregar = document.querySelector('#recargo').value.replace('$','').replace('.','')
+    agregar = document.querySelector('#recargo').value.replace('$','').replace('.',''),
+    total = 0
     valor = valor.trim() == 0 || valor.trim() == '' ? 0 : valor.trim()
-    document.querySelector('#'+mes).value = parseFloat(valor)+parseFloat(agregar)
+
+    total = String(parseFloat(valor)+parseFloat(agregar))
+    if (total.length == 4) {
+        const parte1 = total.substring(0, 1)
+        const parte2 = total.substring(1)
+        total = parte1 + "." + parte2
+    }else if (total.length == 5) {
+        const parte1 = total.substring(0, 2)
+        const parte2 = total.substring(2)
+        total = parte1 + "." + parte2        
+    }else if (total.length == 6) {
+        const parte1 = total.substring(0, 3)
+        const parte2 = total.substring(3)
+        total = parte1 + "." + parte2        
+    }else if (total.length == 7) {
+        const parte1 = total.substring(0, 1)
+        const parte2 = total.substring(1, 4)
+        const parte3 = total.substring(4)
+        total = parte1 + "." + parte2 + "." + parte3
+    }else if (total.length == 8) {
+        const parte1 = total.substring(0, 2)
+        const parte2 = total.substring(2, 5)
+        const parte3 = total.substring(5)
+        total = parte1 + "." + parte2 + "." + parte3        
+    }else if (total.length == 9) {
+        const parte1 = total.substring(0, 3)
+        const parte2 = total.substring(3, 6)
+        const parte3 = total.substring(6)
+        total = parte1 + "." + parte2 + "." + parte3        
+    }else if (total.length > 9) {
+        const parte1 = total.substring(0, 9).substring(0, 3)
+        const parte2 = total.substring(0, 9).substring(3, 6)
+        const parte3 = total.substring(0, 9).substring(6)
+        total = parte1 + "." + parte2 + "." + parte3
+    }
+    document.querySelector('#'+mes).value = total
 }
