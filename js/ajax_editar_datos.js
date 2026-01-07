@@ -94,7 +94,7 @@ function copiar_texto(id_deuda,id_afavor) {
         texto_afavor = '',saldo_total = '',texto_total = ''        
         let hoy = new Date(),
         dia = hoy.getDate()
-        dia = 16
+        // dia = 16
         for (let i = 0; i < inputs.length; i++) {
             if (inputs[i].value > 0) {
                 if (texto_deuda == '') texto_deuda += '\nSe registra la siguiente deuda:\n'
@@ -155,7 +155,7 @@ function copiar_texto(id_deuda,id_afavor) {
         if (dia <= 15) {
             texto += 'Los valores corresponden al pago realizado del 1 al 15 del mes, fuera de esa fecha tienen un 10% de recargo con actualización mensual.\n'
         }
-        texto += '\n'+detalle_cuota+'\n'
+        texto += detalle_cuota+'\n'
 
         textarea.value = texto
         textarea.style.position = 'absolute'

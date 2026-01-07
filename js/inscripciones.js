@@ -46,6 +46,7 @@ function datos_alumno(){
     error = 0
     
     for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].id == 'documento_bus') continue
         if (inputs[i].value.trim() == '') {
             error = 1
             inputs[i].style = "box-shadow: 0px 1px 6px red;"
