@@ -185,42 +185,42 @@ class datos{
         $conn = $instancia->getConnection();
 
         if (!empty($id_alumno)) {
-            $query = "UPDATE deudas_alumno
-            SET enero = IF(enero > 0 and month(curdate()) > 1,(enero * 1.10),enero),
-            febrero = IF(febrero > 0 and month(curdate()) > 2,(febrero * 1.10),febrero),
-            marzo = IF(marzo > 0 and month(curdate()) > 3,(marzo * 1.10),marzo),
-            abril = IF(abril > 0 and month(curdate()) > 4,(abril * 1.10),abril),
-            mayo = IF(mayo > 0 and month(curdate()) > 5,(mayo * 1.10),mayo),
-            junio = IF(junio > 0 and month(curdate()) > 6,(junio * 1.10),junio),
-            julio = IF(julio > 0 and month(curdate()) > 7,(julio * 1.10),julio),
-            agosto = IF(agosto > 0 and month(curdate()) > 8,(agosto * 1.10),agosto),
-            septiembre = IF(septiembre > 0 and month(curdate()) > 9,(septiembre * 1.10),septiembre),
-            octubre = IF(octubre > 0 and month(curdate()) > 10,(octubre * 1.10),octubre),
-            noviembre = IF(noviembre > 0 and month(curdate()) > 11,(noviembre * 1.10),noviembre),
-            diciembre = IF(diciembre > 0 and month(curdate()) > 12,(diciembre * 1.10),diciembre),
-            ultima_mod = now()
-            WHERE id_alumno = $id_alumno AND month(curdate()) > IF(ultima_mod is null,0,month(ultima_mod))";
+            $query = "UPDATE deudas_alumno a JOIN alumnos b ON b.id = a.id_alumno AND b.historico = 0
+            SET a.enero = IF(a.enero > 0 and month(curdate()) > 1,(a.enero * 1.10),a.enero),
+            a.febrero = IF(a.febrero > 0 and month(curdate()) > 2,(a.febrero * 1.10),a.febrero),
+            a.marzo = IF(a.marzo > 0 and month(curdate()) > 3,(a.marzo * 1.10),a.marzo),
+            a.abril = IF(a.abril > 0 and month(curdate()) > 4,(a.abril * 1.10),a.abril),
+            a.mayo = IF(a.mayo > 0 and month(curdate()) > 5,(a.mayo * 1.10),a.mayo),
+            a.junio = IF(a.junio > 0 and month(curdate()) > 6,(a.junio * 1.10),a.junio),
+            a.julio = IF(a.julio > 0 and month(curdate()) > 7,(a.julio * 1.10),a.julio),
+            a.agosto = IF(a.agosto > 0 and month(curdate()) > 8,(a.agosto * 1.10),a.agosto),
+            a.septiembre = IF(a.septiembre > 0 and month(curdate()) > 9,(a.septiembre * 1.10),a.septiembre),
+            a.octubre = IF(a.octubre > 0 and month(curdate()) > 10,(a.octubre * 1.10),a.octubre),
+            a.noviembre = IF(a.noviembre > 0 and month(curdate()) > 11,(a.noviembre * 1.10),a.noviembre),
+            a.diciembre = IF(a.diciembre > 0 and month(curdate()) > 12,(a.diciembre * 1.10),a.diciembre),
+            a.ultima_mod = now()
+            WHERE a.id_alumno = $id_alumno AND month(curdate()) > IF(a.ultima_mod is null,0,month(a.ultima_mod))";
     
             if (!mysqli_query($conn, $query)) {
                 return mysqli_error($conn);
             }
         }
         if (!empty($vinculo)) {
-            $query = "UPDATE deudas_vinculo 
-            SET enero = IF(enero > 0 and month(curdate()) > 1,(enero * 1.10),enero),
-            febrero = IF(febrero > 0 and month(curdate()) > 2,(febrero * 1.10),febrero),
-            marzo = IF(marzo > 0 and month(curdate()) > 3,(marzo * 1.10),marzo),
-            abril = IF(abril > 0 and month(curdate()) > 4,(abril * 1.10),abril),
-            mayo = IF(mayo > 0 and month(curdate()) > 5,(mayo * 1.10),mayo),
-            junio = IF(junio > 0 and month(curdate()) > 6,(junio * 1.10),junio),
-            julio = IF(julio > 0 and month(curdate()) > 7,(julio * 1.10),julio),
-            agosto = IF(agosto > 0 and month(curdate()) > 8,(agosto * 1.10),agosto),
-            septiembre = IF(septiembre > 0 and month(curdate()) > 9,(septiembre * 1.10),septiembre),
-            octubre = IF(octubre > 0 and month(curdate()) > 10,(octubre * 1.10),octubre),
-            noviembre = IF(noviembre > 0 and month(curdate()) > 11,(noviembre * 1.10),noviembre),
-            diciembre = IF(diciembre > 0 and month(curdate()) > 12,(diciembre * 1.10),diciembre),
-            ultima_mod = now()
-            WHERE vinculo = '$vinculo' AND month(curdate()) > IF(ultima_mod is null,0,month(ultima_mod))";
+            $query = "UPDATE deudas_vinculo a JOIN vinculos b ON b.vinculo = a.vinculo AND b.historico = 0
+            SET a.enero = IF(a.enero > 0 and month(curdate()) > 1,(a.enero * 1.10),a.enero),
+            a.febrero = IF(febrero > 0 and month(curdate()) > 2,(a.febrero * 1.10),a.febrero),
+            a.marzo = IF(a.marzo > 0 and month(curdate()) > 3,(a.marzo * 1.10),a.marzo),
+            a.abril = IF(a.abril > 0 and month(curdate()) > 4,(a.abril * 1.10),a.abril),
+            a.mayo = IF(a.mayo > 0 and month(curdate()) > 5,(a.mayo * 1.10),a.mayo),
+            a.junio = IF(a.junio > 0 and month(curdate()) > 6,(a.junio * 1.10),a.junio),
+            a.julio = IF(a.julio > 0 and month(curdate()) > 7,(a.julio * 1.10),a.julio),
+            a.agosto = IF(a.agosto > 0 and month(curdate()) > 8,(a.agosto * 1.10),a.agosto),
+            a.septiembre = IF(a.septiembre > 0 and month(curdate()) > 9,(a.septiembre * 1.10),a.septiembre),
+            a.octubre = IF(a.octubre > 0 and month(curdate()) > 10,(a.octubre * 1.10),a.octubre),
+            a.noviembre = IF(a.noviembre > 0 and month(curdate()) > 11,(a.noviembre * 1.10),a.noviembre),
+            a.diciembre = IF(a.diciembre > 0 and month(curdate()) > 12,(a.diciembre * 1.10),a.diciembre),
+            a.ultima_mod = now()
+            WHERE a.vinculo = '$vinculo' AND month(curdate()) > IF(a.ultima_mod is null,0,month(a.ultima_mod))";
 
             if (!mysqli_query($conn, $query)) {
                 return mysqli_error($conn);
