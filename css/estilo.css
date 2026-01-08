@@ -378,9 +378,17 @@ select {
     bottom: 28px;
     right: 8px;
 }
-
+.com-dat{
+    margin-top: 26px;
+}
 /*********** PARA CELULARES *************/
 @media screen and (max-width: 600px){
+    .exit-card{
+        left: 89%;
+    }
+    .com-dat{
+        margin-top: 0;
+    }
     #usuario{
         width: 80%;
     }

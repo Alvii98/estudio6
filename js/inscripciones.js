@@ -309,7 +309,7 @@ function buscar_datos() {
     .then(function (json) {
         console.log(json.datos)
         if (json.error != '') return alertify.error(json.error)
-
+        document.querySelector('#datos_automaticos').style.display = 'block'
         document.querySelector('#apellido').value = json.datos[0].apellido
         document.querySelector('#nombre').value = json.datos[0].nombre
         document.querySelector('#documento').value = json.datos[0].documento

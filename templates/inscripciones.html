@@ -42,14 +42,17 @@
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Documento</label>
                         <input type="text" oninput="validateNumber(this)" id="documento_bus" class="form-control" autocomplete="off">
-                        <label>(Solo para alumnos que ya fueron registrados alguna vez)</label>
+                        <label>*Solo para alumnos/as que ya fueron registrados en el 2025.</label>
                     </div>
-                    <div class="form-group col-md-3 float-left mt-datos pt-1">
-                        <button class="btn btn-dark rounded-pill mt-4" onclick="buscar_datos()">Completar datos</button>
+                    <div class="form-group col-md-3 float-left mt-datos">
+                        <button class="btn btn-dark rounded-pill com-dat" onclick="buscar_datos()">Completar datos</button>
                     </div>
                 </div>
                 <div class="col-md-12"><hr></div>
                 <div class="col-md-12">
+                    <div class="col-md-12 d-flex justify-content-center" id="datos_automaticos" style="display: none !important;">
+                        <h6>Modificar datos en caso que se hayan actualizado</h6>
+                    </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Apellido</label>
                         <input type="text" id="apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">

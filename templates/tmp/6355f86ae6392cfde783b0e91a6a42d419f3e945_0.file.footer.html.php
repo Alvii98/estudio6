@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2026-01-07 20:28:42
+/* Smarty version 3.1.34-dev-7, created on 2026-01-08 14:46:29
   from 'C:\xampp\htdocs\estudio6\templates\partials\footer.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_695eb3ea3bf8b6_71715857',
+  'unifunc' => 'content_695fb535326963_88822900',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6355f86ae6392cfde783b0e91a6a42d419f3e945' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\partials\\footer.html',
-      1 => 1767374277,
+      1 => 1767118348,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_695eb3ea3bf8b6_71715857 (Smarty_Internal_Template $_smarty_tpl) {
+function content_695fb535326963_88822900 (Smarty_Internal_Template $_smarty_tpl) {
 ?><header class="container-fluid border-top border-color pt-2 pb-2">
     <div class="row">
         <div class="col-md-12 custom-flex">

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2026-01-07 20:28:42
+/* Smarty version 3.1.34-dev-7, created on 2026-01-08 14:46:29
   from 'C:\xampp\htdocs\estudio6\templates\inscripciones.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_695eb3ea4e1432_67367693',
+  'unifunc' => 'content_695fb535430c79_15854329',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '37baf86837e1919e338e2caaf98c044e94a9b86d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\estudio6\\templates\\inscripciones.html',
-      1 => 1767805504,
+      1 => 1767879974,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_695eb3ea4e1432_67367693 (Smarty_Internal_Template $_smarty_tpl) {
+function content_695fb535430c79_15854329 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\\libs\\smarty3\\plugins\\modifier.escape.php','function'=>'smarty_modifier_escape',),));
 ?>
 <!DOCTYPE html>
@@ -82,14 +82,17 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'C:\\xampp\\htdocs\\estudio6\
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Documento</label>
                         <input type="text" oninput="validateNumber(this)" id="documento_bus" class="form-control" autocomplete="off">
-                        <label>(Solo para alumnos que ya fueron registrados alguna vez)</label>
+                        <label>*Solo para alumnos/as que ya fueron registrados en el 2025.</label>
                     </div>
-                    <div class="form-group col-md-3 float-left mt-datos pt-1">
-                        <button class="btn btn-dark rounded-pill mt-4" onclick="buscar_datos()">Completar datos</button>
+                    <div class="form-group col-md-3 float-left mt-datos">
+                        <button class="btn btn-dark rounded-pill com-dat" onclick="buscar_datos()">Completar datos</button>
                     </div>
                 </div>
                 <div class="col-md-12"><hr></div>
                 <div class="col-md-12">
+                    <div class="col-md-12 d-flex justify-content-center" id="datos_automaticos" style="display: none !important;">
+                        <h6>Modificar datos en caso que se hayan actualizado</h6>
+                    </div>
                     <div class="form-group col-md-3 float-left mt-datos">
                         <label>Apellido</label>
                         <input type="text" id="apellido" oninput="mayusName(this)" class="form-control" autocomplete="off">
@@ -326,7 +329,7 @@ if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['value']->value) 
 $_smarty_tpl->tpl_vars['value']->do_else = false;
 ?>
                         <?php if ($_smarty_tpl->tpl_vars['value']->value['disponibles'] > 0) {?>  
-                        <div class="form-group float-left col-md-12">
+                        <div class="form-group float-left col-md-6">
                             <div class="form-check">
                                 <input class="form-check-input" role="button" type="checkbox" id="<?php echo $_smarty_tpl->tpl_vars['value']->value['id'];?>
 ">
