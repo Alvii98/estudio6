@@ -158,3 +158,21 @@ function acceso_inscripciones(op){
     })
 
 }
+actualizar_deudas()
+function actualizar_deudas(){
+    const datosPost = new FormData()
+    datosPost.append('actualizar_deudas', true)
+    fetch('ajax/ajax_editar_datos.php', {
+        method: "POST",
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        console.log('Deudas actualizadas')
+    })
+    .catch(function (error){
+        console.log('No se actualizaron las deudas')
+        console.log(error)
+    })
+
+}

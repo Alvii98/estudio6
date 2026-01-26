@@ -15,8 +15,6 @@ $smarty->assign('DEUDAS_ALUMNO', false);
 $smarty->assign('DEUDAS_VINCULO', false);
 $smarty->assign('DETALLE_CUOTA', isset(datos::administracion()[0]['detalle_cuota']) ? datos::administracion()[0]['detalle_cuota'] : '');
 
-datos::actualizar_deudas($_GET['id'],$_GET['vinculo']);
-
 if(isset($_GET['id'])){
     
     $smarty->assign('ID', $_GET['id']);
