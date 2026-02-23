@@ -10,7 +10,7 @@ function exportarExcel(name = ''){
             cantFamiliar = 0, cantFamAlum = 0, contfam = 0
 
             titles = ['APELLIDO','NOMBRE','DOCUMENTO','FECHA DE NACIMIENTO','EDAD','NACIONALIDAD','DOMICILIO',
-            'LOCALIDAD','CELULAR','AUTORIZA','CORREO','SALUD','ACTIVIDADES','NOTAS','BAJAS','OBSERVACIONES']
+            'LOCALIDAD','CELULAR','AUTORIZA','CORREO','SALUD','ACTIVIDADES','NOTAS','ALTA','BAJA','OBSERVACIONES']
             // console.log(titles)            
             json.resp.forEach(element => {
                 row = []
@@ -28,6 +28,7 @@ function exportarExcel(name = ''){
                 row.push(element.salud)
                 row.push(element.actividad)
                 row.push(element.notas)
+                row.push(element.alta)
                 row.push(element.baja)
                 row.push(element.observaciones)
                 cantFamAlum = 0
@@ -51,7 +52,6 @@ function exportarExcel(name = ''){
                 }
                 predata.push(row)
             })
-
             data.push(titles)
 
             predata.forEach(element => {
@@ -76,6 +76,7 @@ function exportarExcel(name = ''){
                 { wch: 10 }, 
                 { wch: 100 },
                 { wch: 100 }, 
+                { wch: 20 }, 
                 { wch: 5 }, 
                 { wch: 100 },
                 { wch: 30 },

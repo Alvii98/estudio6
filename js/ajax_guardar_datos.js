@@ -107,9 +107,6 @@ function guardar_familiar(event){
 
 }
 
-
-
-
 function guardar_vinculo(event){
     let alumnos = {},
     familiar
@@ -197,21 +194,43 @@ function desvincular(event){
 
 function editar_actividad(event,id_actividad){
     let datos = event.parentElement.parentElement.getElementsByTagName('td')
-    document.querySelector('#id_guardar_actividad').value = datos[0].textContent
-    document.querySelector('#id_guardar_una').value = datos[1].textContent
-    document.querySelector('#id_guardar_dos').value = datos[2].textContent
+    document.querySelector('#id_guardar_actividad').value = datos[1].textContent
+    document.querySelector('#id_guardar_una').value = datos[2].textContent
+    document.querySelector('#id_guardar_dos').value = datos[3].textContent
     // document.querySelector('#id_guardar_una_efectivo').value = datos[2].textContent
     // document.querySelector('#id_guardar_dos').value = datos[3].textContent
     // document.querySelector('#id_guardar_dos_efectivo').value = datos[4].textContent
-    document.querySelector('#id_guardar_dias').value = datos[3].textContent
-    document.querySelector('#id_guardar_profe').value = datos[4].textContent
-    let edades = datos[5].textContent.split('a')
+    document.querySelector('#id_guardar_dias').value = datos[4].textContent
+    document.querySelector('#id_guardar_profe').value = datos[5].textContent
+    let edades = datos[6].textContent.split('a')
     document.querySelector('#id_guardar_edad_min').value = edades[0].trim()
     document.querySelector('#id_guardar_edad_max').value = edades[1].trim()
-    document.querySelector('#id_guardar_cupos').value = datos[6].textContent
+    document.querySelector('#id_guardar_cupos').value = datos[7].textContent
     document.querySelector('#guardar_actividad').setAttribute('onclick', 'guardar_actividad('+id_actividad+')')
     document.querySelector('#guardar_actividad').textContent = 'Guardar edición'
     document.querySelector('#guardar_actividad').focus()
+}
+
+function orden_actividad(even,id_actividad){
+    if (isNaN(parseFloat(event.target.value))) return false
+    const datosPost = new FormData()
+    datosPost.append('id_actividad', id_actividad)
+    datosPost.append('orden', event.target.value)
+
+    fetch('ajax/ajax_guardar_vinculo_actividades.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+       console.log(json)
+    })
+    .catch(function (error){
+        console.log(error)
+        // Catch errors
+        alertify.error('Ocurrio un error al cargar los datos, vuelva a intentar.')
+    })
 }
 
 function guardar_actividad(id_actividad = 0){

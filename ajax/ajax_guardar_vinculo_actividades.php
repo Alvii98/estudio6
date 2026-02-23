@@ -9,6 +9,12 @@ if (isset($_POST['viculo'])) {
     }else {
         $json->datosVinculo = false;
     }
+}elseif (isset($_POST['orden'])) {
+    if (!empty($_POST['id_actividad']) && !empty($_POST['orden'])) {
+        $json->datosActividad = datos::orden_actividad($_POST['id_actividad'],$_POST['orden']);
+    }else {
+        $json->datosActividad = false;
+    }
 }elseif (isset($_POST['id_actividad'])) {
     if (!empty($_POST['id_actividad'])) {
         $json->datosActividad = datos::datos_actividad($_POST['id_actividad']);

@@ -70,14 +70,15 @@
                                 <th colspan="15" class="text-center">
                                     <select name="columna" id="columna" class="mt-1 form-control col-md-2 mr-2 float-left">
                                         <option value="-">-- Buscar por --</option>
-                                        <option value="0">Actividad</option>
-                                        <option value="3">D&iacute;as y horarios</option>
-                                        <option value="4">Profe</option>
+                                        <option value="1">Actividad</option>
+                                        <option value="4">D&iacute;as y horarios</option>
+                                        <option value="5">Profe</option>
                                     </select>
                                     <input type="text" id="buscar" autocomplete="off" style="display:none;" placeholder="Buscar en columna" class="mt-1 form-control col-md-2 float-left">
                                 </th>
                             </tr>
                             <tr>
+                                <th>Orden</th>
                                 <th>Actividad</th>
                                 <th style="min-width: 82px !important;">Valor</th>
                                 <th style="min-width: 82px !important;">Valor x2</th>
@@ -94,6 +95,7 @@
                         <tbody>
                             {foreach from=$ACTIVIDADES item=value}
                             <tr>
+                                <td><input type="text" class="form-control col-8 text-center" value="{$value.orden}" onkeyup="orden_actividad(this,'{$value.id}')"></td>
                                 <td onclick="datos_actividad('{$value.id}')">{$value.actividad|escape:'utf8_encode'}</td>
                                 <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.una_vez|number_format:0:",":"."}</td>
                                 <td class="text-center" onclick="datos_actividad('{$value.id}')">{$value.dos_veces|number_format:0:",":"."}</td>

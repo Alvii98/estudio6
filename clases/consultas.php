@@ -314,7 +314,7 @@ class datos{
     static public function datos_excel(){
 
         $query = "SELECT a.id,a.apellido,a.nombre,a.documento,a.edad,a.fecha_nac,a.nacionalidad,a.domicilio,a.localidad,a.tel_movil,
-        a.autoriza,a.mail,a.salud,a.notas,a.observaciones,a.baja,CONCAT(av.actividad,' - ',av.dias_horarios) as actividad FROM alumnos a
+        a.autoriza,a.mail,a.salud,a.notas,a.observaciones,a.baja,a.fecha_alta,CONCAT(av.actividad,' - ',av.dias_horarios) as actividad FROM alumnos a
         LEFT JOIN actividades_alumnos aa ON aa.id_alumno = a.id
         LEFT JOIN actividades_valores av ON av.id = aa.id_actividad
         WHERE a.historico = 0
@@ -378,7 +378,7 @@ class datos{
             $query = "SELECT av.*,(av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa 
             JOIN alumnos a ON a.id = aa.id_alumno WHERE aa.id_actividad = av.id AND a.baja IS NULL AND historico = 0)) AS disponibles,
             (av.cupos - (av.cupos - (SELECT COUNT(aa.id_actividad) FROM actividades_alumnos aa JOIN alumnos a ON a.id = aa.id_alumno 
-            WHERE aa.id_actividad = av.id AND a.baja IS NULL AND historico = 0))) AS inscriptos FROM actividades_valores av GROUP BY av.id ORDER BY av.id ASC";
+            WHERE aa.id_actividad = av.id AND a.baja IS NULL AND historico = 0))) AS inscriptos FROM actividades_valores av GROUP BY av.id ORDER BY av.orden ASC";
         }
 
         return datos::respuestaQuery($query);
@@ -754,6 +754,18 @@ class datos{
             
         return true;
     }
+
+    static public function orden_actividad($id,$orden){
+        $instancia = SingletonConexion::getInstance();
+        $conn = $instancia->getConnection();    
+
+        $query = "UPDATE actividades_valores SET orden = ".$orden." WHERE id = ".$id;
+        
+        if (!mysqli_query($conn, $query)) {
+            return mysqli_error($conn);
+        }
+        return true;
+    } 
 
     static public function obtener_edad($fecha_nac){
         

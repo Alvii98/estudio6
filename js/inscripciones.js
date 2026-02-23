@@ -40,7 +40,38 @@ function calcular_edad(fechaNacimiento) {
     document.querySelector('#edad').value = edad
 }
 
+function cargar_actividades(){
+    if (document.querySelector('#edad').value == '') return false
+    const datosPost = new FormData()
+    datosPost.append('carga_actividades', 1)
+    datosPost.append('edad', document.querySelector('#edad').value)
+
+    fetch('ajax/ajax_inscripcion.php', {
+        method: "POST",
+        // Set the post data
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(function (json) {
+        let html = ''
+        json.datos.forEach(element => {
+            html += ` <div class="form-group float-left col-md-12">
+                <div class="form-check">
+                    <input class="form-check-input" role="button" type="checkbox" id="`+element.id+`">
+                    <label>`+element.actividad+` - `+element.dias_horarios+`</label>
+                </div>
+            </div>`
+        })
+        document.querySelector('#div_activadades').innerHTML = html
+    })
+    .catch(function (error){
+        console.log(error)
+        return false
+    })
+}
+
 function datos_alumno(){
+    cargar_actividades() // MUESTRA LAS ACTIVIDADES SEGUN EDAD
     let div = document.querySelector("#datos_alumno"),
     inputs = div.getElementsByTagName("input"),
     error = 0

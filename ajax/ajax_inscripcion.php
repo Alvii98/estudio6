@@ -7,8 +7,20 @@ $json->respFamiliar = false;
 $json->respActividad = '';
 $json->datos = '';
 $json->error = '';
-// $_POST['documento'] = '50700479';
-if (isset($_POST['documento'])) {
+// $_POST['carga_actividades'] = '50700479';
+// $_POST['edad'] = '20';
+if (isset($_POST['carga_actividades'])) {
+    $edad = $_POST['edad'];
+    $datos = array();
+    foreach (datos::actividades() as $value) {
+        if ($edad >= $value['min_edad'] && $edad <= $value['max_edad'] && $value['disponibles'] > 0) {
+            $datos[] = ['id' => $value['id'],
+            'actividad' => $value['actividad'],
+            'dias_horarios' => $value['dias_horarios']];
+        }
+    }
+    $json->datos = $datos;
+}else if (isset($_POST['documento'])) {
     $datos = datos::alumno_dni($_POST['documento']);
     $alumno = array();
     $familiar = array();

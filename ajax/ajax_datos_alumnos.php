@@ -31,6 +31,7 @@ foreach ($datos as $value) {
                 'notas' => $value['notas'],
                 'observaciones' => $value['observaciones'],
                 'baja' =>$value['baja'],
+                'alta' =>$value['fecha_alta'],
                 'actividad' => $value['actividad']];
 }
 
