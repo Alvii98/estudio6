@@ -49,6 +49,7 @@
                     <option {IF $INSCRIPCION_OP == 1}selected{/if} value="1">Inscripciones abiertas</option>
                     <option {IF $INSCRIPCION_OP == 0}selected{/if} value="0">Inscripciones cerradas</option>
                 </select>
+                <button class="btn btn-dark btn-lg rounded-pill ml-2 mt-2 h1" onclick="actualizar_deudas()">Actualizar deudas</button>
             </div>
             <div class="col-md-10 d-flex justify-content-center param-busqueda">
                 <input type="text" id="apellido" placeholder="Apellido" class="form-control ml-2 col-md-3 mt-3">

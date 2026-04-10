@@ -158,7 +158,7 @@ function acceso_inscripciones(op){
     })
 
 }
-actualizar_deudas()
+
 function actualizar_deudas(){
     const datosPost = new FormData()
     datosPost.append('actualizar_deudas', true)
@@ -169,6 +169,7 @@ function actualizar_deudas(){
     .then(response => response.json())
     .then(function (json) {
         console.log('Deudas actualizadas')
+        return alertify.success('Deudas actualizadas correctamente.')
     })
     .catch(function (error){
         console.log('No se actualizaron las deudas')
