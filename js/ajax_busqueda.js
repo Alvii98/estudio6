@@ -160,20 +160,25 @@ function acceso_inscripciones(op){
 }
 
 function actualizar_deudas(){
-    const datosPost = new FormData()
-    datosPost.append('actualizar_deudas', true)
-    fetch('ajax/ajax_editar_datos.php', {
-        method: "POST",
-        body: datosPost
-    })
-    .then(response => response.json())
-    .then(function (json) {
-        console.log('Deudas actualizadas')
-        return alertify.success('Deudas actualizadas correctamente.')
-    })
-    .catch(function (error){
-        console.log('No se actualizaron las deudas')
-        console.log(error)
+    alertify.confirm('Datos del alumno/a', 'Seguro quiere actualizar las deudas ?', function(){
+        const datosPost = new FormData()
+        datosPost.append('actualizar_deudas', true)
+        fetch('ajax/ajax_editar_datos.php', {
+            method: "POST",
+            body: datosPost
+        })
+        .then(response => response.json())
+        .then(function (json) {
+            console.log('Deudas actualizadas')
+            return alertify.success('Deudas actualizadas correctamente.')
+        })
+        .catch(function (error){
+            return alertify.error('Ocurrio un error al actualizar las deudas.')
+            console.log('No se actualizaron las deudas')
+            console.log(error)
+        })
+    }, function(){ 
+        return alertify.error('Cancelado')
     })
 
 }

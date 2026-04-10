@@ -31,7 +31,7 @@ CREATE TABLE `actividades_alumnos` (
   `id` int NOT NULL,
   `id_alumno` int NOT NULL,
   `id_actividad` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `actividades_alumnos`
@@ -1312,7 +1312,7 @@ CREATE TABLE `administracion` (
   `descuento` int NOT NULL DEFAULT '0',
   `detalle_cuota` varchar(255) NOT NULL,
   `inscripciones` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `administracion`
@@ -1342,7 +1342,7 @@ CREATE TABLE `afavor_alumno` (
   `octubre` int NOT NULL DEFAULT '0',
   `noviembre` int NOT NULL DEFAULT '0',
   `diciembre` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `afavor_alumno`
@@ -1383,7 +1383,7 @@ CREATE TABLE `afavor_vinculo` (
   `octubre` int NOT NULL DEFAULT '0',
   `noviembre` int NOT NULL DEFAULT '0',
   `diciembre` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -2407,7 +2407,7 @@ CREATE TABLE `deudas_alumno` (
   `noviembre` int NOT NULL DEFAULT '0',
   `diciembre` int NOT NULL DEFAULT '0',
   `ultima_mod` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `deudas_alumno`
@@ -2573,7 +2573,7 @@ CREATE TABLE `deudas_vinculo` (
   `noviembre` int NOT NULL DEFAULT '0',
   `diciembre` int NOT NULL DEFAULT '0',
   `ultima_mod` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `deudas_vinculo`

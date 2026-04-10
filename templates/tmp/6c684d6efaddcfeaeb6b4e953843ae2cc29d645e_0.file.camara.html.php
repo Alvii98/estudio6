@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2026-04-10 22:07:31
+/* Smarty version 3.1.34-dev-7, created on 2026-04-10 22:28:19
   from 'C:\xampp\htdocs\estudio6\templates\partials\camara.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_69d95883a9f9a4_98580219',
+  'unifunc' => 'content_69d95d6370c9f4_63097160',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_69d95883a9f9a4_98580219 (Smarty_Internal_Template $_smarty_tpl) {
+function content_69d95d6370c9f4_63097160 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div id="openModal" class="modalDialog" style="display: none;">
     <div class="container mt-5">
         <div class="row">
