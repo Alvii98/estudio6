@@ -159,26 +159,55 @@ function acceso_inscripciones(op){
 
 }
 
-function actualizar_deudas(){
-    alertify.confirm('Datos del alumno/a', 'Seguro quiere actualizar las deudas ?', function(){
-        const datosPost = new FormData()
-        datosPost.append('actualizar_deudas', true)
-        fetch('ajax/ajax_editar_datos.php', {
-            method: "POST",
-            body: datosPost
-        })
-        .then(response => response.json())
-        .then(function (json) {
-            console.log('Deudas actualizadas')
-            return alertify.success('Deudas actualizadas correctamente.')
-        })
-        .catch(function (error){
-            return alertify.error('Ocurrio un error al actualizar las deudas.')
-            console.log('No se actualizaron las deudas')
-            console.log(error)
-        })
-    }, function(){ 
-        return alertify.error('Cancelado')
-    })
+function actualizar_deudas() {
+    if(!alertify.actualizarDeudaDialog){
+        alertify.dialog('actualizarDeudaDialog', function(){
+            return {
+                setup:function(){
+                    return {
+                        buttons:[
+                            {text: "Sumar 10%", className: alertify.defaults.theme.ok},
+                            {text: "Restar 10%", className: alertify.defaults.theme.cancel},
+                        ],
+                        focus:{element:0},
+                        options:{
+                            title: 'Datos del alumno/a',
+                            closable: true,
+                            maximizable: false,
+                            resizable: false
+                        }
+                    };
+                },
+                callback:function(closeEvent){
+                    switch(closeEvent.index){
+                        case 0: // Sumar
+                            enviar_peticion_deuda(1, 'Sumado correctamente.');
+                            break;
+                        case 1: // Restar
+                            enviar_peticion_deuda(0, 'Restado correctamente.');
+                            break;
+                    }
+                }
+            };
+        }, false, 'confirm');
+    }
+    alertify.actualizarDeudaDialog("¿Seguro quiere actualizar las deudas?").set('closable', true);
+}
 
+function enviar_peticion_deuda(porcentaje, mensajeExito) {
+    const datosPost = new FormData();
+    datosPost.append('actualizar_deudas', true);
+    datosPost.append('porcentaje', porcentaje);
+    fetch('ajax/ajax_editar_datos.php', {
+        method: "POST",
+        body: datosPost
+    })
+    .then(response => response.json())
+    .then(json => {
+        alertify.success(mensajeExito);
+    })
+    .catch(error => {
+        alertify.error('Error al actualizar.');
+        console.error(error);
+    });
 }

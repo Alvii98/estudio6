@@ -180,44 +180,45 @@ class datos{
         return true;
     }
 
-    static public function actualizar_deudas(){
+    static public function actualizar_deudas($sumaResta = 1){
         $instancia = SingletonConexion::getInstance();
         $conn = $instancia->getConnection();
-
+        if ($sumaResta == 1) $signo = '*'; // suma 10%
+        else  $signo = '/'; // resta 10%
         $query = "UPDATE deudas_alumno a JOIN alumnos b ON b.id = a.id_alumno AND b.historico = 0
-        SET a.enero = IF(a.enero > 0 and month(curdate()) > 1,(a.enero * 1.10),a.enero),
-        a.febrero = IF(a.febrero > 0 and month(curdate()) > 2,(a.febrero * 1.10),a.febrero),
-        a.marzo = IF(a.marzo > 0 and month(curdate()) > 3,(a.marzo * 1.10),a.marzo),
-        a.abril = IF(a.abril > 0 and month(curdate()) > 4,(a.abril * 1.10),a.abril),
-        a.mayo = IF(a.mayo > 0 and month(curdate()) > 5,(a.mayo * 1.10),a.mayo),
-        a.junio = IF(a.junio > 0 and month(curdate()) > 6,(a.junio * 1.10),a.junio),
-        a.julio = IF(a.julio > 0 and month(curdate()) > 7,(a.julio * 1.10),a.julio),
-        a.agosto = IF(a.agosto > 0 and month(curdate()) > 8,(a.agosto * 1.10),a.agosto),
-        a.septiembre = IF(a.septiembre > 0 and month(curdate()) > 9,(a.septiembre * 1.10),a.septiembre),
-        a.octubre = IF(a.octubre > 0 and month(curdate()) > 10,(a.octubre * 1.10),a.octubre),
-        a.noviembre = IF(a.noviembre > 0 and month(curdate()) > 11,(a.noviembre * 1.10),a.noviembre),
-        a.diciembre = IF(a.diciembre > 0 and month(curdate()) > 12,(a.diciembre * 1.10),a.diciembre),
-        a.ultima_mod = now()
-        WHERE month(curdate()) > IF(a.ultima_mod is null,0,month(a.ultima_mod))";
+        SET a.enero = IF(a.enero > 0 and month(curdate()) > 1,(a.enero $signo 1.10),a.enero),
+        a.febrero = IF(a.febrero > 0 and month(curdate()) > 2,(a.febrero $signo 1.10),a.febrero),
+        a.marzo = IF(a.marzo > 0 and month(curdate()) > 3,(a.marzo $signo 1.10),a.marzo),
+        a.abril = IF(a.abril > 0 and month(curdate()) > 4,(a.abril $signo 1.10),a.abril),
+        a.mayo = IF(a.mayo > 0 and month(curdate()) > 5,(a.mayo $signo 1.10),a.mayo),
+        a.junio = IF(a.junio > 0 and month(curdate()) > 6,(a.junio $signo 1.10),a.junio),
+        a.julio = IF(a.julio > 0 and month(curdate()) > 7,(a.julio $signo 1.10),a.julio),
+        a.agosto = IF(a.agosto > 0 and month(curdate()) > 8,(a.agosto $signo 1.10),a.agosto),
+        a.septiembre = IF(a.septiembre > 0 and month(curdate()) > 9,(a.septiembre $signo 1.10),a.septiembre),
+        a.octubre = IF(a.octubre > 0 and month(curdate()) > 10,(a.octubre $signo 1.10),a.octubre),
+        a.noviembre = IF(a.noviembre > 0 and month(curdate()) > 11,(a.noviembre $signo 1.10),a.noviembre),
+        a.diciembre = IF(a.diciembre > 0 and month(curdate()) > 12,(a.diciembre $signo 1.10),a.diciembre),
+        a.ultima_mod = now()";
+        // WHERE month(curdate()) > IF(a.ultima_mod is null,0,month(a.ultima_mod))";
 
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);
         }
         $query = "UPDATE deudas_vinculo a JOIN vinculos b ON b.vinculo = a.vinculo AND b.historico = 0
-        SET a.enero = IF(a.enero > 0 and month(curdate()) > 1,(a.enero * 1.10),a.enero),
-        a.febrero = IF(febrero > 0 and month(curdate()) > 2,(a.febrero * 1.10),a.febrero),
-        a.marzo = IF(a.marzo > 0 and month(curdate()) > 3,(a.marzo * 1.10),a.marzo),
-        a.abril = IF(a.abril > 0 and month(curdate()) > 4,(a.abril * 1.10),a.abril),
-        a.mayo = IF(a.mayo > 0 and month(curdate()) > 5,(a.mayo * 1.10),a.mayo),
-        a.junio = IF(a.junio > 0 and month(curdate()) > 6,(a.junio * 1.10),a.junio),
-        a.julio = IF(a.julio > 0 and month(curdate()) > 7,(a.julio * 1.10),a.julio),
-        a.agosto = IF(a.agosto > 0 and month(curdate()) > 8,(a.agosto * 1.10),a.agosto),
-        a.septiembre = IF(a.septiembre > 0 and month(curdate()) > 9,(a.septiembre * 1.10),a.septiembre),
-        a.octubre = IF(a.octubre > 0 and month(curdate()) > 10,(a.octubre * 1.10),a.octubre),
-        a.noviembre = IF(a.noviembre > 0 and month(curdate()) > 11,(a.noviembre * 1.10),a.noviembre),
-        a.diciembre = IF(a.diciembre > 0 and month(curdate()) > 12,(a.diciembre * 1.10),a.diciembre),
-        a.ultima_mod = now()
-        WHERE month(curdate()) > IF(a.ultima_mod is null,0,month(a.ultima_mod))";
+        SET a.enero = IF(a.enero > 0 and month(curdate()) > 1,(a.enero $signo 1.10),a.enero),
+        a.febrero = IF(febrero > 0 and month(curdate()) > 2,(a.febrero $signo 1.10),a.febrero),
+        a.marzo = IF(a.marzo > 0 and month(curdate()) > 3,(a.marzo $signo 1.10),a.marzo),
+        a.abril = IF(a.abril > 0 and month(curdate()) > 4,(a.abril $signo 1.10),a.abril),
+        a.mayo = IF(a.mayo > 0 and month(curdate()) > 5,(a.mayo $signo 1.10),a.mayo),
+        a.junio = IF(a.junio > 0 and month(curdate()) > 6,(a.junio $signo 1.10),a.junio),
+        a.julio = IF(a.julio > 0 and month(curdate()) > 7,(a.julio $signo 1.10),a.julio),
+        a.agosto = IF(a.agosto > 0 and month(curdate()) > 8,(a.agosto $signo 1.10),a.agosto),
+        a.septiembre = IF(a.septiembre > 0 and month(curdate()) > 9,(a.septiembre $signo 1.10),a.septiembre),
+        a.octubre = IF(a.octubre > 0 and month(curdate()) > 10,(a.octubre $signo 1.10),a.octubre),
+        a.noviembre = IF(a.noviembre > 0 and month(curdate()) > 11,(a.noviembre $signo 1.10),a.noviembre),
+        a.diciembre = IF(a.diciembre > 0 and month(curdate()) > 12,(a.diciembre $signo 1.10),a.diciembre),
+        a.ultima_mod = now()";
+        // WHERE month(curdate()) > IF(a.ultima_mod is null,0,month(a.ultima_mod))";
 
         if (!mysqli_query($conn, $query)) {
             return mysqli_error($conn);

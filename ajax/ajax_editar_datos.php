@@ -3,7 +3,7 @@ require_once '../clases/consultas.php';
 $json = new StdClass();
 
 if(isset($_POST['actualizar_deudas'])){
-    $json->actualizar = datos::actualizar_deudas();
+    $json->actualizar = datos::actualizar_deudas($_POST['porcentaje']);
 }else if(isset($_POST['inscripciones'])){
     $op = $_POST['op'];
     if ($op != 1 && $op != 0) $op = 0;
